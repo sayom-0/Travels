@@ -1,5 +1,7 @@
 package hart.Valkyrie.traveling.resources;
 
+import hart.Valkyrie.objects.NamedArrayList;
+
 public class Map
 {
 	public String[][] rawmap;
@@ -8,7 +10,7 @@ public class Map
 	private char playerChar;
 	private char planetChar;
 	private char wallChar;
-	private Player ply;
+	public Player ply;
 
 	public Map(char defaultChar, char chestChar, char playerChar, char planetChar, char wallChar)
 	{
@@ -19,7 +21,7 @@ public class Map
 		this.planetChar = planetChar;
 		this.wallChar = wallChar;
 		rawmap = new String[15][15];
-		ply = new Player(getPlayerChar(),(int) (rawmap.length * 0.5) + 1, (int) (rawmap[0].length * 0.5) + 1);
+		ply = new Player(getPlayerChar(), (int) (rawmap.length * 0.5) + 1, (int) (rawmap[0].length * 0.5) + 1);
 	}
 
 	public Map(char defaultChar, char chestChar, char playerChar, char planetChar, char wallChar, int row, int col)
@@ -31,7 +33,12 @@ public class Map
 		this.planetChar = planetChar;
 		this.wallChar = wallChar;
 		rawmap = new String[row][col];
-		ply = new Player(getPlayerChar(),(int) (rawmap.length * 0.5) + 1, (int) (rawmap[0].length * 0.5) + 1);
+		ply = new Player(getPlayerChar(), (int) (rawmap.length * 0.5) + 1, (int) (rawmap[0].length * 0.5) + 1);
+	}
+
+	public NamedArrayList<Item> getPlayerInv()
+	{
+		return ply.getInv();
 	}
 
 	public void generate(String type)
@@ -68,6 +75,15 @@ public class Map
 
 			break;
 		}
+	}
+	
+	public void updPlyCords()
+	{
+		System.out.println("updPly : ");
+		System.out.println("Wiping X/Y _OLD");
+		rawmap[ply.getX_old()][ply.getY_old()] = String.valueOf(getDefaultChar());
+		System.out.println("Drawing ply X/Y Char");
+		rawmap[ply.getX()][ply.getY()] = String.valueOf(ply.getPlayerChar());
 	}
 
 	public char getDefaultChar()

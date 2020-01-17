@@ -8,7 +8,9 @@ public class Player
 	private char playerChar;
 	private int x;
 	private int y;
-	private NamedArrayList inv;
+	private NamedArrayList<Item> inv;
+	private int x_old;
+	private int y_old;
 
 	public Player(char playerChar, int x, int y)
 	{
@@ -16,15 +18,17 @@ public class Player
 		this.playerChar = playerChar;
 		this.x = x;
 		this.y = y;
+		inv = new NamedArrayList<Item>();
 	}
 
-	public Player(char playerChar, int x, int y, NamedArrayList inv)
+	public Player(char playerChar, int x, int y, NamedArrayList<Item> inv)
 	{
 		super();
 		this.playerChar = playerChar;
 		this.x = x;
 		this.y = y;
 		this.inv = inv;
+		inv = new NamedArrayList<Item>();
 	}
 
 	public char getPlayerChar()
@@ -44,7 +48,10 @@ public class Player
 
 	public void setX(int x)
 	{
+		x_old = getX();
 		this.x = x;
+		System.out.println("X :"+getX());
+		System.out.println("X_old :"+getX_old());
 	}
 
 	public int getY()
@@ -54,10 +61,33 @@ public class Player
 
 	public void setY(int y)
 	{
+		y_old = getY();
 		this.y = y;
+		System.out.println("Y :"+getY());
+		System.out.println("Y_old :"+getY_old());
 	}
 
-	public NamedArrayList getInv()
+	public int getX_old()
+	{
+		return x_old;
+	}
+
+	public void setX_old(int x_old)
+	{
+		this.x_old = x_old;
+	}
+
+	public int getY_old()
+	{
+		return y_old;
+	}
+
+	public void setY_old(int y_old)
+	{
+		this.y_old = y_old;
+	}
+
+	public NamedArrayList<Item> getInv()
 	{
 		return inv;
 	}
