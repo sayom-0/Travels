@@ -30,7 +30,7 @@ import javafx.stage.Stage;
 
 public class Runtime extends Application
 {
-	Map map = new Map('.', '=', '@', '8', '*', 150, 50);
+	Map map = new Map('#', '=', 'O', '8', '*', 50, 20);
 	ArrayList<Text> maptextarray = new ArrayList<Text>();
 	BorderPane HUD = new BorderPane();
 	VBox maptext = new VBox();
@@ -41,7 +41,7 @@ public class Runtime extends Application
 	@Override
 	public void start(Stage stage) throws Exception
 	{
-		ScreenControllerFX SCFX = new ScreenControllerFX(1920, 1080);
+		ScreenControllerFX SCFX = new ScreenControllerFX(800, 600);
 		EventButtonManager ebm = new EventButtonManager();
 		ebm.makeButton("mUP", new Button("Up"), new EventHandler<ActionEvent>()
 		{

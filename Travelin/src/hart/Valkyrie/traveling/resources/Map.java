@@ -21,7 +21,7 @@ public class Map
 		this.planetChar = planetChar;
 		this.wallChar = wallChar;
 		rawmap = new String[15][15];
-		ply = new Player(getPlayerChar(), (int) (rawmap.length * 0.5) + 1, (int) (rawmap[0].length * 0.5) + 1);
+		ply = new Player(getPlayerChar(), (int) (rawmap.length * 0.5) + 1, (int) (rawmap[0].length * 0.5) + 1, "Valkyrie");
 	}
 
 	public Map(char defaultChar, char chestChar, char playerChar, char planetChar, char wallChar, int row, int col)
@@ -33,7 +33,7 @@ public class Map
 		this.planetChar = planetChar;
 		this.wallChar = wallChar;
 		rawmap = new String[row][col];
-		ply = new Player(getPlayerChar(), (int) (rawmap.length * 0.5) + 1, (int) (rawmap[0].length * 0.5) + 1);
+		ply = new Player(getPlayerChar(), (int) (rawmap.length * 0.5) + 1, (int) (rawmap[0].length * 0.5) + 1, "Valkyrie");
 	}
 
 	public NamedArrayList<Item> getPlayerInv()
