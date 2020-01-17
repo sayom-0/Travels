@@ -10,6 +10,7 @@ public class Map
 	private char playerChar;
 	private char planetChar;
 	private char wallChar;
+	private char lastChar;
 	public Player ply;
 
 	public Map(char defaultChar, char chestChar, char playerChar, char planetChar, char wallChar)
@@ -79,9 +80,10 @@ public class Map
 	
 	public void updPlyCords()
 	{
+		lastChar = (rawmap[ply.getX()][ply.getY()]).charAt(0);
 		System.out.println("updPly : ");
 		System.out.println("Wiping X/Y _OLD");
-		rawmap[ply.getX_old()][ply.getY_old()] = String.valueOf(getDefaultChar());
+		rawmap[ply.getX_old()][ply.getY_old()] = String.valueOf(lastChar);
 		System.out.println("Drawing ply X/Y Char");
 		rawmap[ply.getX()][ply.getY()] = String.valueOf(ply.getPlayerChar());
 	}

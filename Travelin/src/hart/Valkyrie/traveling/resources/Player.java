@@ -24,6 +24,8 @@ public class Player
 		this.y = y;
 		inv = new NamedArrayList<Item>();
 		this.shipName = name;
+		x_old = x;
+		y_old = y;
 	}
 
 	public Player(char playerChar, int x, int y, String name,NamedArrayList<Item> inv)
@@ -35,6 +37,8 @@ public class Player
 		this.inv = inv;
 		inv = new NamedArrayList<Item>();
 		this.shipName = name;
+		x_old = x;
+		y_old = y;
 	}
 
 	public char getPlayerChar()
