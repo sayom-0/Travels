@@ -40,6 +40,12 @@ public class Player
 		x_old = x;
 		y_old = y;
 	}
+	
+	public void revertCords()
+	{
+		x = x_old;
+		y = y_old;
+	}
 
 	public char getPlayerChar()
 	{

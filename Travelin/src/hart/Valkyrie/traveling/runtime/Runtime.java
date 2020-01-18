@@ -3,13 +3,15 @@ package hart.Valkyrie.traveling.runtime;
 import java.util.ArrayList;
 
 import hart.Valkyrie.SCFX.ScreenControllerFX;
+import hart.Valkyrie.exceptions.DuplicateNameException;
+import hart.Valkyrie.exceptions.IllegalDimensionsException;
+import hart.Valkyrie.exceptions.NonExistantDataException;
 import hart.Valkyrie.objects.EventButtonManager;
 import hart.Valkyrie.traveling.resources.Map;
 import hart.Valkyrie.util.Utils;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
@@ -30,7 +32,7 @@ import javafx.stage.Stage;
 
 public class Runtime extends Application
 {
-	Map map = new Map('#', '=', 'O', '8', '*', 50, 20);
+	Map map;
 	ArrayList<Text> maptextarray = new ArrayList<Text>();
 	BorderPane HUD = new BorderPane();
 	VBox maptext = new VBox();
@@ -39,8 +41,9 @@ public class Runtime extends Application
 	int counter = 0;
 
 	@Override
-	public void start(Stage stage) throws Exception
+	public void start(Stage stage) throws DuplicateNameException, IllegalDimensionsException, NonExistantDataException
 	{
+		map = new Map('#', '=', 'O', '8', '*', 50, 20);
 		ScreenControllerFX SCFX = new ScreenControllerFX(800, 600);
 		EventButtonManager ebm = new EventButtonManager();
 		ebm.makeButton("mUP", new Button("Up"), new EventHandler<ActionEvent>()
@@ -51,7 +54,14 @@ public class Runtime extends Application
 				System.out.println("Move : Up :");
 				map.ply.setY(map.ply.getY() - 1);
 				map.ply.setX(map.ply.getX());
-				reDraw();
+				try
+				{
+					reDraw();
+				} catch (NonExistantDataException e1)
+				{
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		
@@ -63,7 +73,14 @@ public class Runtime extends Application
 				System.out.println("Move : Down :");
 				map.ply.setY(map.ply.getY() + 1);
 				map.ply.setX(map.ply.getX());
-				reDraw();
+				try
+				{
+					reDraw();
+				} catch (NonExistantDataException e1)
+				{
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		
@@ -75,7 +92,14 @@ public class Runtime extends Application
 				System.out.println("Move : Left :");
 				map.ply.setX(map.ply.getX() - 1);
 				map.ply.setY(map.ply.getY());
-				reDraw();
+				try
+				{
+					reDraw();
+				} catch (NonExistantDataException e1)
+				{
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		
@@ -87,7 +111,14 @@ public class Runtime extends Application
 				System.out.println("Move : Right :");
 				map.ply.setX(map.ply.getX() + 1);
 				map.ply.setY(map.ply.getY());
-				reDraw();
+				try
+				{
+					reDraw();
+				} catch (NonExistantDataException e1)
+				{
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		SCFX.makeText("InvTitle", new Text("Inventory"),
@@ -97,7 +128,7 @@ public class Runtime extends Application
 		HUD.setCenter(maptext);
 		HUD.setLeft(inv);
 		maptext.setSpacing(1);
-		map.generate("field");
+		map.generate();
 		mBG.setSpacing(20);
 		mBG.getChildren().addAll(ebm.getButton("mUP"),ebm.getButton("mDown"),ebm.getButton("mLeft"),ebm.getButton("mRight"));
 		
@@ -136,7 +167,7 @@ public class Runtime extends Application
 		counter = 0;
 	}
 	
-	public void reDraw()
+	public void reDraw() throws NonExistantDataException
 	{
 		System.out.println("REDRAW : ");
 		map.updPlyCords();
