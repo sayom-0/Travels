@@ -1,15 +1,14 @@
 package hart.Valkyrie.traveling.resources.meta;
 
-public class MetaLink<T>
+public class MetaLink
 {
-	private T local_t;
 	private int index;
-	
-	public MetaLink(T type,int index)
+	private String type;
+	public MetaLink(String type,int index)
 	{
 		super();
-		local_t = type;
 		this.index = index;
+		this.type = type;
 	}
 	
 	public int getIndex()
@@ -22,9 +21,14 @@ public class MetaLink<T>
 		this.index = index;
 	}
 
-	public T getLocal_t()
+	public String getType()
 	{
-		return local_t;
+		return type;
+	}
+
+	public void setType(String type)
+	{
+		this.type = type;
 	}
 	
 	

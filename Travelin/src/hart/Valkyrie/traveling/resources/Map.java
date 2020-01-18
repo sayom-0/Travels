@@ -11,7 +11,7 @@ import hart.Valkyrie.traveling.resources.meta.MetaLink;
 public class Map
 {
 	public String[][] rawmap;
-	private MetaLink[][] metaMap;
+	public MetaLink[][] metaMap;
 	private char defaultChar;
 	private char chestChar;
 	private char playerChar;
@@ -19,8 +19,9 @@ public class Map
 	private char wallChar;
 	private char lastChar;
 	private String status;
+	private int c_x;
+	private int c_y;
 	public Player ply;
-	private String planetChars;
 
 	public Map(char defaultChar, char chestChar, char playerChar, char planetChar, char wallChar, int row, int col)
 			throws DuplicateNameException
@@ -32,9 +33,8 @@ public class Map
 		this.wallChar = wallChar;
 		rawmap = new String[row][col];
 		metaMap = new MetaLink[row][col];
-		planetChars = "";
 		makePlanet("Kharak", '@', randomX(), randomY());
-
+		status = "";
 		ply = new Player(getPlayerChar(), (int) (rawmap.length * 0.5) + 1, (int) (rawmap[0].length * 0.5) + 1,
 				"Valkyrie");
 	}
@@ -54,19 +54,19 @@ public class Map
 		int row = 0;
 		int col = 0;
 
-			while (row != (rawmap.length))
-			{
+		while (row != (rawmap.length))
+		{
 
-				while (col != (rawmap[row].length))
-				{
-					rawmap[row][col] = String.valueOf(getDefaultChar());
-					col++;
-				}
-				col = 0;
-				row++;
+			while (col != (rawmap[row].length))
+			{
+				rawmap[row][col] = String.valueOf(getDefaultChar());
+				col++;
 			}
-			rawmap[getPL(0).getX()][getPL(0).getY()] = String.valueOf(getPL(0).getPlanetChar());
-			rawmap[ply.getX()][ply.getY()] = String.valueOf(ply.getPlayerChar());
+			col = 0;
+			row++;
+		}
+		rawmap[getPL(0).getX()][getPL(0).getY()] = String.valueOf(getPL(0).getPlanetChar());
+		rawmap[ply.getX()][ply.getY()] = String.valueOf(ply.getPlayerChar());
 
 	}
 
@@ -80,6 +80,8 @@ public class Map
 		System.out.println("Drawing ply X/Y Char");
 		if (rawmap[ply.getX()][ply.getY()].equals(String.valueOf(getDefaultChar())) == false)
 		{
+			c_x = ply.getX();
+			c_y = ply.getY();
 			ply.revertCords();
 
 			if (rawmap[ply.getX()][ply.getY()].equals(String.valueOf(getChestChar())))
@@ -92,7 +94,7 @@ public class Map
 		{
 			rawmap[ply.getX()][ply.getY()] = String.valueOf(ply.getPlayerChar());
 		}
-		System.out.println("STATUS : "+status);
+		System.out.println("STATUS : " + status);
 	}
 
 	public char getDefaultChar()
@@ -142,8 +144,7 @@ public class Map
 
 	public void makePlanet(String name, char planetChar, int x, int y) throws DuplicateNameException
 	{
-		planetChars += planetChar;
-		metaMap[x][y] = new MetaLink<Planet>(new Planet(), planetArray.size());
+		metaMap[x][y] = new MetaLink("Planet", planetArray.size());
 		planetArray.add(new Planet(name, planetChar, x, y));
 	}
 
@@ -157,15 +158,36 @@ public class Map
 		return (int) (rawmap[0].length * Math.random());
 	}
 
-	public <T> Object handleLink(MetaLink<T> x) throws InvalidMetaLinkException
+	public Object handleLink(MetaLink x) throws InvalidMetaLinkException
 	{
-		if (x.getLocal_t().equals(new Planet()))
+		if (x.getType().equals("Planet"))
 		{
 			return planetArray.get(x.getIndex());
+		} else
+		{
+			throw new InvalidMetaLinkException(
+					"The MetaLinks registered Generic Type does not have a entry in the handleLink Method");
 		}
+	}
 
-		throw new InvalidMetaLinkException(
-				"The MetaLinks registered Generic Type does not have a entry in the handleLink Method");
+	public int getC_x()
+	{
+		return c_x;
+	}
+
+	public void setC_x(int c_x)
+	{
+		this.c_x = c_x;
+	}
+
+	public int getC_y()
+	{
+		return c_y;
+	}
+
+	public void setC_y(int c_y)
+	{
+		this.c_y = c_y;
 	}
 
 }
