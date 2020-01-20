@@ -7,6 +7,7 @@ import hart.Valkyrie.exceptions.NonExistantDataException;
 import hart.Valkyrie.objects.NamedArrayList;
 import hart.Valkyrie.traveling.exceptions.InvalidMetaLinkException;
 import hart.Valkyrie.traveling.resources.meta.MetaLink;
+import hart.Valkyrie.traveling.resources.planet.Planet;
 
 public class Map
 {
@@ -33,7 +34,7 @@ public class Map
 		this.wallChar = wallChar;
 		rawmap = new String[row][col];
 		metaMap = new MetaLink[row][col];
-		makePlanet("Kharak", '@', randomX(), randomY());
+		makePlanet("Kharak", '@', randomX(), randomY(), true, true, 0, 'M');
 		status = "";
 		ply = new Player(getPlayerChar(), (int) (rawmap.length * 0.5) + 1, (int) (rawmap[0].length * 0.5) + 1,
 				"Valkyrie");
@@ -70,29 +71,35 @@ public class Map
 
 	}
 
-	public void updPlyCords() throws NonExistantDataException
+	public void updPlyCords(Boolean lp) throws NonExistantDataException
 	{
-		status = "";
 		lastChar = (rawmap[ply.getX()][ply.getY()]).charAt(0);
 		System.out.println("updPly : ");
 		System.out.println("Wiping X/Y _OLD");
 		rawmap[ply.getX_old()][ply.getY_old()] = String.valueOf(lastChar);
 		System.out.println("Drawing ply X/Y Char");
-		if (rawmap[ply.getX()][ply.getY()].equals(String.valueOf(getDefaultChar())) == false)
+		if (!rawmap[ply.getX()][ply.getY()].equals(String.valueOf(getDefaultChar())))
 		{
 			c_x = ply.getX();
 			c_y = ply.getY();
 			ply.revertCords();
 
-			if (rawmap[ply.getX()][ply.getY()].equals(String.valueOf(getChestChar())))
+			if (rawmap[c_x][c_y].equals(String.valueOf(getChestChar())))
 				status = "Chest";
 
-			if (rawmap[ply.getX()][ply.getY()].equals(String.valueOf(getPL(0).getPlanetChar())))
+			if (rawmap[c_x][c_y].equals(String.valueOf(getPL(0).getPlanetChar())))
 				status = "Planet";
+
+			rawmap[ply.getX()][ply.getY()] = String.valueOf(ply.getPlayerChar());
 
 		} else
 		{
+			status = "";
 			rawmap[ply.getX()][ply.getY()] = String.valueOf(ply.getPlayerChar());
+		}
+		if(lp == true)
+		{
+			status = "Landed";
 		}
 		System.out.println("STATUS : " + status);
 	}
@@ -141,11 +148,11 @@ public class Map
 	{
 		return status;
 	}
-
-	public void makePlanet(String name, char planetChar, int x, int y) throws DuplicateNameException
+	
+	public void makePlanet(String name, char planetChar, int x, int y, boolean explore, boolean market, int risk, char pClass) throws DuplicateNameException
 	{
 		metaMap[x][y] = new MetaLink("Planet", planetArray.size());
-		planetArray.add(new Planet(name, planetChar, x, y));
+		planetArray.add(new Planet(name, planetChar, x, y, explore, market, risk, pClass));
 	}
 
 	public int randomX()
@@ -188,6 +195,11 @@ public class Map
 	public void setC_y(int c_y)
 	{
 		this.c_y = c_y;
+	}
+
+	public void setStatus(String status)
+	{
+		this.status = status;
 	}
 
 }

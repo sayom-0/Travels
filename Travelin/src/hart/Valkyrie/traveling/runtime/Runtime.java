@@ -1,7 +1,6 @@
 package hart.Valkyrie.traveling.runtime;
 
 import java.util.ArrayList;
-
 import hart.Valkyrie.SCFX.ScreenControllerFX;
 import hart.Valkyrie.exceptions.DuplicateNameException;
 import hart.Valkyrie.exceptions.IllegalDimensionsException;
@@ -9,7 +8,6 @@ import hart.Valkyrie.exceptions.NonExistantDataException;
 import hart.Valkyrie.objects.EventButtonManager;
 import hart.Valkyrie.traveling.exceptions.InvalidMetaLinkException;
 import hart.Valkyrie.traveling.resources.Map;
-import hart.Valkyrie.traveling.resources.Planet;
 import hart.Valkyrie.util.Utils;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -26,7 +24,7 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import hart.Valkyrie.traveling.resources.meta.MetaLink;
+import hart.Valkyrie.traveling.resources.planet.Planet;
 
 /*
  * W = y--;
@@ -40,18 +38,37 @@ public class Runtime extends Application
 	ScreenControllerFX SCFX;
 	EventButtonManager ebm;
 	Map map;
-	ArrayList<Text> maptextarray = new ArrayList<Text>();
-	BorderPane HUD = new BorderPane();
-	VBox maptext = new VBox();
-	VBox inv = new VBox();
-	HBox mBG = new HBox();
-	ArrayList<Text> alog = new ArrayList<Text>();
-	VBox lG = new VBox();
+	ArrayList<Text> maptextarray;
+	BorderPane HUD;
+	VBox maptext;
+	VBox inv;
+	HBox mBG;
+	ArrayList<Text> alog;
+	VBox lG;
+	boolean local_Planet;
+	HBox infoHUD;
+	HBox shipHUD;
+	HBox targetHUD;
 	int counter = 0;
+	int lcx;
+	int lcy;
+	VBox lGt;
 
 	@Override
 	public void start(Stage stage) throws DuplicateNameException, IllegalDimensionsException, NonExistantDataException
 	{
+		lGt = new VBox();
+		maptextarray = new ArrayList<Text>();
+		HUD = new BorderPane();
+		maptext = new VBox();
+		lG = new VBox();
+		shipHUD = new HBox();
+		local_Planet = false;
+		infoHUD = new HBox();
+		targetHUD = new HBox();
+		alog = new ArrayList<Text>();
+		mBG = new HBox();
+		inv = new VBox();
 		map = new Map('#', '=', 'O', '8', '*', 50, 20);
 		SCFX = new ScreenControllerFX(800, 600);
 		ebm = new EventButtonManager();
@@ -139,21 +156,48 @@ public class Runtime extends Application
 				try
 				{
 					Planet x = (Planet) map.handleLink(map.metaMap[map.getC_x()][map.getC_y()]);
-					alog.add(new Text("Landed on : " + x.getName()));
-					lG.getChildren().add(alog.get(alog.size() - 1));
-				} catch (InvalidMetaLinkException e1)
+					addLog(new Text("Landed on : " + x.getName()));
+					local_Planet = true;
+					map.setStatus("Landed");
+					lcx = map.getC_x();
+					lcy = map.getC_y();
+					reDraw();
+				} catch (InvalidMetaLinkException | NonExistantDataException e1)
 				{
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
 		});
+
+		ebm.makeButton("iLaunch", new Button("Launch"), new EventHandler<ActionEvent>()
+		{
+
+			@Override
+			public void handle(ActionEvent event)
+			{
+				try
+				{
+					Planet x = (Planet) map.handleLink(map.metaMap[lcx][lcy]);
+					addLog(new Text("Launched from : " + x.getName()));
+					local_Planet = false;
+					map.setStatus("");
+					reDraw();
+				} catch (NonExistantDataException | InvalidMetaLinkException e)
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+
+		});
 		SCFX.makeFont("Title", Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
+		SCFX.makeFont("SubTitle", Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 15));
 
 		SCFX.makeText("InvTitle", new Text("Inventory"), "Title");
 		SCFX.makeText("LogTitle", new Text("Events"), "Title");
+		SCFX.makeText("Info", new Text("Information"), "Title");
 
-		lG.getChildren().add(SCFX.getText("LogTitle"));
 		inv.getChildren().add(SCFX.getText("InvTitle"));
 		inv.getChildren().add(new Text(map.getPlayerInv().toString()));
 		HUD.setCenter(maptext);
@@ -165,8 +209,12 @@ public class Runtime extends Application
 		mBG.getChildren().addAll(ebm.getButton("mUP"), ebm.getButton("mDown"), ebm.getButton("mLeft"),
 				ebm.getButton("mRight"));
 		mBG.setAlignment(Pos.CENTER);
+		lG.setAlignment(Pos.TOP_LEFT);
 		HUD.setBottom(mBG);
-		HUD.setRight(lG);
+		lGt.getChildren().add(SCFX.getText("LogTitle"));
+		lGt.getChildren().add(lG);
+		HUD.setRight(lGt);
+		lG.getChildren().add(new Text("gamestart"));
 
 		draw();
 
@@ -203,20 +251,9 @@ public class Runtime extends Application
 
 	public void reDraw() throws NonExistantDataException
 	{
-		if(mBG.getChildren().contains(ebm.getButton("iLand")));
-			mBG.getChildren().remove(ebm.getButton("iLand"));
-		
-		if (map.getStatus().equals("Planet"))
-		{
-			mBG.getChildren().add(ebm.getButton("iLand"));
-		} else
-		{
-			if(mBG.getChildren().contains(ebm.getButton("iLand")));
-				mBG.getChildren().remove(ebm.getButton("iLand"));
-		}
-
 		System.out.println("REDRAW : ");
-		map.updPlyCords();
+		map.updPlyCords(local_Planet);
+		HUDCTL();
 		System.out.println("Wiping maptextarray");
 		while (counter != map.rawmap[counter].length)
 		{
@@ -233,6 +270,80 @@ public class Runtime extends Application
 		}
 		counter = 0;
 		draw();
+	}
+
+	public void HUDCTL() throws NonExistantDataException
+	{
+		switch (map.getStatus())
+		{
+		case "Planet":
+			if (!mBG.getChildren().contains(ebm.getButton("iLand")))
+			{
+				mBG.getChildren().add(ebm.getButton("iLand"));
+			}
+			break;
+
+		case "Landed":
+
+			if (mBG.getChildren().contains(ebm.getButton("iLand")))
+			{
+				mBG.getChildren().remove(ebm.getButton("iLand"));
+			}
+			if (!mBG.getChildren().contains(ebm.getButton("iLaunch")))
+			{
+				mBG.getChildren().add(ebm.getButton("iLaunch"));
+			}
+
+			if (mBG.getChildren().contains(ebm.getButton("mUP")) && mBG.getChildren().contains(ebm.getButton("mRight"))
+					&& mBG.getChildren().contains(ebm.getButton("mLeft"))
+					&& mBG.getChildren().contains(ebm.getButton("mDown")))
+			{
+				mBG.getChildren().removeAll(ebm.getButton("mUP"), ebm.getButton("mRight"), ebm.getButton("mLeft"),
+						ebm.getButton("mDown"));
+			}
+
+			break;
+
+		default:
+			if (mBG.getChildren().contains(ebm.getButton("iLand")))
+			{
+				mBG.getChildren().remove(ebm.getButton("iLand"));
+			}
+
+			if (mBG.getChildren().contains(ebm.getButton("iLaunch")))
+			{
+				mBG.getChildren().remove(ebm.getButton("iLaunch"));
+			}
+
+			if (!mBG.getChildren().contains(ebm.getButton("mUP"))
+					&& !mBG.getChildren().contains(ebm.getButton("mRight"))
+					&& !mBG.getChildren().contains(ebm.getButton("mLeft"))
+					&& !mBG.getChildren().contains(ebm.getButton("mDown")))
+			{
+				mBG.getChildren().addAll(ebm.getButton("mUP"), ebm.getButton("mDown"), ebm.getButton("mLeft"),
+						ebm.getButton("mRight"));
+			}
+
+			break;
+		}
+	}
+
+	public void addLog(Text e)
+	{
+		int x = alog.size() - 1;
+		lG.getChildren().clear();
+		lG.getChildren().add(e);
+
+		while (alog.size() != x)
+		{
+			if(0 > x)
+			{
+				break;
+			}
+			lG.getChildren().add(alog.get(x));
+			x--;
+		}
+		alog.add(e);
 	}
 
 }

@@ -3,14 +3,15 @@ package hart.Valkyrie.traveling.resources.meta;
 public class MetaLink
 {
 	private int index;
-	private String type;
-	public MetaLink(String type,int index)
+	private String type = "Undefined";
+
+	public MetaLink(String type, int index)
 	{
 		super();
 		this.index = index;
 		this.type = type;
 	}
-	
+
 	public int getIndex()
 	{
 		return index;
@@ -30,7 +31,5 @@ public class MetaLink
 	{
 		this.type = type;
 	}
-	
-	
-	
+
 }

@@ -3,9 +3,9 @@ package hart.Valkyrie.traveling.resources;
 public class Item
 {
 	private String name;
-	private double value;
+	private int value;
 
-	public Item(String name, double value)
+	public Item(String name, int value)
 	{
 		super();
 		this.name = name;
@@ -22,14 +22,19 @@ public class Item
 		this.name = name;
 	}
 
-	public double getValue()
+	public int getValue()
 	{
 		return value;
 	}
 
-	public void setValue(double value)
+	public void setValue(int value)
 	{
 		this.value = value;
 	}
 
+	@Override
+	public String toString()
+	{
+		return value + " " + name + "(S)";
+	}
 }

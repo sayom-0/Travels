@@ -16,7 +16,7 @@ public class Player
 	private int shipDmg;
 	private int shipSpeed;
 
-	public Player(char playerChar, int x, int y, String name)
+	public Player(char playerChar, int x, int y, String name) throws DuplicateNameException
 	{
 		super();
 		this.playerChar = playerChar;
@@ -26,6 +26,7 @@ public class Player
 		this.shipName = name;
 		x_old = x;
 		y_old = y;
+		inv.add("Coins", new Item("Coins",5));
 	}
 
 	public Player(char playerChar, int x, int y, String name,NamedArrayList<Item> inv)
