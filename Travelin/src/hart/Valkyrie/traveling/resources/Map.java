@@ -26,7 +26,7 @@ public class Map
 	public Player ply;
 
 	public Map(char defaultChar, char chestChar, char playerChar, char planetChar, char wallChar, int row, int col)
-			throws DuplicateNameException, IllegalDimensionsException
+			throws DuplicateNameException, IllegalDimensionsException, NonExistantDataException
 	{
 		planetArray = new ArrayList<Planet>();
 		this.defaultChar = defaultChar;
@@ -147,7 +147,7 @@ public class Map
 		return status;
 	}
 	
-	public void makePlanet(String name, char planetChar, int x, int y, boolean explore, boolean market, int risk, char pClass, String mt) throws DuplicateNameException, IllegalDimensionsException
+	public void makePlanet(String name, char planetChar, int x, int y, boolean explore, boolean market, int risk, char pClass, String mt) throws DuplicateNameException, IllegalDimensionsException, NonExistantDataException
 	{
 		metaMap[x][y] = new MetaLink("Planet", planetArray.size());
 		planetArray.add(new Planet(name, planetChar, x, y, explore, market, risk, pClass, mt));

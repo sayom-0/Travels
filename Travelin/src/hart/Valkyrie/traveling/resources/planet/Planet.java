@@ -1,7 +1,9 @@
 package hart.Valkyrie.traveling.resources.planet;
 
 import hart.Valkyrie.SCFX.ScreenControllerFX;
+import hart.Valkyrie.exceptions.DuplicateNameException;
 import hart.Valkyrie.exceptions.IllegalDimensionsException;
+import hart.Valkyrie.exceptions.NonExistantDataException;
 import hart.Valkyrie.objects.EventButtonManager;
 import hart.Valkyrie.objects.NamedArrayList;
 import hart.Valkyrie.traveling.resources.Item;
@@ -38,7 +40,7 @@ public class Planet extends BWindow
 	private String marketType;
 
 	public Planet(String name, char planetChar, int x, int y, boolean explore, boolean market, int risk, char pClass,
-			String marketType) throws IllegalDimensionsException
+			String marketType) throws IllegalDimensionsException, DuplicateNameException, NonExistantDataException
 	{
 		super();
 		this.name = name;
@@ -52,6 +54,52 @@ public class Planet extends BWindow
 		this.marketType = marketType;
 		SCFX = new ScreenControllerFX(400, 800);
 		ebm = new EventButtonManager();
+		SCFX.makeFont("Title", Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
+		SCFX.makeFont("SubTitle", Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 15));
+		SCFX.makeText("Title", new Text(name), "Title");
+		if (market)
+		{
+			mk = new Market(marketType);
+			ebm.makeButton("oMarket", new Button("Enter the Market"), new EventHandler<ActionEvent>()
+			{
+
+				@Override
+				public void handle(ActionEvent event)
+				{
+					try
+					{
+						mk.window();
+					} catch (Exception e)
+					{
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+
+			});
+		}
+
+		if (explore)
+		{
+			ex = new Explore(pClass);
+			ebm.makeButton("oExplore", new Button("Explore the Planet"), new EventHandler<ActionEvent>()
+			{
+
+				@Override
+				public void handle(ActionEvent event)
+				{
+					try
+					{
+						ex.window();
+					} catch (Exception e)
+					{
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+
+			});
+		}
 	}
 
 	public char getPlanetChar()
@@ -113,55 +161,7 @@ public class Planet extends BWindow
 	public void start(Stage stage) throws Exception
 	{
 		BorderPane pHUD = new BorderPane();
-		SCFX.makeFont("Title", Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
-		SCFX.makeFont("SubTitle", Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 15));
-
-		SCFX.makeText("Title", new Text(name), "Title");
 		pHUD.setTop(SCFX.getText("Title"));
-		if (market)
-		{
-			mk = new Market(marketType);
-			ebm.makeButton("oMarket", new Button("Enter the Market"), new EventHandler<ActionEvent>()
-			{
-
-				@Override
-				public void handle(ActionEvent event)
-				{
-					try
-					{
-						mk.window();
-					} catch (Exception e)
-					{
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-
-			});
-		}
-
-		if (explore)
-		{
-			ex = new Explore(pClass);
-			ebm.makeButton("oExplore", new Button("Explore the Planet"), new EventHandler<ActionEvent>()
-			{
-
-				@Override
-				public void handle(ActionEvent event)
-				{
-					try
-					{
-						ex.window();
-					} catch (Exception e)
-					{
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-
-			});
-		}
-
 		Scene scene = new Scene(pHUD, SCFX.getRes("width"), SCFX.getRes("height"));
 		stage.setScene(scene);
 		stage.setTitle("Traveling");
