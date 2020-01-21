@@ -13,9 +13,11 @@ import hart.Valkyrie.util.BWindow;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
@@ -38,6 +40,7 @@ public class Planet extends BWindow
 	private ScreenControllerFX SCFX;
 	private EventButtonManager ebm;
 	private String marketType;
+	private HBox header;
 
 	public Planet(String name, char planetChar, int x, int y, boolean explore, boolean market, int risk, char pClass,
 			String marketType) throws IllegalDimensionsException, DuplicateNameException, NonExistantDataException
@@ -52,11 +55,15 @@ public class Planet extends BWindow
 		this.risk = risk;
 		this.pClass = pClass;
 		this.marketType = marketType;
-		SCFX = new ScreenControllerFX(400, 800);
+		SCFX = new ScreenControllerFX(400, 600);
 		ebm = new EventButtonManager();
 		SCFX.makeFont("Title", Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
 		SCFX.makeFont("SubTitle", Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 15));
 		SCFX.makeText("Title", new Text(name), "Title");
+		header = new HBox();
+		header.setAlignment(Pos.CENTER);
+		header.getChildren().add(SCFX.getText("Title"));
+		
 		if (market)
 		{
 			mk = new Market(marketType);
@@ -161,7 +168,7 @@ public class Planet extends BWindow
 	public void start(Stage stage) throws Exception
 	{
 		BorderPane pHUD = new BorderPane();
-		pHUD.setTop(SCFX.getText("Title"));
+		pHUD.setTop(header);
 		Scene scene = new Scene(pHUD, SCFX.getRes("width"), SCFX.getRes("height"));
 		stage.setScene(scene);
 		stage.setTitle("Traveling");
