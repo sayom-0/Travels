@@ -31,7 +31,7 @@ public class Market extends BWindow
 	@Override
 	public void start(Stage stage) throws Exception
 	{
-		stage.setTitle("Traveling");
+		stage.setTitle("Market");
 		stage.show();
 	}
 }

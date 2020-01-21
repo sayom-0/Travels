@@ -13,6 +13,7 @@ import hart.Valkyrie.util.BWindow;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -41,6 +42,7 @@ public class Planet extends BWindow
 	private EventButtonManager ebm;
 	private String marketType;
 	private HBox header;
+	private HBox bt;
 
 	public Planet(String name, char planetChar, int x, int y, boolean explore, boolean market, int risk, char pClass,
 			String marketType) throws IllegalDimensionsException, DuplicateNameException, NonExistantDataException
@@ -63,7 +65,10 @@ public class Planet extends BWindow
 		header = new HBox();
 		header.setAlignment(Pos.CENTER);
 		header.getChildren().add(SCFX.getText("Title"));
-		
+		bt = new HBox();
+		bt.setSpacing(20);
+		bt.setPadding(new Insets(15, 15, 15, 15));
+		bt.setAlignment(Pos.CENTER);
 		if (market)
 		{
 			mk = new Market(marketType);
@@ -84,6 +89,7 @@ public class Planet extends BWindow
 				}
 
 			});
+			bt.getChildren().add(ebm.getButton("oMarket"));
 		}
 
 		if (explore)
@@ -106,7 +112,9 @@ public class Planet extends BWindow
 				}
 
 			});
+			bt.getChildren().add(ebm.getButton("oExplore"));
 		}
+		
 	}
 
 	public char getPlanetChar()
@@ -169,9 +177,10 @@ public class Planet extends BWindow
 	{
 		BorderPane pHUD = new BorderPane();
 		pHUD.setTop(header);
+		pHUD.setBottom(bt);
 		Scene scene = new Scene(pHUD, SCFX.getRes("width"), SCFX.getRes("height"));
 		stage.setScene(scene);
-		stage.setTitle("Traveling");
+		stage.setTitle(name);
 		stage.show();
 	}
 

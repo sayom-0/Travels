@@ -16,7 +16,7 @@ public class Explore extends BWindow
 	@Override
 	public void start(Stage stage) throws Exception
 	{
-		stage.setTitle("Traveling");
+		stage.setTitle("Explore Planet");
 		stage.show();
 	}
 	
