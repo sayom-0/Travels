@@ -26,13 +26,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import hart.Valkyrie.traveling.resources.planet.Planet;
 
-/*
- * W = y--;
- * S = y++;
- * A = x--;
- * D = x++;
- */
-
 public class Runtime extends Application
 {
 	ScreenControllerFX SCFX;
@@ -336,7 +329,7 @@ public class Runtime extends Application
 
 		while (alog.size() != x)
 		{
-			if(0 > x)
+			if (0 > x)
 			{
 				break;
 			}
