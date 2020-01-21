@@ -28,6 +28,8 @@ import hart.Valkyrie.traveling.resources.planet.Planet;
 
 public class Runtime extends Application
 {
+	final static double v = 0.8;
+	HBox head;
 	ScreenControllerFX SCFX;
 	EventButtonManager ebm;
 	Map map;
@@ -50,6 +52,7 @@ public class Runtime extends Application
 	@Override
 	public void start(Stage stage) throws DuplicateNameException, IllegalDimensionsException, NonExistantDataException
 	{
+		head = new HBox();
 		lGt = new VBox();
 		maptextarray = new ArrayList<Text>();
 		HUD = new BorderPane();
@@ -62,7 +65,7 @@ public class Runtime extends Application
 		alog = new ArrayList<Text>();
 		mBG = new HBox();
 		inv = new VBox();
-		map = new Map('#', '=', 'O', '8', '*', 50, 20);
+		map = new Map('#', '=', 'O', '8', '*', 70, 30);
 		SCFX = new ScreenControllerFX(800, 600);
 		ebm = new EventButtonManager();
 		ebm.makeButton("mUP", new Button("Up"), new EventHandler<ActionEvent>()
@@ -191,10 +194,15 @@ public class Runtime extends Application
 		SCFX.makeText("InvTitle", new Text("Inventory"), "Title");
 		SCFX.makeText("LogTitle", new Text("Events"), "Title");
 		SCFX.makeText("Info", new Text("Information"), "Title");
-
+		SCFX.makeText("GTitle", new Text("Traveling Version " + v), "Title");
+		head.getChildren().add(SCFX.getText("GTitle"));
+		head.setAlignment(Pos.CENTER);
+		head.setSpacing(0);
+		HUD.setTop(head);
 		inv.getChildren().add(SCFX.getText("InvTitle"));
 		inv.getChildren().add(new Text(map.getPlayerInv().toString()));
 		HUD.setCenter(maptext);
+		maptext.setAlignment(Pos.CENTER);
 		HUD.setLeft(inv);
 		maptext.setSpacing(1);
 		map.generate();
