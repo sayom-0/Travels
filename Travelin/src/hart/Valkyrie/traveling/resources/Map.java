@@ -3,6 +3,7 @@ package hart.Valkyrie.traveling.resources;
 import java.util.ArrayList;
 
 import hart.Valkyrie.exceptions.DuplicateNameException;
+import hart.Valkyrie.exceptions.IllegalDimensionsException;
 import hart.Valkyrie.exceptions.NonExistantDataException;
 import hart.Valkyrie.objects.NamedArrayList;
 import hart.Valkyrie.traveling.exceptions.InvalidMetaLinkException;
@@ -25,7 +26,7 @@ public class Map
 	public Player ply;
 
 	public Map(char defaultChar, char chestChar, char playerChar, char planetChar, char wallChar, int row, int col)
-			throws DuplicateNameException
+			throws DuplicateNameException, IllegalDimensionsException
 	{
 		planetArray = new ArrayList<Planet>();
 		this.defaultChar = defaultChar;
@@ -34,7 +35,7 @@ public class Map
 		this.wallChar = wallChar;
 		rawmap = new String[row][col];
 		metaMap = new MetaLink[row][col];
-		makePlanet("Kharak", '@', randomX(), randomY(), true, true, 0, 'M');
+		makePlanet("Kharak", '@', randomX(), randomY(), true, true, 0, 'M', "Full");
 		status = "";
 		ply = new Player(getPlayerChar(), (int) (rawmap.length * 0.5) + 1, (int) (rawmap[0].length * 0.5) + 1,
 				"Valkyrie");
@@ -74,10 +75,7 @@ public class Map
 	public void updPlyCords(Boolean lp) throws NonExistantDataException
 	{
 		lastChar = (rawmap[ply.getX()][ply.getY()]).charAt(0);
-		System.out.println("updPly : ");
-		System.out.println("Wiping X/Y _OLD");
 		rawmap[ply.getX_old()][ply.getY_old()] = String.valueOf(lastChar);
-		System.out.println("Drawing ply X/Y Char");
 		if (!rawmap[ply.getX()][ply.getY()].equals(String.valueOf(getDefaultChar())))
 		{
 			c_x = ply.getX();
@@ -149,10 +147,10 @@ public class Map
 		return status;
 	}
 	
-	public void makePlanet(String name, char planetChar, int x, int y, boolean explore, boolean market, int risk, char pClass) throws DuplicateNameException
+	public void makePlanet(String name, char planetChar, int x, int y, boolean explore, boolean market, int risk, char pClass, String mt) throws DuplicateNameException, IllegalDimensionsException
 	{
 		metaMap[x][y] = new MetaLink("Planet", planetArray.size());
-		planetArray.add(new Planet(name, planetChar, x, y, explore, market, risk, pClass));
+		planetArray.add(new Planet(name, planetChar, x, y, explore, market, risk, pClass, mt));
 	}
 
 	public int randomX()

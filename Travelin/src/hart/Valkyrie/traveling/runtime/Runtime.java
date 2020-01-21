@@ -154,8 +154,9 @@ public class Runtime extends Application
 					map.setStatus("Landed");
 					lcx = map.getC_x();
 					lcy = map.getC_y();
+					x.window();
 					reDraw();
-				} catch (InvalidMetaLinkException | NonExistantDataException e1)
+				} catch (Exception e1)
 				{
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -224,8 +225,6 @@ public class Runtime extends Application
 
 	public void draw()
 	{
-		System.out.println("DRAW : ");
-		System.out.println("Loading map.rawmap into maptextarray...");
 		while (counter != map.rawmap[counter].length)
 		{
 			maptextarray.add(new Text((String) Utils.getArrayRow(counter, map.rawmap)));
@@ -233,7 +232,6 @@ public class Runtime extends Application
 		}
 		counter = 0;
 
-		System.out.println("Loading maptextarray into maptext Vbox");
 		while (counter != map.rawmap[counter].length)
 		{
 			maptext.getChildren().add(maptextarray.get(counter));
@@ -244,10 +242,8 @@ public class Runtime extends Application
 
 	public void reDraw() throws NonExistantDataException
 	{
-		System.out.println("REDRAW : ");
 		map.updPlyCords(local_Planet);
 		HUDCTL();
-		System.out.println("Wiping maptextarray");
 		while (counter != map.rawmap[counter].length)
 		{
 			maptextarray.remove(0);
@@ -255,7 +251,6 @@ public class Runtime extends Application
 		}
 		counter = 0;
 
-		System.out.println("Wiping maptext VBox");
 		while (counter != map.rawmap[counter].length)
 		{
 			maptext.getChildren().remove(0);

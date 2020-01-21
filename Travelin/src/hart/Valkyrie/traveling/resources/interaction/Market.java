@@ -2,8 +2,11 @@ package hart.Valkyrie.traveling.resources.interaction;
 
 import java.util.ArrayList;
 import hart.Valkyrie.traveling.resources.Sellable;
+import hart.Valkyrie.util.BWindow;
+import javafx.application.Application;
+import javafx.stage.Stage;
 
-public class Market
+public class Market extends BWindow
 {
 	ArrayList<Sellable> sellables = new ArrayList<Sellable>();
 	
@@ -23,5 +26,12 @@ public class Market
 			
 			break;
 		}
+	}
+
+	@Override
+	public void start(Stage stage) throws Exception
+	{
+		stage.setTitle("Traveling");
+		stage.show();
 	}
 }
