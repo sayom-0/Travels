@@ -3,7 +3,6 @@ package hart.Valkyrie.traveling.resources.interaction;
 import java.util.ArrayList;
 import hart.Valkyrie.traveling.resources.Sellable;
 import hart.Valkyrie.util.BWindow;
-import javafx.application.Application;
 import javafx.stage.Stage;
 
 public class Market extends BWindow

@@ -1,7 +1,6 @@
 package hart.Valkyrie.traveling.resources.interaction;
 
 import hart.Valkyrie.util.BWindow;
-import javafx.application.Application;
 import javafx.stage.Stage;
 
 public class Explore extends BWindow

@@ -10,7 +10,6 @@ import hart.Valkyrie.traveling.resources.Item;
 import hart.Valkyrie.traveling.resources.interaction.Explore;
 import hart.Valkyrie.traveling.resources.interaction.Market;
 import hart.Valkyrie.util.BWindow;
-import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -38,8 +37,6 @@ public class Planet extends BWindow
 	private int risk;
 	private Market mk;
 	private Explore ex;
-	private ScreenControllerFX SCFX;
-	private EventButtonManager ebm;
 	private String marketType;
 	private HBox header;
 	private HBox bt;
