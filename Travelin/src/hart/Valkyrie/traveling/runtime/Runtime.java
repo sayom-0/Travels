@@ -28,7 +28,7 @@ import hart.Valkyrie.traveling.resources.planet.Planet;
 
 public class Runtime extends Application
 {
-	final static double v = 0.8;
+	final static double v = 0.82;
 	VBox head;
 	ScreenControllerFX SCFX;
 	EventButtonManager ebm;
@@ -41,26 +41,28 @@ public class Runtime extends Application
 	ArrayList<Text> alog;
 	VBox lG;
 	boolean local_Planet;
-	HBox infoHUD;
-	HBox shipHUD;
 	HBox targetHUD;
 	int counter = 0;
 	int lcx;
 	int lcy;
 	VBox lGt;
+	BorderPane subHead;
+	VBox subHeadLeft;
+	VBox subHeadRight;
 
 	@Override
 	public void start(Stage stage) throws DuplicateNameException, IllegalDimensionsException, NonExistantDataException
 	{
+		subHead = new BorderPane();
+		subHeadLeft = new VBox();
+		subHeadRight = new VBox();
 		head = new VBox();
 		lGt = new VBox();
 		maptextarray = new ArrayList<Text>();
 		HUD = new BorderPane();
 		maptext = new VBox();
 		lG = new VBox();
-		shipHUD = new HBox();
 		local_Planet = false;
-		infoHUD = new HBox();
 		targetHUD = new HBox();
 		alog = new ArrayList<Text>();
 		mBG = new HBox();
@@ -195,10 +197,23 @@ public class Runtime extends Application
 		SCFX.makeText("LogTitle", new Text("Events"), "Title");
 		SCFX.makeText("Info", new Text("Information"), "Title");
 		SCFX.makeText("GTitle", new Text("Traveling Version " + v), "Title");
+		SCFX.makeText("Ship", new Text("Ship"), "Title");
+		SCFX.makeText("Planet", new Text("Planet"), "Title");
+		
+		subHead.setLeft(subHeadLeft);
+		subHead.setRight(subHeadRight);
+		
+		subHeadLeft.setAlignment(Pos.CENTER_LEFT);
+		subHeadLeft.setSpacing(5);
+		
+		subHeadRight.setAlignment(Pos.CENTER_RIGHT);
+		subHeadRight.setSpacing(5);
+		
+		subHeadLeft.getChildren().add(SCFX.getText("Ship"));
+		subHeadRight.getChildren().add(SCFX.getText("Planet"));
+		
 		head.getChildren().add(SCFX.getText("GTitle"));
-		infoHUD.getChildren().add();
-		infoHUD.getChildren().add();
-		head.getChildren().add(infoHUD);
+		head.getChildren().add(subHead);
 		head.setAlignment(Pos.CENTER);
 		head.setSpacing(30);
 		HUD.setTop(head);
