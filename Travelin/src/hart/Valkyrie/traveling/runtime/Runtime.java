@@ -29,7 +29,7 @@ import hart.Valkyrie.traveling.resources.planet.Planet;
 public class Runtime extends Application
 {
 	final static double v = 0.8;
-	HBox head;
+	VBox head;
 	ScreenControllerFX SCFX;
 	EventButtonManager ebm;
 	Map map;
@@ -52,7 +52,7 @@ public class Runtime extends Application
 	@Override
 	public void start(Stage stage) throws DuplicateNameException, IllegalDimensionsException, NonExistantDataException
 	{
-		head = new HBox();
+		head = new VBox();
 		lGt = new VBox();
 		maptextarray = new ArrayList<Text>();
 		HUD = new BorderPane();
@@ -196,8 +196,11 @@ public class Runtime extends Application
 		SCFX.makeText("Info", new Text("Information"), "Title");
 		SCFX.makeText("GTitle", new Text("Traveling Version " + v), "Title");
 		head.getChildren().add(SCFX.getText("GTitle"));
+		infoHUD.getChildren().add();
+		infoHUD.getChildren().add();
+		head.getChildren().add(infoHUD);
 		head.setAlignment(Pos.CENTER);
-		head.setSpacing(0);
+		head.setSpacing(30);
 		HUD.setTop(head);
 		inv.getChildren().add(SCFX.getText("InvTitle"));
 		inv.getChildren().add(new Text(map.getPlayerInv().toString()));
