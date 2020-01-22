@@ -28,7 +28,7 @@ import hart.Valkyrie.traveling.resources.planet.Planet;
 
 public class Runtime extends Application
 {
-	final static double v = 0.8;
+	final static double v = 0.81;
 	VBox head;
 	ScreenControllerFX SCFX;
 	EventButtonManager ebm;
@@ -66,7 +66,7 @@ public class Runtime extends Application
 		mBG = new HBox();
 		inv = new VBox();
 		map = new Map('#', '=', 'O', '8', '*', 70, 30);
-		SCFX = new ScreenControllerFX(800, 600);
+		SCFX = new ScreenControllerFX(800, 650);
 		ebm = new EventButtonManager();
 		ebm.makeButton("mUP", new Button("Up"), new EventHandler<ActionEvent>()
 		{
@@ -81,7 +81,6 @@ public class Runtime extends Application
 					reDraw();
 				} catch (NonExistantDataException e1)
 				{
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -100,7 +99,6 @@ public class Runtime extends Application
 					reDraw();
 				} catch (NonExistantDataException e1)
 				{
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -119,7 +117,6 @@ public class Runtime extends Application
 					reDraw();
 				} catch (NonExistantDataException e1)
 				{
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -161,7 +158,6 @@ public class Runtime extends Application
 					reDraw();
 				} catch (Exception e1)
 				{
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -182,7 +178,6 @@ public class Runtime extends Application
 					reDraw();
 				} catch (NonExistantDataException | InvalidMetaLinkException e)
 				{
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -196,8 +191,8 @@ public class Runtime extends Application
 		SCFX.makeText("Info", new Text("Information"), "Title");
 		SCFX.makeText("GTitle", new Text("Traveling Version " + v), "Title");
 		head.getChildren().add(SCFX.getText("GTitle"));
-		infoHUD.getChildren().add();
-		infoHUD.getChildren().add();
+		/*infoHUD.getChildren().add();
+		infoHUD.getChildren().add();*/
 		head.getChildren().add(infoHUD);
 		head.setAlignment(Pos.CENTER);
 		head.setSpacing(30);
