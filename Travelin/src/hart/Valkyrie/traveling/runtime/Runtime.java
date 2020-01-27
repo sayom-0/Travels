@@ -86,7 +86,6 @@ public class Runtime extends Application
 					reDraw();
 				} catch (NonExistantDataException e1)
 				{
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -106,7 +105,6 @@ public class Runtime extends Application
 					reDraw();
 				} catch (NonExistantDataException e1)
 				{
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -126,7 +124,6 @@ public class Runtime extends Application
 					reDraw();
 				} catch (NonExistantDataException e1)
 				{
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -146,7 +143,6 @@ public class Runtime extends Application
 					reDraw();
 				} catch (NonExistantDataException e1)
 				{
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -170,7 +166,6 @@ public class Runtime extends Application
 					reDraw();
 				} catch (Exception e1)
 				{
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -192,7 +187,6 @@ public class Runtime extends Application
 					reDraw();
 				} catch (NonExistantDataException | InvalidMetaLinkException e)
 				{
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -208,9 +202,12 @@ public class Runtime extends Application
 		SCFX.makeText("Ship", new Text("Ship"), "Title");
 		SCFX.makeText("Planet", new Text("Planet"), "Title");
 		SCFX.makeText("sName", new Text("Ship Name : " + map.ply.getShipName()), "SubTitle");
-		SCFX.makeText("pName", new Text("Planet Name : " + pName), "SubTitle");
-		SCFX.makeText("pClass", new Text("Planet Class : " + "N/A"), "SubTitle");
-
+		SCFX.makeText("pName", new Text("Planet Name : N/A"), "SubTitle");
+		SCFX.makeText("pClass", new Text("Planet Class : N/A"), "SubTitle");
+		SCFX.makeText("pRisk", new Text("Risk : N/A"), "SubTitle");
+		SCFX.makeText("p", itext, fn);
+		
+		
 		subHead.setLeft(subHeadLeft);
 		subHead.setRight(subHeadRight);
 
