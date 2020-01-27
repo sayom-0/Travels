@@ -205,9 +205,9 @@ public class Runtime extends Application
 		SCFX.makeText("pName", new Text("Planet Name : N/A"), "SubTitle");
 		SCFX.makeText("pClass", new Text("Planet Class : N/A"), "SubTitle");
 		SCFX.makeText("pRisk", new Text("Risk : N/A"), "SubTitle");
-		SCFX.makeText("p", itext, fn);
-		
-		
+		SCFX.makeText("pMarket", new Text("Market : N/A"), "SubTitle");
+		SCFX.makeText("pExplore", new Text("Explorable : N/A"), "SubTitle");
+
 		subHead.setLeft(subHeadLeft);
 		subHead.setRight(subHeadRight);
 
@@ -223,6 +223,9 @@ public class Runtime extends Application
 		subHeadRight.getChildren().add(SCFX.getText("Planet"));
 		subHeadRight.getChildren().add(SCFX.getText("pName"));
 		subHeadRight.getChildren().add(SCFX.getText("pClass"));
+		subHeadRight.getChildren().add(SCFX.getText("pRisk"));
+		subHeadRight.getChildren().add(SCFX.getText("pMarket"));
+		subHeadRight.getChildren().add(SCFX.getText("pExplore"));
 
 		head.getChildren().add(SCFX.getText("GTitle"));
 		head.getChildren().add(subHead);
@@ -265,6 +268,9 @@ public class Runtime extends Application
 	{
 		SCFX.getText("pName").setText("Name : " + x.getName());
 		SCFX.getText("pClass").setText("Class : " + x.getpClass());
+		SCFX.getText("pRisk").setText("Risk : " + x.getRisk());
+		SCFX.getText("pMarket").setText("Market : " + x.isMarket());
+		SCFX.getText("pExplore").setText("Explorable : " + x.isExplore());
 
 	}
 
@@ -273,6 +279,9 @@ public class Runtime extends Application
 		pName = "N/A";
 		SCFX.getText("pName").setText("Name : " + pName);
 		SCFX.getText("pClass").setText("Class : " + pName);
+		SCFX.getText("pRisk").setText("Risk : N/A");
+		SCFX.getText("pMarket").setText("Market : N/A");
+		SCFX.getText("pExplore").setText("Explorable : N/A");
 	}
 
 	public void draw()
