@@ -9,6 +9,7 @@ import hart.Valkyrie.objects.NamedArrayList;
 import hart.Valkyrie.traveling.exceptions.InvalidMetaLinkException;
 import hart.Valkyrie.traveling.resources.meta.MetaLink;
 import hart.Valkyrie.traveling.resources.planet.Planet;
+import hart.Valkyrie.util.TextGenerator;
 
 public class Map
 {
@@ -23,11 +24,14 @@ public class Map
 	private String status;
 	private int c_x;
 	private int c_y;
+	private int k;
+	private TextGenerator names;
 	public Player ply;
 
 	public Map(char defaultChar, char chestChar, char playerChar, char planetChar, char wallChar, int row, int col)
 			throws DuplicateNameException, IllegalDimensionsException, NonExistantDataException
 	{
+		k = 0;
 		planetArray = new ArrayList<Planet>();
 		this.defaultChar = defaultChar;
 		this.chestChar = chestChar;
@@ -35,7 +39,8 @@ public class Map
 		this.wallChar = wallChar;
 		rawmap = new String[row][col];
 		metaMap = new MetaLink[row][col];
-		makePlanet("Kharak", '@', randomX(), randomY(), true, true, 0, 'M', "Full");
+		names = new TextGenerator(new String[] { "Great", "The", "Blue", "Expansive", "Voyage", "Space", "Outpost", "Green" });
+		makePlanet(names.name(3), '@', randomX(), randomY(), true, true, 0, 'M', "Full");
 		status = "";
 		ply = new Player(getPlayerChar(), (int) (rawmap.length * 0.5) + 1, (int) (rawmap[0].length * 0.5) + 1,
 				"Valkyrie");
@@ -67,14 +72,26 @@ public class Map
 			col = 0;
 			row++;
 		}
-		rawmap[getPL(0).getX()][getPL(0).getY()] = String.valueOf(getPL(0).getPlanetChar());
+		rawmap[getPL(k).getX()][getPL(k).getY()] = String.valueOf(getPL(0).getPlanetChar());
+		ply.setX((int) (rawmap.length * 0.5));
+		ply.setY((int) (rawmap[0].length * 0.5));
+		ply.setX_old(ply.getX());
+		ply.setY_old(ply.getY());
 		rawmap[ply.getX()][ply.getY()] = String.valueOf(ply.getPlayerChar());
 
 	}
 
-	public void updPlyCords(Boolean lp) throws NonExistantDataException
+	public void updPlyCords(Boolean lp) throws NonExistantDataException, DuplicateNameException, IllegalDimensionsException
 	{
-		lastChar = (rawmap[ply.getX()][ply.getY()]).charAt(0);
+		try
+		{
+			lastChar = (rawmap[ply.getX()][ply.getY()]).charAt(0);
+		} catch (ArrayIndexOutOfBoundsException ex)
+		{
+			k++;
+			makePlanet(names.name(3), '@', randomX(), randomY(), true, true, 0, 'M', "Full");
+			this.generate();
+		}
 		rawmap[ply.getX_old()][ply.getY_old()] = String.valueOf(lastChar);
 		if (!rawmap[ply.getX()][ply.getY()].equals(String.valueOf(getDefaultChar())))
 		{
@@ -95,7 +112,7 @@ public class Map
 			status = "";
 			rawmap[ply.getX()][ply.getY()] = String.valueOf(ply.getPlayerChar());
 		}
-		if(lp == true)
+		if (lp == true)
 		{
 			status = "Landed";
 		}
@@ -146,8 +163,9 @@ public class Map
 	{
 		return status;
 	}
-	
-	public void makePlanet(String name, char planetChar, int x, int y, boolean explore, boolean market, int risk, char pClass, String mt) throws DuplicateNameException, IllegalDimensionsException, NonExistantDataException
+
+	public void makePlanet(String name, char planetChar, int x, int y, boolean explore, boolean market, int risk,
+			char pClass, String mt) throws DuplicateNameException, IllegalDimensionsException, NonExistantDataException
 	{
 		metaMap[x][y] = new MetaLink("Planet", planetArray.size());
 		planetArray.add(new Planet(name, planetChar, x, y, explore, market, risk, pClass, mt));

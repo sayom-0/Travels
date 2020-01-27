@@ -28,7 +28,7 @@ import hart.Valkyrie.traveling.resources.planet.Planet;
 
 public class Runtime extends Application
 {
-	final static double v = 0.83;
+	final static double v = 0.90;
 	VBox head;
 	ScreenControllerFX SCFX;
 	EventButtonManager ebm;
@@ -84,7 +84,7 @@ public class Runtime extends Application
 				{
 					pStat();
 					reDraw();
-				} catch (NonExistantDataException e1)
+				} catch (NonExistantDataException | DuplicateNameException | IllegalDimensionsException e1)
 				{
 					e1.printStackTrace();
 				}
@@ -103,7 +103,7 @@ public class Runtime extends Application
 				{
 					pStat();
 					reDraw();
-				} catch (NonExistantDataException e1)
+				} catch (NonExistantDataException | DuplicateNameException | IllegalDimensionsException e1)
 				{
 					e1.printStackTrace();
 				}
@@ -122,7 +122,7 @@ public class Runtime extends Application
 				{
 					pStat();
 					reDraw();
-				} catch (NonExistantDataException e1)
+				} catch (NonExistantDataException | DuplicateNameException | IllegalDimensionsException e1)
 				{
 					e1.printStackTrace();
 				}
@@ -141,7 +141,7 @@ public class Runtime extends Application
 				{
 					pStat();
 					reDraw();
-				} catch (NonExistantDataException e1)
+				} catch (NonExistantDataException | DuplicateNameException | IllegalDimensionsException e1)
 				{
 					e1.printStackTrace();
 				}
@@ -185,7 +185,7 @@ public class Runtime extends Application
 					local_Planet = false;
 					map.setStatus("");
 					reDraw();
-				} catch (NonExistantDataException | InvalidMetaLinkException e)
+				} catch (NonExistantDataException | InvalidMetaLinkException | DuplicateNameException | IllegalDimensionsException e)
 				{
 					e.printStackTrace();
 				}
@@ -301,7 +301,7 @@ public class Runtime extends Application
 		counter = 0;
 	}
 
-	public void reDraw() throws NonExistantDataException
+	public void reDraw() throws NonExistantDataException, DuplicateNameException, IllegalDimensionsException
 	{
 		map.updPlyCords(local_Planet);
 		HUDCTL();
