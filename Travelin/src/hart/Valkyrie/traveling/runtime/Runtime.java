@@ -28,7 +28,7 @@ import hart.Valkyrie.traveling.resources.planet.Planet;
 
 public class Runtime extends Application
 {
-	final static double v = 0.82;
+	final static double v = 0.83;
 	VBox head;
 	ScreenControllerFX SCFX;
 	EventButtonManager ebm;
@@ -49,10 +49,12 @@ public class Runtime extends Application
 	BorderPane subHead;
 	VBox subHeadLeft;
 	VBox subHeadRight;
+	String pName;
 
 	@Override
 	public void start(Stage stage) throws DuplicateNameException, IllegalDimensionsException, NonExistantDataException
 	{
+		pName = "N/A";
 		subHead = new BorderPane();
 		subHeadLeft = new VBox();
 		subHeadRight = new VBox();
@@ -67,7 +69,7 @@ public class Runtime extends Application
 		alog = new ArrayList<Text>();
 		mBG = new HBox();
 		inv = new VBox();
-		map = new Map('#', '=', 'O', '8', '*', 70, 30);
+		map = new Map('#', '=', 'O', '8', '*', 70, 20);
 		SCFX = new ScreenControllerFX(800, 600);
 		ebm = new EventButtonManager();
 		ebm.makeButton("mUP", new Button("Up"), new EventHandler<ActionEvent>()
@@ -80,6 +82,7 @@ public class Runtime extends Application
 				map.ply.setX(map.ply.getX());
 				try
 				{
+					pStat();
 					reDraw();
 				} catch (NonExistantDataException e1)
 				{
@@ -99,6 +102,7 @@ public class Runtime extends Application
 				map.ply.setX(map.ply.getX());
 				try
 				{
+					pStat();
 					reDraw();
 				} catch (NonExistantDataException e1)
 				{
@@ -118,6 +122,7 @@ public class Runtime extends Application
 				map.ply.setY(map.ply.getY());
 				try
 				{
+					pStat();
 					reDraw();
 				} catch (NonExistantDataException e1)
 				{
@@ -137,6 +142,7 @@ public class Runtime extends Application
 				map.ply.setY(map.ply.getY());
 				try
 				{
+					pStat();
 					reDraw();
 				} catch (NonExistantDataException e1)
 				{
@@ -155,6 +161,7 @@ public class Runtime extends Application
 				{
 					Planet x = (Planet) map.handleLink(map.metaMap[map.getC_x()][map.getC_y()]);
 					addLog(new Text("Landed on : " + x.getName()));
+					pStat(x);
 					local_Planet = true;
 					map.setStatus("Landed");
 					lcx = map.getC_x();
@@ -179,6 +186,7 @@ public class Runtime extends Application
 				{
 					Planet x = (Planet) map.handleLink(map.metaMap[lcx][lcy]);
 					addLog(new Text("Launched from : " + x.getName()));
+					pStat();
 					local_Planet = false;
 					map.setStatus("");
 					reDraw();
@@ -199,19 +207,26 @@ public class Runtime extends Application
 		SCFX.makeText("GTitle", new Text("Traveling Version " + v), "Title");
 		SCFX.makeText("Ship", new Text("Ship"), "Title");
 		SCFX.makeText("Planet", new Text("Planet"), "Title");
-		
+		SCFX.makeText("sName", new Text("Ship Name : " + map.ply.getShipName()), "SubTitle");
+		SCFX.makeText("pName", new Text("Planet Name : " + pName), "SubTitle");
+		SCFX.makeText("pClass", new Text("Planet Class : " + "N/A"), "SubTitle");
+
 		subHead.setLeft(subHeadLeft);
 		subHead.setRight(subHeadRight);
-		
+
 		subHeadLeft.setAlignment(Pos.CENTER_LEFT);
 		subHeadLeft.setSpacing(5);
-		
+
 		subHeadRight.setAlignment(Pos.CENTER_RIGHT);
 		subHeadRight.setSpacing(5);
-		
+
 		subHeadLeft.getChildren().add(SCFX.getText("Ship"));
+		subHeadLeft.getChildren().add(SCFX.getText("sName"));
+
 		subHeadRight.getChildren().add(SCFX.getText("Planet"));
-		
+		subHeadRight.getChildren().add(SCFX.getText("pName"));
+		subHeadRight.getChildren().add(SCFX.getText("pClass"));
+
 		head.getChildren().add(SCFX.getText("GTitle"));
 		head.getChildren().add(subHead);
 		head.setAlignment(Pos.CENTER);
@@ -247,6 +262,20 @@ public class Runtime extends Application
 	public static void main(String[] args)
 	{
 		launch(args);
+	}
+
+	public void pStat(Planet x) throws NonExistantDataException
+	{
+		SCFX.getText("pName").setText("Name : " + x.getName());
+		SCFX.getText("pClass").setText("Class : " + x.getpClass());
+
+	}
+
+	public void pStat() throws NonExistantDataException
+	{
+		pName = "N/A";
+		SCFX.getText("pName").setText("Name : " + pName);
+		SCFX.getText("pClass").setText("Class : " + pName);
 	}
 
 	public void draw()
