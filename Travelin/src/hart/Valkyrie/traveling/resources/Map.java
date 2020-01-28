@@ -95,7 +95,6 @@ public class Map
 			lastChar = (rawmap[ply.getX()][ply.getY()]).charAt(0);
 		} catch (ArrayIndexOutOfBoundsException ex)
 		{
-			k++;
 			sectorRisk = r.nextInt(10);
 			makePlanet(names.name(3), '@', randomX(), randomY(), true, true, sectorRisk, 'M', "Full");
 			this.generate();
@@ -180,6 +179,7 @@ public class Map
 	{
 		metaMap[x][y] = new MetaLink("Planet", planetArray.size());
 		planetArray.add(new Planet(name, planetChar, x, y, explore, market, risk, pClass, mt));
+		k++;
 	}
 
 	public int randomX()

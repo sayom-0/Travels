@@ -2,7 +2,6 @@ package hart.Valkyrie.traveling.runtime;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
-
 import hart.Valkyrie.SCFX.ScreenControllerFX;
 import hart.Valkyrie.exceptions.DuplicateNameException;
 import hart.Valkyrie.exceptions.IllegalDimensionsException;
