@@ -77,7 +77,6 @@ public class Runtime extends Application
 			@Override
 			public void handle(ActionEvent e)
 			{
-				System.out.println("Move : Up :");
 				map.ply.setY(map.ply.getY() - 1);
 				map.ply.setX(map.ply.getX());
 				try
@@ -96,7 +95,6 @@ public class Runtime extends Application
 			@Override
 			public void handle(ActionEvent e)
 			{
-				System.out.println("Move : Down :");
 				map.ply.setY(map.ply.getY() + 1);
 				map.ply.setX(map.ply.getX());
 				try
@@ -115,7 +113,6 @@ public class Runtime extends Application
 			@Override
 			public void handle(ActionEvent e)
 			{
-				System.out.println("Move : Left :");
 				map.ply.setX(map.ply.getX() - 1);
 				map.ply.setY(map.ply.getY());
 				try
@@ -134,7 +131,6 @@ public class Runtime extends Application
 			@Override
 			public void handle(ActionEvent e)
 			{
-				System.out.println("Move : Right :");
 				map.ply.setX(map.ply.getX() + 1);
 				map.ply.setY(map.ply.getY());
 				try
