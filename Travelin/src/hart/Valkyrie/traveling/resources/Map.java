@@ -34,7 +34,7 @@ public class Map
 	public Map(char defaultChar, char chestChar, char playerChar, char planetChar, char wallChar, int row, int col)
 			throws DuplicateNameException, IllegalDimensionsException, NonExistantDataException
 	{
-		k = 0;
+		k = -1;
 		r = new Random();
 		sectorRisk = r.nextInt(10);
 		planetArray = new ArrayList<Planet>();
@@ -87,8 +87,8 @@ public class Map
 
 	}
 
-	public void updPlyCords(Boolean lp)
-			throws NonExistantDataException, DuplicateNameException, IllegalDimensionsException, InvalidMetaLinkException
+	public void updPlyCords(Boolean lp) throws NonExistantDataException, DuplicateNameException,
+			IllegalDimensionsException, InvalidMetaLinkException
 	{
 		try
 		{
