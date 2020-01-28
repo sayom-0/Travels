@@ -27,7 +27,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import hart.Valkyrie.traveling.resources.planet.Planet;
-
+//https://en.wikipedia.org/wiki/Yes_(band)#Drama_and_split_(1980%E2%80%931981)
 public class Runtime extends Application
 {
 	final static String v = "Alpha 9.5";
