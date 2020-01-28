@@ -28,7 +28,7 @@ import hart.Valkyrie.traveling.resources.planet.Planet;
 
 public class Runtime extends Application
 {
-	final static double v = 0.90;
+	final static String v = "Alpha 9.4";
 	VBox head;
 	ScreenControllerFX SCFX;
 	EventButtonManager ebm;
@@ -70,7 +70,7 @@ public class Runtime extends Application
 		mBG = new HBox();
 		inv = new VBox();
 		map = new Map('#', '=', 'O', '8', '*', 70, 20);
-		SCFX = new ScreenControllerFX(800, 600);
+		SCFX = new ScreenControllerFX(1000, 600);
 		ebm = new EventButtonManager();
 		ebm.makeButton("mUP", new Button("Up"), new EventHandler<ActionEvent>()
 		{
@@ -84,7 +84,7 @@ public class Runtime extends Application
 				{
 					pStat();
 					reDraw();
-				} catch (NonExistantDataException | DuplicateNameException | IllegalDimensionsException e1)
+				} catch (NonExistantDataException | DuplicateNameException | IllegalDimensionsException | InvalidMetaLinkException e1)
 				{
 					e1.printStackTrace();
 				}
@@ -103,7 +103,7 @@ public class Runtime extends Application
 				{
 					pStat();
 					reDraw();
-				} catch (NonExistantDataException | DuplicateNameException | IllegalDimensionsException e1)
+				} catch (NonExistantDataException | DuplicateNameException | IllegalDimensionsException | InvalidMetaLinkException e1)
 				{
 					e1.printStackTrace();
 				}
@@ -122,7 +122,7 @@ public class Runtime extends Application
 				{
 					pStat();
 					reDraw();
-				} catch (NonExistantDataException | DuplicateNameException | IllegalDimensionsException e1)
+				} catch (NonExistantDataException | DuplicateNameException | IllegalDimensionsException | InvalidMetaLinkException e1)
 				{
 					e1.printStackTrace();
 				}
@@ -141,7 +141,7 @@ public class Runtime extends Application
 				{
 					pStat();
 					reDraw();
-				} catch (NonExistantDataException | DuplicateNameException | IllegalDimensionsException e1)
+				} catch (NonExistantDataException | DuplicateNameException | IllegalDimensionsException | InvalidMetaLinkException e1)
 				{
 					e1.printStackTrace();
 				}
@@ -207,6 +207,7 @@ public class Runtime extends Application
 		SCFX.makeText("pRisk", new Text("Risk : N/A"), "SubTitle");
 		SCFX.makeText("pMarket", new Text("Market : N/A"), "SubTitle");
 		SCFX.makeText("pExplore", new Text("Explorable : N/A"), "SubTitle");
+		SCFX.makeText("sDang", new Text("Dangometer : " + map.getSectorRisk()), "SubTitle");
 
 		subHead.setLeft(subHeadLeft);
 		subHead.setRight(subHeadRight);
@@ -219,6 +220,7 @@ public class Runtime extends Application
 
 		subHeadLeft.getChildren().add(SCFX.getText("Ship"));
 		subHeadLeft.getChildren().add(SCFX.getText("sName"));
+		subHeadLeft.getChildren().add(SCFX.getText("sDang"));
 
 		subHeadRight.getChildren().add(SCFX.getText("Planet"));
 		subHeadRight.getChildren().add(SCFX.getText("pName"));
@@ -271,6 +273,7 @@ public class Runtime extends Application
 		SCFX.getText("pRisk").setText("Risk : " + x.getRisk());
 		SCFX.getText("pMarket").setText("Market : " + x.isMarket());
 		SCFX.getText("pExplore").setText("Explorable : " + x.isExplore());
+		SCFX.getText("sDang").setText("Dangometer : " + map.getSectorRisk());
 
 	}
 
@@ -282,6 +285,9 @@ public class Runtime extends Application
 		SCFX.getText("pRisk").setText("Risk : N/A");
 		SCFX.getText("pMarket").setText("Market : N/A");
 		SCFX.getText("pExplore").setText("Explorable : N/A");
+		SCFX.getText("sDang").setText("Dangometer : " + map.getSectorRisk());
+		if(map.getStatus().equals("Planet"))
+			pStat(map.getTargetedPlanet());
 	}
 
 	public void draw()
@@ -301,7 +307,7 @@ public class Runtime extends Application
 		counter = 0;
 	}
 
-	public void reDraw() throws NonExistantDataException, DuplicateNameException, IllegalDimensionsException
+	public void reDraw() throws NonExistantDataException, DuplicateNameException, IllegalDimensionsException, InvalidMetaLinkException
 	{
 		map.updPlyCords(local_Planet);
 		HUDCTL();

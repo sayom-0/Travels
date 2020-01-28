@@ -1,7 +1,7 @@
 package hart.Valkyrie.traveling.resources;
 
 import java.util.ArrayList;
-
+import java.util.Random;
 import hart.Valkyrie.exceptions.DuplicateNameException;
 import hart.Valkyrie.exceptions.IllegalDimensionsException;
 import hart.Valkyrie.exceptions.NonExistantDataException;
@@ -25,13 +25,18 @@ public class Map
 	private int c_x;
 	private int c_y;
 	private int k;
+	private int sectorRisk;
 	private TextGenerator names;
 	public Player ply;
+	private Random r;
+	private Planet targetedPlanet;
 
 	public Map(char defaultChar, char chestChar, char playerChar, char planetChar, char wallChar, int row, int col)
 			throws DuplicateNameException, IllegalDimensionsException, NonExistantDataException
 	{
 		k = 0;
+		r = new Random();
+		sectorRisk = r.nextInt(10);
 		planetArray = new ArrayList<Planet>();
 		this.defaultChar = defaultChar;
 		this.chestChar = chestChar;
@@ -39,8 +44,9 @@ public class Map
 		this.wallChar = wallChar;
 		rawmap = new String[row][col];
 		metaMap = new MetaLink[row][col];
-		names = new TextGenerator(new String[] { "Great", "The", "Blue", "Expansive", "Voyage", "Space", "Outpost", "Green" });
-		makePlanet(names.name(3), '@', randomX(), randomY(), true, true, 0, 'M', "Full");
+		names = new TextGenerator(new String[]
+		{ "Great", "The", "Blue", "Expansive", "Voyage", "Space", "Outpost", "Green" });
+		makePlanet(names.name(3), '@', randomX(), randomY(), true, true, sectorRisk, 'M', "Full");
 		status = "";
 		ply = new Player(getPlayerChar(), (int) (rawmap.length * 0.5) + 1, (int) (rawmap[0].length * 0.5) + 1,
 				"Valkyrie");
@@ -81,7 +87,8 @@ public class Map
 
 	}
 
-	public void updPlyCords(Boolean lp) throws NonExistantDataException, DuplicateNameException, IllegalDimensionsException
+	public void updPlyCords(Boolean lp)
+			throws NonExistantDataException, DuplicateNameException, IllegalDimensionsException, InvalidMetaLinkException
 	{
 		try
 		{
@@ -89,7 +96,8 @@ public class Map
 		} catch (ArrayIndexOutOfBoundsException ex)
 		{
 			k++;
-			makePlanet(names.name(3), '@', randomX(), randomY(), true, true, 0, 'M', "Full");
+			sectorRisk = r.nextInt(10);
+			makePlanet(names.name(3), '@', randomX(), randomY(), true, true, sectorRisk, 'M', "Full");
 			this.generate();
 		}
 		rawmap[ply.getX_old()][ply.getY_old()] = String.valueOf(lastChar);
@@ -103,7 +111,10 @@ public class Map
 				status = "Chest";
 
 			if (rawmap[c_x][c_y].equals(String.valueOf(getPL(0).getPlanetChar())))
+			{
 				status = "Planet";
+				targetedPlanet = (Planet) handleLink(metaMap[c_x][c_y]);
+			}
 
 			rawmap[ply.getX()][ply.getY()] = String.valueOf(ply.getPlayerChar());
 
@@ -216,6 +227,21 @@ public class Map
 	public void setStatus(String status)
 	{
 		this.status = status;
+	}
+
+	public int getSectorRisk()
+	{
+		return sectorRisk;
+	}
+
+	public void setSectorRisk(int sectorRisk)
+	{
+		this.sectorRisk = sectorRisk;
+	}
+
+	public Planet getTargetedPlanet()
+	{
+		return targetedPlanet;
 	}
 
 }

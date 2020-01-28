@@ -18,6 +18,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
@@ -39,6 +40,7 @@ public class Planet extends BWindow
 	private Explore ex;
 	private String marketType;
 	private HBox header;
+	private VBox center;
 	private HBox bt;
 
 	public Planet(String name, char planetChar, int x, int y, boolean explore, boolean market, int risk, char pClass,
@@ -59,13 +61,21 @@ public class Planet extends BWindow
 		SCFX.makeFont("Title", Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
 		SCFX.makeFont("SubTitle", Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 15));
 		SCFX.makeText("Title", new Text(name), "Title");
+		SCFX.makeText("mType", new Text("Market Type : " + marketType), "SubTitle");
+
+		center = new VBox();
+		center.setSpacing(10);
+		center.getChildren().add(SCFX.getText("mType"));
+		
 		header = new HBox();
 		header.setAlignment(Pos.CENTER);
 		header.getChildren().add(SCFX.getText("Title"));
+
 		bt = new HBox();
 		bt.setSpacing(20);
 		bt.setPadding(new Insets(15, 15, 15, 15));
 		bt.setAlignment(Pos.CENTER);
+
 		if (market)
 		{
 			mk = new Market(marketType);
@@ -111,7 +121,7 @@ public class Planet extends BWindow
 			});
 			bt.getChildren().add(ebm.getButton("oExplore"));
 		}
-		
+
 	}
 
 	public char getPlanetChar()
@@ -174,6 +184,7 @@ public class Planet extends BWindow
 	{
 		BorderPane pHUD = new BorderPane();
 		pHUD.setTop(header);
+		pHUD.setCenter(center);
 		pHUD.setBottom(bt);
 		Scene scene = new Scene(pHUD, SCFX.getRes("width"), SCFX.getRes("height"));
 		stage.setScene(scene);
