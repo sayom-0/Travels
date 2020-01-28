@@ -1,6 +1,8 @@
 package hart.Valkyrie.traveling.runtime;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+
 import hart.Valkyrie.SCFX.ScreenControllerFX;
 import hart.Valkyrie.exceptions.DuplicateNameException;
 import hart.Valkyrie.exceptions.IllegalDimensionsException;
@@ -28,12 +30,12 @@ import hart.Valkyrie.traveling.resources.planet.Planet;
 
 public class Runtime extends Application
 {
-	final static String v = "Alpha 9.4";
+	final static String v = "Alpha 9.5";
 	VBox head;
 	ScreenControllerFX SCFX;
 	EventButtonManager ebm;
 	Map map;
-	ArrayList<Text> maptextarray;
+	LinkedList<Text> maptextarray;
 	BorderPane HUD;
 	VBox maptext;
 	VBox inv;
@@ -60,7 +62,7 @@ public class Runtime extends Application
 		subHeadRight = new VBox();
 		head = new VBox();
 		lGt = new VBox();
-		maptextarray = new ArrayList<Text>();
+		maptextarray = new LinkedList<Text>();
 		HUD = new BorderPane();
 		maptext = new VBox();
 		lG = new VBox();
