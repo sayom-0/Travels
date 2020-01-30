@@ -254,7 +254,7 @@ public class Runtime extends Application
 
 		Scene scene = new Scene(HUD, SCFX.getRes("width"), SCFX.getRes("height"));
 		stage.setScene(scene);
-		stage.setTitle("Traveling");
+		stage.setTitle("Traveling " + v);
 		stage.show();
 	}
 
