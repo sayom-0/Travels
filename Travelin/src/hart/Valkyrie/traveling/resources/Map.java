@@ -25,15 +25,19 @@ public class Map
 	private int c_x;
 	private int c_y;
 	private int k;
+	private int k_old;
+	private int sp;
 	private int sectorRisk;
 	private TextGenerator names;
 	public Player ply;
 	private Random r;
 	private Planet targetedPlanet;
+	private boolean firstRun;
 
 	public Map(char defaultChar, char chestChar, char playerChar, char planetChar, char wallChar, int row, int col)
 			throws DuplicateNameException, IllegalDimensionsException, NonExistantDataException
 	{
+		firstRun = true;
 		k = -1;
 		r = new Random();
 		sectorRisk = r.nextInt(10);
@@ -46,7 +50,6 @@ public class Map
 		metaMap = new MetaLink[row][col];
 		names = new TextGenerator(new String[]
 		{ "Great", "The", "Blue", "Expansive", "Voyage", "Space", "Outpost", "Green" });
-		makePlanet(names.name(3), '@', randomX(), randomY(), true, true, sectorRisk, 'M', "Full");
 		status = "";
 		ply = new Player(getPlayerChar(), (int) (rawmap.length * 0.5) + 1, (int) (rawmap[0].length * 0.5) + 1,
 				"Valkyrie");
@@ -66,6 +69,7 @@ public class Map
 	{
 		int row = 0;
 		int col = 0;
+		sp = k - k_old;
 
 		while (row != (rawmap.length))
 		{
@@ -78,13 +82,17 @@ public class Map
 			col = 0;
 			row++;
 		}
-		rawmap[getPL(k).getX()][getPL(k).getY()] = String.valueOf(getPL(0).getPlanetChar());
+		if (!firstRun)
+		{
+			for (int i = 0; i != sp; i++)
+				rawmap[getPL(k_old + i).getX()][getPL(k_old + i).getY()] = String.valueOf(getPL(0).getPlanetChar());
+		}
 		ply.setX((int) (rawmap.length * 0.5));
 		ply.setY((int) (rawmap[0].length * 0.5));
 		ply.setX_old(ply.getX());
 		ply.setY_old(ply.getY());
 		rawmap[ply.getX()][ply.getY()] = String.valueOf(ply.getPlayerChar());
-
+		firstRun = false;
 	}
 
 	public void updPlyCords(Boolean lp) throws NonExistantDataException, DuplicateNameException,
@@ -95,9 +103,7 @@ public class Map
 			lastChar = (rawmap[ply.getX()][ply.getY()]).charAt(0);
 		} catch (ArrayIndexOutOfBoundsException ex)
 		{
-			sectorRisk = r.nextInt(10);
-			makePlanet(names.name(3), '@', randomX(), randomY(), true, true, sectorRisk, 'M', "Full");
-			this.generate();
+			newSector();
 		}
 		rawmap[ply.getX_old()][ply.getY_old()] = String.valueOf(lastChar);
 		if (!rawmap[ply.getX()][ply.getY()].equals(String.valueOf(getDefaultChar())))
@@ -127,6 +133,17 @@ public class Map
 			status = "Landed";
 		}
 		System.out.println("STATUS : " + status);
+	}
+
+	public void newSector() throws DuplicateNameException, IllegalDimensionsException, NonExistantDataException
+	{
+		sectorRisk = r.nextInt(10);
+		k_old = k;
+		int x = r.nextInt(5) + 1;
+
+		for (int pm = 0; pm != x; pm++)
+			makePlanet(names.name(3), '@', randomX(), randomY(), true, true, sectorRisk, 'M', "Full");
+		this.generate();
 	}
 
 	public char getDefaultChar()
