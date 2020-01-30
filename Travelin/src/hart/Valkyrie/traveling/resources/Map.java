@@ -85,7 +85,7 @@ public class Map
 		if (!firstRun)
 		{
 			for (int i = 0; i != sp; i++)
-				rawmap[getPL(k_old + i).getX()][getPL(k_old + i).getY()] = String.valueOf(getPL(0).getPlanetChar());
+				rawmap[getPL(k_old + i).getX()][getPL(k_old + i).getY()] = String.valueOf(getPL(k_old + i).getPlanetChar());
 		}
 		ply.setX((int) (rawmap.length * 0.5));
 		ply.setY((int) (rawmap[0].length * 0.5));
