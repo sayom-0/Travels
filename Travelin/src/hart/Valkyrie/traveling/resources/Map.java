@@ -85,7 +85,8 @@ public class Map
 		if (!firstRun)
 		{
 			for (int i = 0; i != sp; i++)
-				rawmap[getPL(k_old + i).getX()][getPL(k_old + i).getY()] = String.valueOf(getPL(k_old + i).getPlanetChar());
+				rawmap[getPL(k_old + i).getX()][getPL(k_old + i).getY()] = String
+						.valueOf(getPL(k_old + i).getPlanetChar());
 		}
 		ply.setX((int) (rawmap.length * 0.5));
 		ply.setY((int) (rawmap[0].length * 0.5));
@@ -144,51 +145,6 @@ public class Map
 		for (int pm = 0; pm != x; pm++)
 			makePlanet(names.name(3), '@', randomX(), randomY(), true, true, sectorRisk, 'M', "Full");
 		this.generate();
-	}
-
-	public char getDefaultChar()
-	{
-		return defaultChar;
-	}
-
-	public void setDefaultChar(char defaultChar)
-	{
-		this.defaultChar = defaultChar;
-	}
-
-	public char getChestChar()
-	{
-		return chestChar;
-	}
-
-	public void setChestChar(char chestChar)
-	{
-		this.chestChar = chestChar;
-	}
-
-	public char getPlayerChar()
-	{
-		return playerChar;
-	}
-
-	public void setPlayerChar(char playerChar)
-	{
-		this.playerChar = playerChar;
-	}
-
-	public char getWallChar()
-	{
-		return wallChar;
-	}
-
-	public void setWallChar(char wallChar)
-	{
-		this.wallChar = wallChar;
-	}
-
-	public String getStatus()
-	{
-		return status;
 	}
 
 	public void makePlanet(String name, char planetChar, int x, int y, boolean explore, boolean market, int risk,
@@ -259,6 +215,51 @@ public class Map
 	public Planet getTargetedPlanet()
 	{
 		return targetedPlanet;
+	}
+
+	public char getDefaultChar()
+	{
+		return defaultChar;
+	}
+
+	public void setDefaultChar(char defaultChar)
+	{
+		this.defaultChar = defaultChar;
+	}
+
+	public char getChestChar()
+	{
+		return chestChar;
+	}
+
+	public void setChestChar(char chestChar)
+	{
+		this.chestChar = chestChar;
+	}
+
+	public char getPlayerChar()
+	{
+		return playerChar;
+	}
+
+	public void setPlayerChar(char playerChar)
+	{
+		this.playerChar = playerChar;
+	}
+
+	public char getWallChar()
+	{
+		return wallChar;
+	}
+
+	public void setWallChar(char wallChar)
+	{
+		this.wallChar = wallChar;
+	}
+
+	public String getStatus()
+	{
+		return status;
 	}
 
 }

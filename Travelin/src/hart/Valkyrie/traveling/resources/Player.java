@@ -26,10 +26,10 @@ public class Player
 		this.shipName = name;
 		x_old = x;
 		y_old = y;
-		inv.add("Coins", new Item("Coins",5));
+		inv.add("Coins", new Item("Coins", 5));
 	}
 
-	public Player(char playerChar, int x, int y, String name,NamedArrayList<Item> inv)
+	public Player(char playerChar, int x, int y, String name, NamedArrayList<Item> inv)
 	{
 		super();
 		this.playerChar = playerChar;
@@ -41,7 +41,7 @@ public class Player
 		x_old = x;
 		y_old = y;
 	}
-	
+
 	public void revertCords()
 	{
 		x = x_old;
@@ -67,8 +67,6 @@ public class Player
 	{
 		x_old = getX();
 		this.x = x;
-		System.out.println("X :"+getX());
-		System.out.println("X_old :"+getX_old());
 	}
 
 	public int getY()
@@ -80,8 +78,6 @@ public class Player
 	{
 		y_old = getY();
 		this.y = y;
-		System.out.println("Y :"+getY());
-		System.out.println("Y_old :"+getY_old());
 	}
 
 	public int getX_old()
@@ -108,8 +104,6 @@ public class Player
 	{
 		return inv;
 	}
-	
-	
 
 	public String getShipName()
 	{
