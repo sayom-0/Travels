@@ -3,6 +3,11 @@ package hart.Valkyrie.traveling.resources;
 import hart.Valkyrie.exceptions.DuplicateNameException;
 import hart.Valkyrie.objects.NamedLists.NamedArrayList;
 import hart.Valkyrie.traveling.ship.Ship;
+import hart.Valkyrie.traveling.ship.module.modules.Armor;
+import hart.Valkyrie.traveling.ship.module.modules.Engine;
+import hart.Valkyrie.traveling.ship.module.modules.Shields;
+import hart.Valkyrie.traveling.ship.module.modules.Tank;
+import hart.Valkyrie.traveling.ship.module.modules.WeaponSet;
 
 public class Player
 {
@@ -24,7 +29,7 @@ public class Player
 		x_old = x;
 		y_old = y;
 		inv.add("Coins", new Item("Coins", 5));
-		ship = new Ship(name, null, null, null, null, null, 0);
+		ship = new Ship(name, new Armor(15, 20, 30), new Engine(15, 20, 30), new Shields(15, 20, 30), new WeaponSet(15, 20, 30), new Tank(15, 20, 30, 0));
 	}
 
 	public Player(char playerChar, int x, int y, String name, NamedArrayList<Item> inv)
@@ -37,7 +42,7 @@ public class Player
 		inv = new NamedArrayList<Item>();
 		x_old = x;
 		y_old = y;
-		ship = new Ship(name, null, null, null, null, null, 0);
+		ship = new Ship(name, new Armor(15, 20, 30), new Engine(15, 20, 30), new Shields(15, 20, 30), new WeaponSet(15, 20, 30), new Tank(15, 20, 30, 0));
 	}
 
 	public void revertCords()

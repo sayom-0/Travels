@@ -117,9 +117,6 @@ public class Map
 			c_y = ply.getY();
 			ply.revertCords();
 
-			if (rawmap[c_x][c_y].equals(String.valueOf(getChestChar())))
-				status = "Chest";
-
 			if (rawmap[c_x][c_y].equals(String.valueOf(getPL(0).getPlanetChar())))
 			{
 				status = "Planet";
@@ -137,6 +134,7 @@ public class Map
 		{
 			status = "Landed";
 		}
+		ply.ship.getTank().setFuel(ply.ship.getTank().getFuel() - 1);
 		System.out.println("STATUS : " + status);
 	}
 

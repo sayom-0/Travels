@@ -25,7 +25,7 @@ public class Ship
 		init();
 	}
 
-	public Ship(String title, Armor armor, Engine engine, Shields shields, WeaponSet weaponset, Tank tank, int fuel)
+	public Ship(String title, Armor armor, Engine engine, Shields shields, WeaponSet weaponset, Tank tank)
 	{
 		super();
 		this.title = title;
@@ -33,7 +33,7 @@ public class Ship
 		this.engine = engine;
 		this.shields = shields;
 		this.weaponset = weaponset;
-		this.setTank(tank);
+		this.tank = tank;
 		init();
 	}
 
