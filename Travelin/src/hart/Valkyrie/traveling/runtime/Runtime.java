@@ -26,10 +26,11 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import hart.Valkyrie.traveling.resources.planet.Planet;
+
 //https://en.wikipedia.org/wiki/Yes_(band)#Drama_and_split_(1980%E2%80%931981)
 public class Runtime extends Application
 {
-	final static String v = "Alpha 10.1";
+	final static String v = "Alpha 10.2";
 	VBox head;
 	ScreenControllerFX SCFX;
 	EventButtonManager ebm;
@@ -84,7 +85,8 @@ public class Runtime extends Application
 				{
 					pStat();
 					reDraw();
-				} catch (NonExistantDataException | DuplicateNameException | IllegalDimensionsException | InvalidMetaLinkException e1)
+				} catch (NonExistantDataException | DuplicateNameException | IllegalDimensionsException
+						| InvalidMetaLinkException e1)
 				{
 					e1.printStackTrace();
 				}
@@ -102,7 +104,8 @@ public class Runtime extends Application
 				{
 					pStat();
 					reDraw();
-				} catch (NonExistantDataException | DuplicateNameException | IllegalDimensionsException | InvalidMetaLinkException e1)
+				} catch (NonExistantDataException | DuplicateNameException | IllegalDimensionsException
+						| InvalidMetaLinkException e1)
 				{
 					e1.printStackTrace();
 				}
@@ -120,7 +123,8 @@ public class Runtime extends Application
 				{
 					pStat();
 					reDraw();
-				} catch (NonExistantDataException | DuplicateNameException | IllegalDimensionsException | InvalidMetaLinkException e1)
+				} catch (NonExistantDataException | DuplicateNameException | IllegalDimensionsException
+						| InvalidMetaLinkException e1)
 				{
 					e1.printStackTrace();
 				}
@@ -138,7 +142,8 @@ public class Runtime extends Application
 				{
 					pStat();
 					reDraw();
-				} catch (NonExistantDataException | DuplicateNameException | IllegalDimensionsException | InvalidMetaLinkException e1)
+				} catch (NonExistantDataException | DuplicateNameException | IllegalDimensionsException
+						| InvalidMetaLinkException e1)
 				{
 					e1.printStackTrace();
 				}
@@ -182,7 +187,8 @@ public class Runtime extends Application
 					local_Planet = false;
 					map.setStatus("");
 					reDraw();
-				} catch (NonExistantDataException | InvalidMetaLinkException | DuplicateNameException | IllegalDimensionsException e)
+				} catch (NonExistantDataException | InvalidMetaLinkException | DuplicateNameException
+						| IllegalDimensionsException e)
 				{
 					e.printStackTrace();
 				}
@@ -191,7 +197,8 @@ public class Runtime extends Application
 		});
 		SCFX.makeFont("Title", Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
 		SCFX.makeFont("SubTitle", Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 15));
-
+		SCFX.makeFont("Map Text", Font.font("verdana", FontWeight.THIN, FontPosture.REGULAR, 10));
+		
 		SCFX.makeText("InvTitle", new Text("Inventory"), "Title");
 		SCFX.makeText("LogTitle", new Text("Events"), "Title");
 		SCFX.makeText("Info", new Text("Information"), "Title");
@@ -283,15 +290,15 @@ public class Runtime extends Application
 		SCFX.getText("pMarket").setText("Market : N/A");
 		SCFX.getText("pExplore").setText("Explorable : N/A");
 		SCFX.getText("sDang").setText("Dangometer : " + map.getSectorRisk());
-		if(map.getStatus().equals("Planet"))
+		if (map.getStatus().equals("Planet"))
 			pStat(map.getTargetedPlanet());
 	}
 
-	public void draw()
+	public void draw() throws NonExistantDataException
 	{
 		while (counter != map.rawmap[counter].length)
 		{
-			maptextarray.add(new Text((String) Utils.getArrayRow(counter, map.rawmap)));
+			maptextarray.add(SCFX.buildText(new Text((String) Utils.getArrayRow(counter, map.rawmap)), "Map Text"));
 			counter++;
 		}
 		counter = 0;
@@ -304,7 +311,8 @@ public class Runtime extends Application
 		counter = 0;
 	}
 
-	public void reDraw() throws NonExistantDataException, DuplicateNameException, IllegalDimensionsException, InvalidMetaLinkException
+	public void reDraw() throws NonExistantDataException, DuplicateNameException, IllegalDimensionsException,
+			InvalidMetaLinkException
 	{
 		map.updPlyCords(local_Planet);
 		HUDCTL();

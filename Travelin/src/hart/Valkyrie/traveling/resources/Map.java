@@ -145,6 +145,7 @@ public class Map
 
 		for (int pm = 0; pm != x; pm++)
 			makePlanet(names.name(3), '@', randomX(), randomY(), true, true, sectorRisk, 'M', "Full");
+		kp.setValue((x - 1) + kp.getValue());
 		this.generate();
 	}
 
@@ -153,7 +154,7 @@ public class Map
 	{
 		metaMap[x][y] = new MetaLink("Planet", planetArray.size());
 		planetArray.add(new Planet(name, planetChar, x, y, explore, market, risk, pClass, mt));
-		kp.setValue(kp.getValue() + 1);
+
 	}
 
 	public int randomX()
