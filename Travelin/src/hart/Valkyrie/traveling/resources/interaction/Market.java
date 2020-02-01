@@ -73,7 +73,7 @@ public class Market extends BWindow
 		pHUD = new BorderPane();
 		pHUD.setTop(header);
 		pHUD.setCenter(centre);
-		int times = 0;
+
 		for (int x = 0; x != sellables.size(); x++)
 		{
 			String name = "GN" + x;
@@ -93,10 +93,7 @@ public class Market extends BWindow
 			ebm.makeButton(nameb, new Button("Buy"));
 			
 			cAddRow(SCFX.getText(name), ebm.getButton(nameb), sc);
-			
-			times++;
 		}
-		System.out.println(times);
 		
 		scene = new Scene(pHUD, SCFX.getRes("width"), SCFX.getRes("height"));
 	}

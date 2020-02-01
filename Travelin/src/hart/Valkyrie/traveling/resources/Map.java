@@ -6,6 +6,7 @@ import hart.Valkyrie.exceptions.DuplicateNameException;
 import hart.Valkyrie.exceptions.IllegalDimensionsException;
 import hart.Valkyrie.exceptions.NonExistantDataException;
 import hart.Valkyrie.objects.NamedArrayList;
+import hart.Valkyrie.objects.Reversable;
 import hart.Valkyrie.traveling.exceptions.InvalidMetaLinkException;
 import hart.Valkyrie.traveling.resources.meta.MetaLink;
 import hart.Valkyrie.traveling.resources.planet.Planet;
@@ -24,8 +25,7 @@ public class Map
 	private String status;
 	private int c_x;
 	private int c_y;
-	private int k;
-	private int k_old;
+	private Reversable<Integer> kp;
 	private int sp;
 	private int sectorRisk;
 	private TextGenerator names;
@@ -38,7 +38,9 @@ public class Map
 			throws DuplicateNameException, IllegalDimensionsException, NonExistantDataException
 	{
 		firstRun = true;
-		k = -1;
+
+		kp = new Reversable<Integer>(0);
+
 		r = new Random();
 		sectorRisk = r.nextInt(10);
 		planetArray = new ArrayList<Planet>();
@@ -69,7 +71,7 @@ public class Map
 	{
 		int row = 0;
 		int col = 0;
-		sp = k - k_old;
+		sp = kp.getValue() - kp.getLast();
 
 		while (row != (rawmap.length))
 		{
@@ -85,8 +87,8 @@ public class Map
 		if (!firstRun)
 		{
 			for (int i = 0; i != sp; i++)
-				rawmap[getPL(k_old + i).getX()][getPL(k_old + i).getY()] = String
-						.valueOf(getPL(k_old + i).getPlanetChar());
+				rawmap[getPL(kp.getLast() + i).getX()][getPL(kp.getLast() + i).getY()] = String
+						.valueOf(getPL(kp.getLast() + i).getPlanetChar());
 		}
 		ply.setX((int) (rawmap.length * 0.5));
 		ply.setY((int) (rawmap[0].length * 0.5));
@@ -139,7 +141,6 @@ public class Map
 	public void newSector() throws DuplicateNameException, IllegalDimensionsException, NonExistantDataException
 	{
 		sectorRisk = r.nextInt(10);
-		k_old = k;
 		int x = r.nextInt(5) + 1;
 
 		for (int pm = 0; pm != x; pm++)
@@ -152,7 +153,7 @@ public class Map
 	{
 		metaMap[x][y] = new MetaLink("Planet", planetArray.size());
 		planetArray.add(new Planet(name, planetChar, x, y, explore, market, risk, pClass, mt));
-		k++;
+		kp.setValue(kp.getValue() + 1);
 	}
 
 	public int randomX()
