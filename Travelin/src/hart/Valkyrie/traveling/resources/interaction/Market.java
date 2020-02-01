@@ -97,12 +97,14 @@ public class Market extends BWindow
 			times++;
 		}
 		System.out.println(times);
+		
+		scene = new Scene(pHUD, SCFX.getRes("width"), SCFX.getRes("height"));
 	}
 
 	@Override
 	public void start(Stage stage)
 	{
-		stage.setScene(new Scene(pHUD, SCFX.getRes("width"), SCFX.getRes("height")));
+		stage.setScene(scene);
 		stage.setTitle("Market");
 		stage.show();
 	}
