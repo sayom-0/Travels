@@ -5,7 +5,7 @@ import hart.Valkyrie.exceptions.DuplicateNameException;
 import hart.Valkyrie.exceptions.IllegalDimensionsException;
 import hart.Valkyrie.exceptions.NonExistantDataException;
 import hart.Valkyrie.objects.EventButtonManager;
-import hart.Valkyrie.objects.NamedArrayList;
+import hart.Valkyrie.objects.NamedLists.NamedArrayList;
 import hart.Valkyrie.traveling.resources.Item;
 import hart.Valkyrie.traveling.resources.interaction.Explore;
 import hart.Valkyrie.traveling.resources.interaction.Market;

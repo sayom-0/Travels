@@ -1,7 +1,8 @@
 package hart.Valkyrie.traveling.resources;
 
 import hart.Valkyrie.exceptions.DuplicateNameException;
-import hart.Valkyrie.objects.NamedArrayList;
+import hart.Valkyrie.objects.NamedLists.NamedArrayList;
+import hart.Valkyrie.traveling.ship.Ship;
 
 public class Player
 {
@@ -11,10 +12,7 @@ public class Player
 	private NamedArrayList<Item> inv;
 	private int x_old;
 	private int y_old;
-	private String shipName;
-	private int shipHealth;
-	private int shipDmg;
-	private int shipSpeed;
+	public Ship ship;
 
 	public Player(char playerChar, int x, int y, String name) throws DuplicateNameException
 	{
@@ -23,10 +21,10 @@ public class Player
 		this.x = x;
 		this.y = y;
 		inv = new NamedArrayList<Item>();
-		this.shipName = name;
 		x_old = x;
 		y_old = y;
 		inv.add("Coins", new Item("Coins", 5));
+		ship = new Ship(name, null, null, null, null, null, 0);
 	}
 
 	public Player(char playerChar, int x, int y, String name, NamedArrayList<Item> inv)
@@ -37,9 +35,9 @@ public class Player
 		this.y = y;
 		this.inv = inv;
 		inv = new NamedArrayList<Item>();
-		this.shipName = name;
 		x_old = x;
 		y_old = y;
+		ship = new Ship(name, null, null, null, null, null, 0);
 	}
 
 	public void revertCords()
@@ -103,46 +101,6 @@ public class Player
 	public NamedArrayList<Item> getInv()
 	{
 		return inv;
-	}
-
-	public String getShipName()
-	{
-		return shipName;
-	}
-
-	public void setShipName(String shipName)
-	{
-		this.shipName = shipName;
-	}
-
-	public int getShipHealth()
-	{
-		return shipHealth;
-	}
-
-	public void setShipHealth(int shipHealth)
-	{
-		this.shipHealth = shipHealth;
-	}
-
-	public int getShipDmg()
-	{
-		return shipDmg;
-	}
-
-	public void setShipDmg(int shipDmg)
-	{
-		this.shipDmg = shipDmg;
-	}
-
-	public int getShipSpeed()
-	{
-		return shipSpeed;
-	}
-
-	public void setShipSpeed(int shipSpeed)
-	{
-		this.shipSpeed = shipSpeed;
 	}
 
 	public void addInv(Item item)

@@ -8,7 +8,6 @@ import hart.Valkyrie.exceptions.IllegalDimensionsException;
 import hart.Valkyrie.exceptions.NonExistantDataException;
 import hart.Valkyrie.objects.EventButtonManager;
 import hart.Valkyrie.traveling.exceptions.InvalidMetaLinkException;
-import hart.Valkyrie.traveling.resources.Map;
 import hart.Valkyrie.util.Utils;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -205,14 +204,16 @@ public class Runtime extends Application
 		SCFX.makeText("GTitle", new Text("Traveling Version " + v), "Title");
 		SCFX.makeText("Ship", new Text("Ship"), "Title");
 		SCFX.makeText("Planet", new Text("Planet"), "Title");
-		SCFX.makeText("sName", new Text("Ship Name : " + map.ply.getShipName()), "SubTitle");
+		SCFX.makeText("sName", new Text("Ship Name : " + map.ply.ship.getTitle()), "SubTitle");
 		SCFX.makeText("pName", new Text("Planet Name : N/A"), "SubTitle");
 		SCFX.makeText("pClass", new Text("Planet Class : N/A"), "SubTitle");
 		SCFX.makeText("pRisk", new Text("Risk : N/A"), "SubTitle");
 		SCFX.makeText("pMarket", new Text("Market : N/A"), "SubTitle");
 		SCFX.makeText("pExplore", new Text("Explorable : N/A"), "SubTitle");
 		SCFX.makeText("sDang", new Text("Dangometer : " + map.getSectorRisk()), "SubTitle");
-
+		SCFX.makeText("sHealth", new Text("Health : " + map.ply.ship.getHealth()), "SubTitle");
+		SCFX.makeText("sRange", new Text("Range : " + map.ply.ship.getRange()), "SubTitle");
+		
 		subHead.setLeft(subHeadLeft);
 		subHead.setRight(subHeadRight);
 
@@ -225,6 +226,8 @@ public class Runtime extends Application
 		subHeadLeft.getChildren().add(SCFX.getText("Ship"));
 		subHeadLeft.getChildren().add(SCFX.getText("sName"));
 		subHeadLeft.getChildren().add(SCFX.getText("sDang"));
+		subHeadLeft.getChildren().add(SCFX.getText("sHealth"));
+		subHeadLeft.getChildren().add(SCFX.getText("sRange"));
 
 		subHeadRight.getChildren().add(SCFX.getText("Planet"));
 		subHeadRight.getChildren().add(SCFX.getText("pName"));
@@ -278,6 +281,9 @@ public class Runtime extends Application
 		SCFX.getText("pMarket").setText("Market : " + x.isMarket());
 		SCFX.getText("pExplore").setText("Explorable : " + x.isExplore());
 		SCFX.getText("sDang").setText("Dangometer : " + map.getSectorRisk());
+		SCFX.getText("sName").setText("Ship Name : " + map.ply.ship.getTitle());
+		SCFX.getText("sHealth").setText("Health : " + map.ply.ship.getHealth());
+		SCFX.getText("sRange").setText("Range : " + map.ply.ship.getRange());
 
 	}
 
@@ -290,6 +296,9 @@ public class Runtime extends Application
 		SCFX.getText("pMarket").setText("Market : N/A");
 		SCFX.getText("pExplore").setText("Explorable : N/A");
 		SCFX.getText("sDang").setText("Dangometer : " + map.getSectorRisk());
+		SCFX.getText("sName").setText("Ship Name : " + map.ply.ship.getTitle());
+		SCFX.getText("sHealth").setText("Health : " + map.ply.ship.getHealth());
+		SCFX.getText("sRange").setText("Range : " + map.ply.ship.getRange());
 		if (map.getStatus().equals("Planet"))
 			pStat(map.getTargetedPlanet());
 	}
