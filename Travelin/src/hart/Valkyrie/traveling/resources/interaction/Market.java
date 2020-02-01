@@ -8,6 +8,7 @@ import hart.Valkyrie.exceptions.NonExistantDataException;
 import hart.Valkyrie.objects.EventButtonManager;
 import hart.Valkyrie.traveling.resources.Sellable;
 import hart.Valkyrie.util.BWindow;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -34,6 +35,8 @@ public class Market extends BWindow
 		switch (v)
 		{
 		case "Full":
+			sellables.add(new Sellable("Water", 5, 1));
+			sellables.add(new Sellable("Food", 5, 1));
 			sellables.add(new Sellable("Ammo", 5, 1));
 			sellables.add(new Sellable("Fuel", 5, 1));
 			break;
@@ -53,7 +56,7 @@ public class Market extends BWindow
 		ebm = new EventButtonManager();
 		SCFX.makeFont("Title", Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
 		SCFX.makeFont("SubTitle", Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 15));
-		SCFX.makeFont("SubTitle", Font.font("verdana", FontWeight.NORMAL, FontPosture.REGULAR, 12));
+		SCFX.makeFont("Normal", Font.font("verdana", FontWeight.NORMAL, FontPosture.REGULAR, 12));
 		SCFX.makeText("Title", new Text("Market"), "Title");
 		SCFX.makeText("mType", new Text("Market Type : " + v), "SubTitle");
 
@@ -70,13 +73,30 @@ public class Market extends BWindow
 		pHUD = new BorderPane();
 		pHUD.setTop(header);
 		pHUD.setCenter(centre);
-
+		int times = 0;
 		for (int x = 0; x != sellables.size(); x++)
 		{
-			SCFX.makeText("GN" + x, new Text(sellables.get(x).getName()), "Normal");
-			ebm.makeButton("GB" + x, new Button("Buy"));
-			cAddRow(SCFX.getText("GN" + x), ebm.getButton("GB" + x));
+			String name = "GN" + x;
+
+			String nameb = "GB" + x;
+
+			SCFX.makeText(name, new Text(sellables.get(x).getName()), "Normal");
+			
+			ScrollBar sc = new ScrollBar();
+			sc.setMin(0);
+			sc.setMax(sellables.get(x).getQty());
+			sc.setValue(0);
+			sc.setOrientation(Orientation.HORIZONTAL);
+			sc.setUnitIncrement(1);
+			sc.setBlockIncrement(1);
+			
+			ebm.makeButton(nameb, new Button("Buy"));
+			
+			cAddRow(SCFX.getText(name), ebm.getButton(nameb), sc);
+			
+			times++;
 		}
+		System.out.println(times);
 	}
 
 	@Override
