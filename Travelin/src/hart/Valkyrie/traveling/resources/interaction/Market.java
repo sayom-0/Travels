@@ -99,8 +99,10 @@ public class Market extends BWindow
 				{
 					try
 					{
+						String s = namesh.substring(3, 4);
+						int y = Integer.parseInt(s);
 						SCFX.getText(namesc).setText("Buying : " + gv());
-						// SCFX.getText(namesh).setText("Shop : " +);
+						SCFX.getText(namesh).setText("Shop : " + (sellables.get(y).getQty() - gv()));
 						// SCFX.getText(nameuh).setText("Hold : " +);
 						// SCFX.getText(namec).setText("Credits : " +);
 					} catch (NonExistantDataException e)
@@ -118,6 +120,7 @@ public class Market extends BWindow
 
 			SCFX.makeText(name, new Text(sellables.get(x).getName()), "Normal");
 			SCFX.makeText(namesc, new Text("Buying : " + sc.getValue()), "Normal");
+			SCFX.makeText(namesh, new Text("Shop : " + sellables.get(x).getQty()), "Normal");
 
 			ebm.makeButton(nameb, new Button("Buy"));
 
