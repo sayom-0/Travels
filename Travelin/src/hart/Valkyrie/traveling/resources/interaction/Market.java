@@ -105,6 +105,7 @@ public class Market extends BWindow
 						SCFX.getText(namesh).setText("Shop : " + (sellables.get(y).getQty() - gv()));
 						// SCFX.getText(nameuh).setText("Hold : " +);
 						// SCFX.getText(namec).setText("Credits : " +);
+						//2 down 2 togo
 					} catch (NonExistantDataException e)
 					{
 						e.printStackTrace();
