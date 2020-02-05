@@ -8,12 +8,13 @@ import hart.Valkyrie.exceptions.NonExistantDataException;
 import hart.Valkyrie.objects.EventButtonManager;
 import hart.Valkyrie.traveling.resources.Sellable;
 import hart.Valkyrie.util.BWindow;
+import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.ScrollBar;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -77,11 +78,12 @@ public class Market extends BWindow
 		for (int x = 0; x != sellables.size(); x++)
 		{
 			String name = "GN" + x;
-
 			String nameb = "GB" + x;
+			String namesc = "GS" + x;
+			String namesh = "GSH" + x;
+			String nameuh = "GUH" + x;
+			String namec = "GC" + x;
 
-			SCFX.makeText(name, new Text(sellables.get(x).getName()), "Normal");
-			
 			ScrollBar sc = new ScrollBar();
 			sc.setMin(0);
 			sc.setMax(sellables.get(x).getQty());
@@ -89,12 +91,40 @@ public class Market extends BWindow
 			sc.setOrientation(Orientation.HORIZONTAL);
 			sc.setUnitIncrement(1);
 			sc.setBlockIncrement(1);
-			
+			sc.setOnMouseMoved(new EventHandler<MouseEvent>()
+			{
+
+				@Override
+				public void handle(MouseEvent event)
+				{
+					try
+					{
+						SCFX.getText(namesc).setText("Buying : " + gv());
+						// SCFX.getText(namesh).setText("Shop : " +);
+						// SCFX.getText(nameuh).setText("Hold : " +);
+						// SCFX.getText(namec).setText("Credits : " +);
+					} catch (NonExistantDataException e)
+					{
+						e.printStackTrace();
+					}
+				}
+
+				public int gv()
+				{
+					return (int) sc.getValue();
+				}
+
+			});
+
+			SCFX.makeText(name, new Text(sellables.get(x).getName()), "Normal");
+			SCFX.makeText(namesc, new Text("Buying : " + sc.getValue()), "Normal");
+
 			ebm.makeButton(nameb, new Button("Buy"));
-			
-			cAddRow(SCFX.getText(name), ebm.getButton(nameb), sc);
+
+			cAddRow(SCFX.getText(name), ebm.getButton(nameb), sc, new Text("Hold : "), new Text("Shop : "),
+					new Text("Credits : "), SCFX.getText(namesc));
 		}
-		
+
 		scene = new Scene(pHUD, SCFX.getRes("width"), SCFX.getRes("height"));
 	}
 
@@ -106,19 +136,28 @@ public class Market extends BWindow
 		stage.show();
 	}
 
-	public void cAddRow(Text name, Button b, ScrollBar sb)
+	public void cAddRow(Text name, Button b, ScrollBar sb, Text hold, Text shop, Text cred, Text buying)
 	{
 		BorderPane row = new BorderPane();
 		VBox left = new VBox();
 		VBox right = new VBox();
+		HBox rightSC = new HBox();
 
-		left.setAlignment(Pos.CENTER_LEFT);
+		left.setAlignment(Pos.CENTER_RIGHT);
 		left.setSpacing(5);
 		left.getChildren().add(name);
 
-		right.setAlignment(Pos.CENTER_RIGHT);
+		rightSC.setAlignment(Pos.CENTER);
+		rightSC.setSpacing(5);
+		rightSC.getChildren().add(hold);
+		rightSC.getChildren().add(sb);
+		rightSC.getChildren().add(shop);
+
+		right.setAlignment(Pos.CENTER_LEFT);
 		right.setSpacing(5);
-		right.getChildren().add(sb);
+		right.getChildren().add(cred);
+		right.getChildren().add(rightSC);
+		right.getChildren().add(buying);
 		right.getChildren().add(b);
 
 		row.setLeft(left);
