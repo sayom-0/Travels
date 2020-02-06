@@ -28,7 +28,7 @@ import hart.Valkyrie.traveling.resources.planet.Planet;
 
 public class Runtime extends Application
 {
-	final static String v = "Alpha 10.2";
+	final static String v = "Alpha 10.7";
 	VBox head;
 	ScreenControllerFX SCFX;
 	EventButtonManager ebm;
