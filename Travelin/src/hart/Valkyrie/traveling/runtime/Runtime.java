@@ -6,7 +6,7 @@ import hart.Valkyrie.SCFX.ScreenControllerFX;
 import hart.Valkyrie.exceptions.DuplicateNameException;
 import hart.Valkyrie.exceptions.IllegalDimensionsException;
 import hart.Valkyrie.exceptions.NonExistantDataException;
-import hart.Valkyrie.objects.EventButtonManager;
+import hart.Valkyrie.objects.EventNodeManager;
 import hart.Valkyrie.traveling.exceptions.InvalidMetaLinkException;
 import hart.Valkyrie.util.Utils;
 import javafx.application.Application;
@@ -31,7 +31,7 @@ public class Runtime extends Application
 	final static String v = "Alpha 10.7";
 	VBox head;
 	ScreenControllerFX SCFX;
-	EventButtonManager ebm;
+	EventNodeManager<Button> ebm;
 	Map map;
 	LinkedList<Text> maptextarray;
 	BorderPane HUD;
@@ -71,7 +71,7 @@ public class Runtime extends Application
 		inv = new VBox();
 		map = new Map('#', '=', 'O', '8', '*', 70, 20);
 		SCFX = new ScreenControllerFX(1000, 600);
-		ebm = new EventButtonManager();
+		ebm = new EventNodeManager();
 		ebm.makeButton("mUP", new Button("Up"), new EventHandler<ActionEvent>()
 		{
 			@Override

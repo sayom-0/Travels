@@ -4,7 +4,7 @@ import hart.Valkyrie.SCFX.ScreenControllerFX;
 import hart.Valkyrie.exceptions.DuplicateNameException;
 import hart.Valkyrie.exceptions.IllegalDimensionsException;
 import hart.Valkyrie.exceptions.NonExistantDataException;
-import hart.Valkyrie.objects.EventButtonManager;
+import hart.Valkyrie.objects.EventNodeManager;
 import hart.Valkyrie.traveling.resources.Player;
 import hart.Valkyrie.traveling.resources.interaction.Explore;
 import hart.Valkyrie.traveling.resources.interaction.Market;
@@ -40,6 +40,7 @@ public class Planet extends BWindow
 	private HBox header;
 	private VBox center;
 	private HBox bt;
+	private EventNodeManager<Button> ebm;
 
 	public Planet(String name, char planetChar, int x, int y, boolean explore, boolean market, int risk, char pClass,
 			String marketType, Player ply) throws IllegalDimensionsException, DuplicateNameException, NonExistantDataException
@@ -55,7 +56,7 @@ public class Planet extends BWindow
 		this.pClass = pClass;
 		this.marketType = marketType;
 		SCFX = new ScreenControllerFX(400, 600);
-		ebm = new EventButtonManager();
+		ebm = new EventNodeManager();
 		SCFX.makeFont("Title", Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
 		SCFX.makeFont("SubTitle", Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 15));
 		SCFX.makeText("Title", new Text(name), "Title");

@@ -5,7 +5,7 @@ import hart.Valkyrie.SCFX.ScreenControllerFX;
 import hart.Valkyrie.exceptions.DuplicateNameException;
 import hart.Valkyrie.exceptions.IllegalDimensionsException;
 import hart.Valkyrie.exceptions.NonExistantDataException;
-import hart.Valkyrie.objects.EventButtonManager;
+import hart.Valkyrie.objects.EventNodeManager;
 import hart.Valkyrie.traveling.resources.Player;
 import hart.Valkyrie.traveling.resources.Sellable;
 import hart.Valkyrie.util.BWindow;
@@ -31,6 +31,7 @@ public class Market extends BWindow
 	private VBox header;
 	private VBox centre;
 	private BorderPane pHUD;
+	private EventNodeManager<Button> ebm;
 
 	public Market(String v, Player p)
 			throws IllegalDimensionsException, DuplicateNameException, NonExistantDataException
@@ -56,7 +57,7 @@ public class Market extends BWindow
 		}
 
 		SCFX = new ScreenControllerFX(500, 500);
-		ebm = new EventButtonManager();
+		ebm = new EventNodeManager();
 		SCFX.makeFont("Title", Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
 		SCFX.makeFont("SubTitle", Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 15));
 		SCFX.makeFont("Normal", Font.font("verdana", FontWeight.NORMAL, FontPosture.REGULAR, 12));
