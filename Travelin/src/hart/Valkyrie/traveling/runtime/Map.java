@@ -8,8 +8,8 @@ import hart.Valkyrie.exceptions.NonExistantDataException;
 import hart.Valkyrie.objects.Reversable;
 import hart.Valkyrie.objects.NamedLists.NamedArrayList;
 import hart.Valkyrie.traveling.exceptions.InvalidMetaLinkException;
-import hart.Valkyrie.traveling.resources.Item;
 import hart.Valkyrie.traveling.resources.Player;
+import hart.Valkyrie.traveling.resources.Sellable;
 import hart.Valkyrie.traveling.resources.meta.MetaLink;
 import hart.Valkyrie.traveling.resources.planet.Planet;
 import hart.Valkyrie.util.TextGenerator;
@@ -59,7 +59,7 @@ public class Map
 				"Valkyrie");
 	}
 
-	public NamedArrayList<Item> getPlayerInv()
+	public NamedArrayList<Sellable> getPlayerInv()
 	{
 		return ply.getInv();
 	}
@@ -153,7 +153,7 @@ public class Map
 			char pClass, String mt) throws DuplicateNameException, IllegalDimensionsException, NonExistantDataException
 	{
 		metaMap[x][y] = new MetaLink("Planet", planetArray.size());
-		planetArray.add(new Planet(name, planetChar, x, y, explore, market, risk, pClass, mt));
+		planetArray.add(new Planet(name, planetChar, x, y, explore, market, risk, pClass, mt, ply));
 
 	}
 

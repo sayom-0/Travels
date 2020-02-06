@@ -5,8 +5,7 @@ import hart.Valkyrie.exceptions.DuplicateNameException;
 import hart.Valkyrie.exceptions.IllegalDimensionsException;
 import hart.Valkyrie.exceptions.NonExistantDataException;
 import hart.Valkyrie.objects.EventButtonManager;
-import hart.Valkyrie.objects.NamedLists.NamedArrayList;
-import hart.Valkyrie.traveling.resources.Item;
+import hart.Valkyrie.traveling.resources.Player;
 import hart.Valkyrie.traveling.resources.interaction.Explore;
 import hart.Valkyrie.traveling.resources.interaction.Market;
 import hart.Valkyrie.util.BWindow;
@@ -29,7 +28,6 @@ public class Planet extends BWindow
 {
 	private String name;
 	private char planetChar;
-	private NamedArrayList<Item> inv;
 	private int x;
 	private int y;
 	private boolean explore;
@@ -44,7 +42,7 @@ public class Planet extends BWindow
 	private HBox bt;
 
 	public Planet(String name, char planetChar, int x, int y, boolean explore, boolean market, int risk, char pClass,
-			String marketType) throws IllegalDimensionsException, DuplicateNameException, NonExistantDataException
+			String marketType, Player ply) throws IllegalDimensionsException, DuplicateNameException, NonExistantDataException
 	{
 		super();
 		this.name = name;
@@ -78,7 +76,7 @@ public class Planet extends BWindow
 
 		if (market)
 		{
-			mk = new Market(marketType);
+			mk = new Market(marketType, ply);
 			ebm.makeButton("oMarket", new Button("Enter the Market"), new EventHandler<ActionEvent>()
 			{
 
@@ -137,16 +135,6 @@ public class Planet extends BWindow
 	public String getName()
 	{
 		return name;
-	}
-
-	public NamedArrayList<Item> getInv()
-	{
-		return inv;
-	}
-
-	public void setInv(NamedArrayList<Item> inv)
-	{
-		this.inv = inv;
 	}
 
 	public int getX()

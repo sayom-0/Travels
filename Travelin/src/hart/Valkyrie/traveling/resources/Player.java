@@ -14,7 +14,7 @@ public class Player
 	private char playerChar;
 	private int x;
 	private int y;
-	private NamedArrayList<Item> inv;
+	private NamedArrayList<Sellable> inv;
 	private int x_old;
 	private int y_old;
 	public Ship ship;
@@ -25,21 +25,21 @@ public class Player
 		this.playerChar = playerChar;
 		this.x = x;
 		this.y = y;
-		inv = new NamedArrayList<Item>();
+		inv = new NamedArrayList<>();
 		x_old = x;
 		y_old = y;
-		inv.add("Coins", new Item("Coins", 5));
+		inv.add("Credits", new Sellable("Credits", 50, Sellable.coincost));
 		ship = new Ship(name, new Armor(15, 20, 30), new Engine(15, 20, 30), new Shields(15, 20, 30), new WeaponSet(15, 20, 30), new Tank(15, 20, 30, 0));
 	}
 
-	public Player(char playerChar, int x, int y, String name, NamedArrayList<Item> inv)
+	public Player(char playerChar, int x, int y, String name, NamedArrayList<Sellable> inv)
 	{
 		super();
 		this.playerChar = playerChar;
 		this.x = x;
 		this.y = y;
 		this.inv = inv;
-		inv = new NamedArrayList<Item>();
+		inv = new NamedArrayList<>();
 		x_old = x;
 		y_old = y;
 		ship = new Ship(name, new Armor(15, 20, 30), new Engine(15, 20, 30), new Shields(15, 20, 30), new WeaponSet(15, 20, 30), new Tank(15, 20, 30, 0));
@@ -103,20 +103,9 @@ public class Player
 		this.y_old = y_old;
 	}
 
-	public NamedArrayList<Item> getInv()
+	public NamedArrayList<Sellable> getInv()
 	{
 		return inv;
-	}
-
-	public void addInv(Item item)
-	{
-		try
-		{
-			inv.add(item.getName(), item);
-		} catch (DuplicateNameException e)
-		{
-			e.printStackTrace();
-		}
 	}
 
 }

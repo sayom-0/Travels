@@ -5,6 +5,7 @@ public class Sellable
 	private String name;
 	private int qty;
 	private int cost;
+	public static final int coincost = 1;
 
 	public Sellable(String name, int qty, int cost)
 	{
