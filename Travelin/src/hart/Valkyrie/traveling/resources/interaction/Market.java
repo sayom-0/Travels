@@ -57,7 +57,7 @@ public class Market extends BWindow
 		}
 
 		SCFX = new ScreenControllerFX(500, 500);
-		ebm = new EventNodeManager<Button>(".setOnActionEvent");
+		ebm = new EventNodeManager<Button>(".setOnAction");
 		SCFX.makeFont("Title", Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
 		SCFX.makeFont("SubTitle", Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 15));
 		SCFX.makeFont("Normal", Font.font("verdana", FontWeight.NORMAL, FontPosture.REGULAR, 12));

@@ -71,7 +71,7 @@ public class Runtime extends Application
 		inv = new VBox();
 		map = new Map('#', '=', 'O', '8', '*', 70, 20);
 		SCFX = new ScreenControllerFX(1000, 600);
-		ebm = new EventNodeManager<Button>(".setOnActionEvent");
+		ebm = new EventNodeManager<Button>(".setOnAction");
 		ebm.makeButton("mUP", new Button("Up"), new EventHandler<ActionEvent>()
 		{
 			@Override
