@@ -56,7 +56,7 @@ public class Planet extends BWindow
 		this.pClass = pClass;
 		this.marketType = marketType;
 		SCFX = new ScreenControllerFX(400, 600);
-		ebm = new EventNodeManager();
+		ebm = new EventNodeManager<Button>(".setOnActionEvent");
 		SCFX.makeFont("Title", Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
 		SCFX.makeFont("SubTitle", Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 15));
 		SCFX.makeText("Title", new Text(name), "Title");
