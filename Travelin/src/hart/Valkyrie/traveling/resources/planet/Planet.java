@@ -43,7 +43,7 @@ public class Planet extends BWindow
 	private EventNodeManager<Button> ebm;
 
 	public Planet(String name, char planetChar, int x, int y, boolean explore, boolean market, int risk, char pClass,
-			String marketType, Player ply) throws IllegalDimensionsException, DuplicateNameException, NonExistantDataException
+			String marketType, Player ply) throws IllegalDimensionsException, DuplicateNameException, NonExistantDataException, ClassNotFoundException, InstantiationException, IllegalAccessException
 	{
 		super();
 		this.name = name;
@@ -56,7 +56,7 @@ public class Planet extends BWindow
 		this.pClass = pClass;
 		this.marketType = marketType;
 		SCFX = new ScreenControllerFX(400, 600);
-		ebm = new EventNodeManager<Button>(".setOnAction");
+		ebm = new EventNodeManager<Button>("setOnAction");
 		SCFX.makeFont("Title", Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
 		SCFX.makeFont("SubTitle", Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 15));
 		SCFX.makeText("Title", new Text(name), "Title");
