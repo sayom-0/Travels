@@ -1,5 +1,7 @@
 package hart.Valkyrie.traveling.resources.planet;
 
+import java.io.IOException;
+
 import hart.Valkyrie.SCFX.ScreenControllerFX;
 import hart.Valkyrie.exceptions.DuplicateNameException;
 import hart.Valkyrie.exceptions.IllegalDimensionsException;
@@ -43,7 +45,7 @@ public class Planet extends BWindow
 	private EventNodeManager<Button> ebm;
 
 	public Planet(String name, char planetChar, int x, int y, boolean explore, boolean market, int risk, char pClass,
-			String marketType, Player ply) throws IllegalDimensionsException, DuplicateNameException, NonExistantDataException, ClassNotFoundException, InstantiationException, IllegalAccessException
+			String marketType, Player ply) throws IllegalDimensionsException, DuplicateNameException, NonExistantDataException, ClassNotFoundException, InstantiationException, IllegalAccessException, IOException
 	{
 		super();
 		this.name = name;

@@ -1,5 +1,6 @@
 package hart.Valkyrie.traveling.resources.interaction;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import hart.Valkyrie.SCFX.ScreenControllerFX;
 import hart.Valkyrie.exceptions.DuplicateNameException;
@@ -34,7 +35,7 @@ public class Market extends BWindow
 	private EventNodeManager<Button> ebm;
 
 	public Market(String v, Player p)
-			throws IllegalDimensionsException, DuplicateNameException, NonExistantDataException
+			throws IllegalDimensionsException, DuplicateNameException, NonExistantDataException, IOException
 	{
 		switch (v)
 		{

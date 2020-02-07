@@ -1,5 +1,6 @@
 package hart.Valkyrie.traveling.runtime;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import hart.Valkyrie.SCFX.ScreenControllerFX;
@@ -52,7 +53,7 @@ public class Runtime extends Application
 	String pName;
 
 	@Override
-	public void start(Stage stage) throws DuplicateNameException, IllegalDimensionsException, NonExistantDataException, ClassNotFoundException, InstantiationException, IllegalAccessException
+	public void start(Stage stage) throws DuplicateNameException, IllegalDimensionsException, NonExistantDataException, ClassNotFoundException, InstantiationException, IllegalAccessException, IOException
 	{
 		pName = "N/A";
 		subHead = new BorderPane();
@@ -84,7 +85,7 @@ public class Runtime extends Application
 					pStat();
 					reDraw();
 				} catch (NonExistantDataException | DuplicateNameException | IllegalDimensionsException
-						| InvalidMetaLinkException | ClassNotFoundException | InstantiationException | IllegalAccessException e1)
+						| InvalidMetaLinkException | ClassNotFoundException | InstantiationException | IllegalAccessException | IOException e1)
 				{
 					e1.printStackTrace();
 				}
@@ -103,7 +104,7 @@ public class Runtime extends Application
 					pStat();
 					reDraw();
 				} catch (NonExistantDataException | DuplicateNameException | IllegalDimensionsException
-						| InvalidMetaLinkException | ClassNotFoundException | InstantiationException | IllegalAccessException e1)
+						| InvalidMetaLinkException | ClassNotFoundException | InstantiationException | IllegalAccessException | IOException e1)
 				{
 					e1.printStackTrace();
 				}
@@ -122,7 +123,7 @@ public class Runtime extends Application
 					pStat();
 					reDraw();
 				} catch (NonExistantDataException | DuplicateNameException | IllegalDimensionsException
-						| InvalidMetaLinkException | ClassNotFoundException | InstantiationException | IllegalAccessException e1)
+						| InvalidMetaLinkException | ClassNotFoundException | InstantiationException | IllegalAccessException | IOException e1)
 				{
 					e1.printStackTrace();
 				}
@@ -141,7 +142,7 @@ public class Runtime extends Application
 					pStat();
 					reDraw();
 				} catch (NonExistantDataException | DuplicateNameException | IllegalDimensionsException
-						| InvalidMetaLinkException | ClassNotFoundException | InstantiationException | IllegalAccessException e1)
+						| InvalidMetaLinkException | ClassNotFoundException | InstantiationException | IllegalAccessException | IOException e1)
 				{
 					e1.printStackTrace();
 				}
@@ -186,7 +187,7 @@ public class Runtime extends Application
 					map.setStatus("");
 					reDraw();
 				} catch (NonExistantDataException | InvalidMetaLinkException | DuplicateNameException
-						| IllegalDimensionsException | ClassNotFoundException | InstantiationException | IllegalAccessException e)
+						| IllegalDimensionsException | ClassNotFoundException | InstantiationException | IllegalAccessException | IOException e)
 				{
 					e.printStackTrace();
 				}
@@ -320,7 +321,7 @@ public class Runtime extends Application
 	}
 
 	public void reDraw() throws NonExistantDataException, DuplicateNameException, IllegalDimensionsException,
-			InvalidMetaLinkException, ClassNotFoundException, InstantiationException, IllegalAccessException
+			InvalidMetaLinkException, ClassNotFoundException, InstantiationException, IllegalAccessException, IOException
 	{
 		map.updPlyCords(local_Planet);
 		HUDCTL();
