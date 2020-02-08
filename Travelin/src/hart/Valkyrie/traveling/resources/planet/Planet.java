@@ -83,7 +83,7 @@ public class Planet extends BWindow
 		if (market)
 		{
 			mk = new Market(marketType, ply);
-			ebm.makeNode("oMarket", new Button("Enter the Market"), new EventHandler<ActionEvent>()
+			bt.getChildren().add(ebm.makeNode("oMarket", new Button("Enter the Market"), new EventHandler<ActionEvent>()
 			{
 
 				@Override
@@ -99,31 +99,30 @@ public class Planet extends BWindow
 					}
 				}
 
-			});
-			bt.getChildren().add(ebm.getNode("oMarket"));
+			}));
 		}
 
 		if (explore)
 		{
 			ex = new Explore(pClass);
-			ebm.makeNode("oExplore", new Button("Explore the Planet"), new EventHandler<ActionEvent>()
-			{
-
-				@Override
-				public void handle(ActionEvent event)
-				{
-					try
+			bt.getChildren()
+					.add(ebm.makeNode("oExplore", new Button("Explore the Planet"), new EventHandler<ActionEvent>()
 					{
-						ex.window();
-					} catch (Exception e)
-					{
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
 
-			});
-			bt.getChildren().add(ebm.getNode("oExplore"));
+						@Override
+						public void handle(ActionEvent event)
+						{
+							try
+							{
+								ex.window();
+							} catch (Exception e)
+							{
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
+
+					}));
 		}
 
 	}

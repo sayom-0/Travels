@@ -55,7 +55,8 @@ public class Runtime extends Application
 	String pName;
 
 	@Override
-	public void start(Stage stage) throws DuplicateNameException, IllegalDimensionsException, NonExistantDataException, ClassNotFoundException, InstantiationException, IllegalAccessException, IOException
+	public void start(Stage stage) throws DuplicateNameException, IllegalDimensionsException, NonExistantDataException,
+			ClassNotFoundException, InstantiationException, IllegalAccessException, IOException
 	{
 		pName = "N/A";
 		subHead = new BorderPane();
@@ -75,81 +76,6 @@ public class Runtime extends Application
 		map = new Map('#', '=', 'O', '8', '*', 70, 20);
 		SCFX = new ScreenControllerFX(1000, 600);
 		ebm = new EventNodeManager<>(new ButtonLinker());
-		ebm.makeNode("mUP", new Button("Up"), new EventHandler<ActionEvent>()
-		{
-			@Override
-			public void handle(ActionEvent e)
-			{
-				map.ply.setY(map.ply.getY() - 1);
-				map.ply.setX(map.ply.getX());
-				try
-				{
-					pStat();
-					reDraw();
-				} catch (NonExistantDataException | DuplicateNameException | IllegalDimensionsException
-						| InvalidMetaLinkException | ClassNotFoundException | InstantiationException | IllegalAccessException | IOException e1)
-				{
-					e1.printStackTrace();
-				}
-			}
-		});
-
-		ebm.makeNode("mDown", new Button("Down"), new EventHandler<ActionEvent>()
-		{
-			@Override
-			public void handle(ActionEvent e)
-			{
-				map.ply.setY(map.ply.getY() + 1);
-				map.ply.setX(map.ply.getX());
-				try
-				{
-					pStat();
-					reDraw();
-				} catch (NonExistantDataException | DuplicateNameException | IllegalDimensionsException
-						| InvalidMetaLinkException | ClassNotFoundException | InstantiationException | IllegalAccessException | IOException e1)
-				{
-					e1.printStackTrace();
-				}
-			}
-		});
-
-		ebm.makeNode("mLeft", new Button("Left"), new EventHandler<ActionEvent>()
-		{
-			@Override
-			public void handle(ActionEvent e)
-			{
-				map.ply.setX(map.ply.getX() - 1);
-				map.ply.setY(map.ply.getY());
-				try
-				{
-					pStat();
-					reDraw();
-				} catch (NonExistantDataException | DuplicateNameException | IllegalDimensionsException
-						| InvalidMetaLinkException | ClassNotFoundException | InstantiationException | IllegalAccessException | IOException e1)
-				{
-					e1.printStackTrace();
-				}
-			}
-		});
-
-		ebm.makeNode("mRight", new Button("Right"), new EventHandler<ActionEvent>()
-		{
-			@Override
-			public void handle(ActionEvent e)
-			{
-				map.ply.setX(map.ply.getX() + 1);
-				map.ply.setY(map.ply.getY());
-				try
-				{
-					pStat();
-					reDraw();
-				} catch (NonExistantDataException | DuplicateNameException | IllegalDimensionsException
-						| InvalidMetaLinkException | ClassNotFoundException | InstantiationException | IllegalAccessException | IOException e1)
-				{
-					e1.printStackTrace();
-				}
-			}
-		});
 
 		ebm.makeNode("iLand", new Button("Land"), new EventHandler<ActionEvent>()
 		{
@@ -189,7 +115,8 @@ public class Runtime extends Application
 					map.setStatus("");
 					reDraw();
 				} catch (NonExistantDataException | InvalidMetaLinkException | DuplicateNameException
-						| IllegalDimensionsException | ClassNotFoundException | InstantiationException | IllegalAccessException | IOException e)
+						| IllegalDimensionsException | ClassNotFoundException | InstantiationException
+						| IllegalAccessException | IOException e)
 				{
 					e.printStackTrace();
 				}
@@ -198,24 +125,8 @@ public class Runtime extends Application
 		});
 		SCFX.makeFont("Title", Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
 		SCFX.makeFont("SubTitle", Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 15));
-		SCFX.makeFont("Map Text", Font.font("verdana", FontWeight.THIN, FontPosture.REGULAR, 10));
-		
-		SCFX.makeText("InvTitle", new Text("Inventory"), "Title");
-		SCFX.makeText("LogTitle", new Text("Events"), "Title");
-		SCFX.makeText("Info", new Text("Information"), "Title");
-		SCFX.makeText("GTitle", new Text("Traveling Version " + v), "Title");
-		SCFX.makeText("Ship", new Text("Ship"), "Title");
-		SCFX.makeText("Planet", new Text("Planet"), "Title");
-		SCFX.makeText("sName", new Text("Ship Name : " + map.ply.ship.getTitle()), "SubTitle");
-		SCFX.makeText("pName", new Text("Planet Name : N/A"), "SubTitle");
-		SCFX.makeText("pClass", new Text("Planet Class : N/A"), "SubTitle");
-		SCFX.makeText("pRisk", new Text("Risk : N/A"), "SubTitle");
-		SCFX.makeText("pMarket", new Text("Market : N/A"), "SubTitle");
-		SCFX.makeText("pExplore", new Text("Explorable : N/A"), "SubTitle");
-		SCFX.makeText("sDang", new Text("Dangometer : " + map.getSectorRisk()), "SubTitle");
-		SCFX.makeText("sHealth", new Text("Health : " + map.ply.ship.getHealth()), "SubTitle");
-		SCFX.makeText("sRange", new Text("Range : " + map.ply.ship.getRange()), "SubTitle");
-		
+		SCFX.makeFont("Map Text", Font.font("verdana", FontWeight.THIN, FontPosture.REGULAR, 25));
+
 		subHead.setLeft(subHeadLeft);
 		subHead.setRight(subHeadRight);
 
@@ -225,25 +136,29 @@ public class Runtime extends Application
 		subHeadRight.setAlignment(Pos.CENTER_RIGHT);
 		subHeadRight.setSpacing(5);
 
-		subHeadLeft.getChildren().add(SCFX.getText("Ship"));
-		subHeadLeft.getChildren().add(SCFX.getText("sName"));
-		subHeadLeft.getChildren().add(SCFX.getText("sDang"));
-		subHeadLeft.getChildren().add(SCFX.getText("sHealth"));
-		subHeadLeft.getChildren().add(SCFX.getText("sRange"));
+		subHeadLeft.getChildren().add(SCFX.makeText("Ship", new Text("Ship"), "Title"));
+		subHeadLeft.getChildren()
+				.add(SCFX.makeText("sName", new Text("Ship Name : " + map.ply.ship.getTitle()), "SubTitle"));
+		subHeadLeft.getChildren()
+				.add(SCFX.makeText("sDang", new Text("Dangometer : " + map.getSectorRisk()), "SubTitle"));
+		subHeadLeft.getChildren()
+				.add(SCFX.makeText("sHealth", new Text("Health : " + map.ply.ship.getHealth()), "SubTitle"));
+		subHeadLeft.getChildren()
+				.add(SCFX.makeText("sRange", new Text("Range : " + map.ply.ship.getRange()), "SubTitle"));
 
-		subHeadRight.getChildren().add(SCFX.getText("Planet"));
-		subHeadRight.getChildren().add(SCFX.getText("pName"));
-		subHeadRight.getChildren().add(SCFX.getText("pClass"));
-		subHeadRight.getChildren().add(SCFX.getText("pRisk"));
-		subHeadRight.getChildren().add(SCFX.getText("pMarket"));
-		subHeadRight.getChildren().add(SCFX.getText("pExplore"));
+		subHeadRight.getChildren().add(SCFX.makeText("Planet", new Text("Planet"), "Title"));
+		subHeadRight.getChildren().add(SCFX.makeText("pName", new Text("Planet Name : N/A"), "SubTitle"));
+		subHeadRight.getChildren().add(SCFX.makeText("pClass", new Text("Planet Class : N/A"), "SubTitle"));
+		subHeadRight.getChildren().add(SCFX.makeText("pRisk", new Text("Risk : N/A"), "SubTitle"));
+		subHeadRight.getChildren().add(SCFX.makeText("pMarket", new Text("Market : N/A"), "SubTitle"));
+		subHeadRight.getChildren().add(SCFX.makeText("pExplore", new Text("Explorable : N/A"), "SubTitle"));
 
-		head.getChildren().add(SCFX.getText("GTitle"));
+		head.getChildren().add(SCFX.makeText("GTitle", new Text("Traveling Version " + v), "Title"));
 		head.getChildren().add(subHead);
 		head.setAlignment(Pos.CENTER);
 		head.setSpacing(30);
 		HUD.setTop(head);
-		inv.getChildren().add(SCFX.getText("InvTitle"));
+		inv.getChildren().add(SCFX.makeText("InvTitle", new Text("Inventory"), "Title"));
 		inv.getChildren().add(new Text(map.getPlayerInv().toString()));
 		HUD.setCenter(maptext);
 		maptext.setAlignment(Pos.CENTER);
@@ -252,12 +167,83 @@ public class Runtime extends Application
 		map.generate();
 		mBG.setSpacing(20);
 		mBG.setPadding(new Insets(15, 15, 15, 15));
-		mBG.getChildren().addAll(ebm.getNode("mUP"), ebm.getNode("mDown"), ebm.getNode("mLeft"),
-				ebm.getNode("mRight"));
+		mBG.getChildren().addAll(ebm.makeNode("mUP", new Button("Up"), new EventHandler<ActionEvent>()
+		{
+			@Override
+			public void handle(ActionEvent e)
+			{
+				map.ply.setY(map.ply.getY() - 1);
+				map.ply.setX(map.ply.getX());
+				try
+				{
+					pStat();
+					reDraw();
+				} catch (NonExistantDataException | DuplicateNameException | IllegalDimensionsException
+						| InvalidMetaLinkException | ClassNotFoundException | InstantiationException
+						| IllegalAccessException | IOException e1)
+				{
+					e1.printStackTrace();
+				}
+			}
+		}), ebm.makeNode("mDown", new Button("Down"), new EventHandler<ActionEvent>()
+		{
+			@Override
+			public void handle(ActionEvent e)
+			{
+				map.ply.setY(map.ply.getY() + 1);
+				map.ply.setX(map.ply.getX());
+				try
+				{
+					pStat();
+					reDraw();
+				} catch (NonExistantDataException | DuplicateNameException | IllegalDimensionsException
+						| InvalidMetaLinkException | ClassNotFoundException | InstantiationException
+						| IllegalAccessException | IOException e1)
+				{
+					e1.printStackTrace();
+				}
+			}
+		}), ebm.makeNode("mLeft", new Button("Left"), new EventHandler<ActionEvent>()
+		{
+			@Override
+			public void handle(ActionEvent e)
+			{
+				map.ply.setX(map.ply.getX() - 1);
+				map.ply.setY(map.ply.getY());
+				try
+				{
+					pStat();
+					reDraw();
+				} catch (NonExistantDataException | DuplicateNameException | IllegalDimensionsException
+						| InvalidMetaLinkException | ClassNotFoundException | InstantiationException
+						| IllegalAccessException | IOException e1)
+				{
+					e1.printStackTrace();
+				}
+			}
+		}), ebm.makeNode("mRight", new Button("Right"), new EventHandler<ActionEvent>()
+		{
+			@Override
+			public void handle(ActionEvent e)
+			{
+				map.ply.setX(map.ply.getX() + 1);
+				map.ply.setY(map.ply.getY());
+				try
+				{
+					pStat();
+					reDraw();
+				} catch (NonExistantDataException | DuplicateNameException | IllegalDimensionsException
+						| InvalidMetaLinkException | ClassNotFoundException | InstantiationException
+						| IllegalAccessException | IOException e1)
+				{
+					e1.printStackTrace();
+				}
+			}
+		}));
 		mBG.setAlignment(Pos.CENTER);
 		lG.setAlignment(Pos.TOP_LEFT);
 		HUD.setBottom(mBG);
-		lGt.getChildren().add(SCFX.getText("LogTitle"));
+		lGt.getChildren().add(SCFX.makeText("LogTitle", new Text("Events"), "Title"));
 		lGt.getChildren().add(lG);
 		HUD.setRight(lGt);
 		lG.getChildren().add(new Text("gamestart"));
@@ -323,7 +309,8 @@ public class Runtime extends Application
 	}
 
 	public void reDraw() throws NonExistantDataException, DuplicateNameException, IllegalDimensionsException,
-			InvalidMetaLinkException, ClassNotFoundException, InstantiationException, IllegalAccessException, IOException
+			InvalidMetaLinkException, ClassNotFoundException, InstantiationException, IllegalAccessException,
+			IOException
 	{
 		map.updPlyCords(local_Planet);
 		HUDCTL();
@@ -386,8 +373,7 @@ public class Runtime extends Application
 				mBG.getChildren().remove(ebm.getNode("iLaunch"));
 			}
 
-			if (!mBG.getChildren().contains(ebm.getNode("mUP"))
-					&& !mBG.getChildren().contains(ebm.getNode("mRight"))
+			if (!mBG.getChildren().contains(ebm.getNode("mUP")) && !mBG.getChildren().contains(ebm.getNode("mRight"))
 					&& !mBG.getChildren().contains(ebm.getNode("mLeft"))
 					&& !mBG.getChildren().contains(ebm.getNode("mDown")))
 			{
