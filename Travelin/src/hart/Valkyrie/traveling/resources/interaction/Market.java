@@ -9,6 +9,7 @@ import hart.Valkyrie.exceptions.NonExistantDataException;
 import hart.Valkyrie.objects.eventbuttonmanager.EventNodeManager;
 import hart.Valkyrie.traveling.resources.ButtonLinker;
 import hart.Valkyrie.traveling.resources.Player;
+import hart.Valkyrie.traveling.resources.ScrollBarLinker;
 import hart.Valkyrie.traveling.resources.Sellable;
 import hart.Valkyrie.util.BWindow;
 import javafx.event.ActionEvent;
@@ -35,6 +36,7 @@ public class Market extends BWindow
 	private VBox centre;
 	private BorderPane pHUD;
 	private EventNodeManager<Button, ActionEvent, ButtonLinker> ebm;
+	private EventNodeManager<ScrollBar, MouseEvent, ScrollBarLinker> esm;
 
 	public Market(String v, Player p)
 			throws IllegalDimensionsException, DuplicateNameException, NonExistantDataException, IOException
@@ -61,6 +63,7 @@ public class Market extends BWindow
 
 		SCFX = new ScreenControllerFX(500, 500);
 		ebm = new EventNodeManager<>(new ButtonLinker());
+		esm = new EventNodeManager<>(new ScrollBarLinker());
 		SCFX.makeFont("Title", Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
 		SCFX.makeFont("SubTitle", Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 15));
 		SCFX.makeFont("Normal", Font.font("verdana", FontWeight.NORMAL, FontPosture.REGULAR, 12));
@@ -89,22 +92,9 @@ public class Market extends BWindow
 			String namesh = "GSH" + x;
 			String nameuh = "GUH" + x;
 			String namec = "GC" + x;
+			String namesb = "GSB" + x;
 
-			ScrollBar sc = new ScrollBar();
-			sc.setMin(0);
-			sc.setMax(sellables.get(x).getQty());
-			try
-			{
-				sc.setValue(p.getInv().get(sellables.get(x).getName()).getQty());
-			} catch (NonExistantDataException e1)
-			{
-				System.out.println(p.getInv() + " Does not contain " + sellables.get(x) + " setting 0");
-				sc.setValue(0);
-			}
-			sc.setOrientation(Orientation.HORIZONTAL);
-			sc.setUnitIncrement(1);
-			sc.setBlockIncrement(1);
-			sc.setOnMouseMoved(new EventHandler<MouseEvent>()
+			esm.makeNode(namesb, new ScrollBar(), new EventHandler<MouseEvent>()
 			{
 
 				@Override
@@ -128,22 +118,34 @@ public class Market extends BWindow
 						}
 
 						SCFX.getText(namec).setText("Credits : ");
-						// 2 down 2 togo
 					} catch (NonExistantDataException e)
 					{
 						e.printStackTrace();
 					}
 				}
 
-				public int gv()
+				public int gv() throws NonExistantDataException
 				{
-					return (int) sc.getValue();
+					return (int) esm.getNode(namesb).getValue();
 				}
 
-			});
+			}).setMin(0);
+			esm.getNode(namesb).setMax(sellables.get(x).getQty());
+
+			try
+			{
+				esm.getNode(namesb).setValue(p.getInv().get(sellables.get(x).getName()).getQty());
+			} catch (NonExistantDataException e1)
+			{
+				System.out.println(p.getInv() + " Does not contain " + sellables.get(x) + " setting 0");
+				esm.getNode(namesb).setValue(0);
+			}
+			esm.getNode(namesb).setOrientation(Orientation.HORIZONTAL);
+			esm.getNode(namesb).setUnitIncrement(1);
+			esm.getNode(namesb).setBlockIncrement(1);
 
 			SCFX.makeText(name, new Text(sellables.get(x).getName()), "Normal");
-			SCFX.makeText(namesc, new Text("Buying : " + sc.getValue()), "Normal");
+			SCFX.makeText(namesc, new Text("Buying : " + esm.getNode(namesb).getValue()), "Normal");
 			SCFX.makeText(namesh, new Text("Shop : " + sellables.get(x).getQty()), "Normal");
 			SCFX.makeText(nameuh, new Text(), "Normal");
 			try
@@ -158,7 +160,7 @@ public class Market extends BWindow
 
 			ebm.makeNode(nameb, new Button("Buy"));
 
-			cAddRow(SCFX.getText(name), ebm.getNode(nameb), sc, SCFX.getText(nameuh), SCFX.getText(namesh),
+			cAddRow(SCFX.getText(name), ebm.getNode(nameb), esm.getNode(namesb), SCFX.getText(nameuh), SCFX.getText(namesh),
 					SCFX.getText(namec), SCFX.getText(namesc));
 		}
 
