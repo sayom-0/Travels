@@ -47,8 +47,7 @@ public class Planet extends BWindow
 
 	public Planet(String name, char planetChar, int x, int y, boolean explore, boolean market, int risk, char pClass,
 			String marketType, Player ply)
-			throws IllegalDimensionsException, DuplicateNameException, NonExistantDataException, ClassNotFoundException,
-			InstantiationException, IllegalAccessException, IOException
+			throws IllegalDimensionsException, DuplicateNameException, NonExistantDataException, IOException
 	{
 		super();
 		this.name = name;

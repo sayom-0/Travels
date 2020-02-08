@@ -102,7 +102,7 @@ public class Map
 	}
 
 	public void updPlyCords(Boolean lp) throws NonExistantDataException, DuplicateNameException,
-			IllegalDimensionsException, InvalidMetaLinkException, ClassNotFoundException, InstantiationException, IllegalAccessException, IOException
+			IllegalDimensionsException, InvalidMetaLinkException, IOException
 	{
 		try
 		{
@@ -139,7 +139,7 @@ public class Map
 		System.out.println("STATUS : " + status);
 	}
 
-	public void newSector() throws DuplicateNameException, IllegalDimensionsException, NonExistantDataException, ClassNotFoundException, InstantiationException, IllegalAccessException, IOException
+	public void newSector() throws DuplicateNameException, IllegalDimensionsException, NonExistantDataException, IOException
 	{
 		sectorRisk = r.nextInt(10);
 		int x = r.nextInt(5) + 1;
@@ -151,7 +151,7 @@ public class Map
 	}
 
 	public void makePlanet(String name, char planetChar, int x, int y, boolean explore, boolean market, int risk,
-			char pClass, String mt) throws DuplicateNameException, IllegalDimensionsException, NonExistantDataException, ClassNotFoundException, InstantiationException, IllegalAccessException, IOException
+			char pClass, String mt) throws DuplicateNameException, IllegalDimensionsException, NonExistantDataException, IOException
 	{
 		metaMap[x][y] = new MetaLink("Planet", planetArray.size());
 		planetArray.add(new Planet(name, planetChar, x, y, explore, market, risk, pClass, mt, ply));

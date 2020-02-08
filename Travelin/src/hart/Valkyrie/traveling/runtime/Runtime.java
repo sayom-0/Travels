@@ -55,8 +55,8 @@ public class Runtime extends Application
 	String pName;
 
 	@Override
-	public void start(Stage stage) throws DuplicateNameException, IllegalDimensionsException, NonExistantDataException,
-			ClassNotFoundException, InstantiationException, IllegalAccessException, IOException
+	public void start(Stage stage)
+			throws DuplicateNameException, IllegalDimensionsException, NonExistantDataException, IOException
 	{
 		pName = "N/A";
 		subHead = new BorderPane();
@@ -115,8 +115,7 @@ public class Runtime extends Application
 					map.setStatus("");
 					reDraw();
 				} catch (NonExistantDataException | InvalidMetaLinkException | DuplicateNameException
-						| IllegalDimensionsException | ClassNotFoundException | InstantiationException
-						| IllegalAccessException | IOException e)
+						| IllegalDimensionsException | IOException e)
 				{
 					e.printStackTrace();
 				}
@@ -179,8 +178,7 @@ public class Runtime extends Application
 					pStat();
 					reDraw();
 				} catch (NonExistantDataException | DuplicateNameException | IllegalDimensionsException
-						| InvalidMetaLinkException | ClassNotFoundException | InstantiationException
-						| IllegalAccessException | IOException e1)
+						| InvalidMetaLinkException | IOException e1)
 				{
 					e1.printStackTrace();
 				}
@@ -197,8 +195,7 @@ public class Runtime extends Application
 					pStat();
 					reDraw();
 				} catch (NonExistantDataException | DuplicateNameException | IllegalDimensionsException
-						| InvalidMetaLinkException | ClassNotFoundException | InstantiationException
-						| IllegalAccessException | IOException e1)
+						| InvalidMetaLinkException | IOException e1)
 				{
 					e1.printStackTrace();
 				}
@@ -215,8 +212,7 @@ public class Runtime extends Application
 					pStat();
 					reDraw();
 				} catch (NonExistantDataException | DuplicateNameException | IllegalDimensionsException
-						| InvalidMetaLinkException | ClassNotFoundException | InstantiationException
-						| IllegalAccessException | IOException e1)
+						| InvalidMetaLinkException | IOException e1)
 				{
 					e1.printStackTrace();
 				}
@@ -233,8 +229,7 @@ public class Runtime extends Application
 					pStat();
 					reDraw();
 				} catch (NonExistantDataException | DuplicateNameException | IllegalDimensionsException
-						| InvalidMetaLinkException | ClassNotFoundException | InstantiationException
-						| IllegalAccessException | IOException e1)
+						| InvalidMetaLinkException | IOException e1)
 				{
 					e1.printStackTrace();
 				}
@@ -309,8 +304,7 @@ public class Runtime extends Application
 	}
 
 	public void reDraw() throws NonExistantDataException, DuplicateNameException, IllegalDimensionsException,
-			InvalidMetaLinkException, ClassNotFoundException, InstantiationException, IllegalAccessException,
-			IOException
+			InvalidMetaLinkException, IOException
 	{
 		map.updPlyCords(local_Planet);
 		HUDCTL();
