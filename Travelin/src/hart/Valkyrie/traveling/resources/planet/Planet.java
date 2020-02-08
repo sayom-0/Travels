@@ -6,7 +6,8 @@ import hart.Valkyrie.SCFX.ScreenControllerFX;
 import hart.Valkyrie.exceptions.DuplicateNameException;
 import hart.Valkyrie.exceptions.IllegalDimensionsException;
 import hart.Valkyrie.exceptions.NonExistantDataException;
-import hart.Valkyrie.objects.EventNodeManager;
+import hart.Valkyrie.objects.eventbuttonmanager.EventNodeManager;
+import hart.Valkyrie.traveling.resources.ButtonLinker;
 import hart.Valkyrie.traveling.resources.Player;
 import hart.Valkyrie.traveling.resources.interaction.Explore;
 import hart.Valkyrie.traveling.resources.interaction.Market;
@@ -42,10 +43,12 @@ public class Planet extends BWindow
 	private HBox header;
 	private VBox center;
 	private HBox bt;
-	private EventNodeManager<Button> ebm;
+	private EventNodeManager<Button, ActionEvent, ButtonLinker> ebm;
 
 	public Planet(String name, char planetChar, int x, int y, boolean explore, boolean market, int risk, char pClass,
-			String marketType, Player ply) throws IllegalDimensionsException, DuplicateNameException, NonExistantDataException, ClassNotFoundException, InstantiationException, IllegalAccessException, IOException
+			String marketType, Player ply)
+			throws IllegalDimensionsException, DuplicateNameException, NonExistantDataException, ClassNotFoundException,
+			InstantiationException, IllegalAccessException, IOException
 	{
 		super();
 		this.name = name;
@@ -58,7 +61,7 @@ public class Planet extends BWindow
 		this.pClass = pClass;
 		this.marketType = marketType;
 		SCFX = new ScreenControllerFX(400, 600);
-		ebm = new EventNodeManager<Button>("setOnAction");
+		ebm = new EventNodeManager<>(new ButtonLinker());
 		SCFX.makeFont("Title", Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
 		SCFX.makeFont("SubTitle", Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 15));
 		SCFX.makeText("Title", new Text(name), "Title");
@@ -67,7 +70,7 @@ public class Planet extends BWindow
 		center = new VBox();
 		center.setSpacing(10);
 		center.getChildren().add(SCFX.getText("mType"));
-		
+
 		header = new HBox();
 		header.setAlignment(Pos.CENTER);
 		header.getChildren().add(SCFX.getText("Title"));
@@ -80,7 +83,7 @@ public class Planet extends BWindow
 		if (market)
 		{
 			mk = new Market(marketType, ply);
-			ebm.makeButton("oMarket", new Button("Enter the Market"), new EventHandler<ActionEvent>()
+			ebm.makeNode("oMarket", new Button("Enter the Market"), new EventHandler<ActionEvent>()
 			{
 
 				@Override
@@ -97,13 +100,13 @@ public class Planet extends BWindow
 				}
 
 			});
-			bt.getChildren().add(ebm.getButton("oMarket"));
+			bt.getChildren().add(ebm.getNode("oMarket"));
 		}
 
 		if (explore)
 		{
 			ex = new Explore(pClass);
-			ebm.makeButton("oExplore", new Button("Explore the Planet"), new EventHandler<ActionEvent>()
+			ebm.makeNode("oExplore", new Button("Explore the Planet"), new EventHandler<ActionEvent>()
 			{
 
 				@Override
@@ -120,7 +123,7 @@ public class Planet extends BWindow
 				}
 
 			});
-			bt.getChildren().add(ebm.getButton("oExplore"));
+			bt.getChildren().add(ebm.getNode("oExplore"));
 		}
 
 	}

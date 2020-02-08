@@ -6,10 +6,12 @@ import hart.Valkyrie.SCFX.ScreenControllerFX;
 import hart.Valkyrie.exceptions.DuplicateNameException;
 import hart.Valkyrie.exceptions.IllegalDimensionsException;
 import hart.Valkyrie.exceptions.NonExistantDataException;
-import hart.Valkyrie.objects.EventNodeManager;
+import hart.Valkyrie.objects.eventbuttonmanager.EventNodeManager;
+import hart.Valkyrie.traveling.resources.ButtonLinker;
 import hart.Valkyrie.traveling.resources.Player;
 import hart.Valkyrie.traveling.resources.Sellable;
 import hart.Valkyrie.util.BWindow;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
@@ -32,7 +34,7 @@ public class Market extends BWindow
 	private VBox header;
 	private VBox centre;
 	private BorderPane pHUD;
-	private EventNodeManager<Button> ebm;
+	private EventNodeManager<Button, ActionEvent, ButtonLinker> ebm;
 
 	public Market(String v, Player p)
 			throws IllegalDimensionsException, DuplicateNameException, NonExistantDataException, IOException
@@ -58,7 +60,7 @@ public class Market extends BWindow
 		}
 
 		SCFX = new ScreenControllerFX(500, 500);
-		ebm = new EventNodeManager<Button>("setOnAction");
+		ebm = new EventNodeManager<>(new ButtonLinker());
 		SCFX.makeFont("Title", Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
 		SCFX.makeFont("SubTitle", Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 15));
 		SCFX.makeFont("Normal", Font.font("verdana", FontWeight.NORMAL, FontPosture.REGULAR, 12));
@@ -120,7 +122,8 @@ public class Market extends BWindow
 							SCFX.getText(nameuh).setText("Hold : " + p.getInv().get(sellables.get(y).getName()) + gv());
 						} catch (NonExistantDataException e)
 						{
-							System.out.println(p.getInv() + " Does not contain " + sellables.get(y) + " setting (0 + gv()) : " + (0 + gv()));
+							System.out.println(p.getInv() + " Does not contain " + sellables.get(y)
+									+ " setting (0 + gv()) : " + (0 + gv()));
 							SCFX.getText(nameuh).setText("Hold : " + (0 + gv()));
 						}
 
@@ -153,9 +156,9 @@ public class Market extends BWindow
 			}
 			SCFX.makeText(namec, new Text("Credits : "), "Normal");
 
-			ebm.makeButton(nameb, new Button("Buy"));
+			ebm.makeNode(nameb, new Button("Buy"));
 
-			cAddRow(SCFX.getText(name), ebm.getButton(nameb), sc, SCFX.getText(nameuh), SCFX.getText(namesh),
+			cAddRow(SCFX.getText(name), ebm.getNode(nameb), sc, SCFX.getText(nameuh), SCFX.getText(namesh),
 					SCFX.getText(namec), SCFX.getText(namesc));
 		}
 

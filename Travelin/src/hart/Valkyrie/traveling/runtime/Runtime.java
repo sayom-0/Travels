@@ -7,7 +7,7 @@ import hart.Valkyrie.SCFX.ScreenControllerFX;
 import hart.Valkyrie.exceptions.DuplicateNameException;
 import hart.Valkyrie.exceptions.IllegalDimensionsException;
 import hart.Valkyrie.exceptions.NonExistantDataException;
-import hart.Valkyrie.objects.EventNodeManager;
+import hart.Valkyrie.objects.eventbuttonmanager.EventNodeManager;
 import hart.Valkyrie.traveling.exceptions.InvalidMetaLinkException;
 import hart.Valkyrie.util.Utils;
 import javafx.application.Application;
@@ -25,6 +25,7 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import hart.Valkyrie.traveling.resources.ButtonLinker;
 import hart.Valkyrie.traveling.resources.planet.Planet;
 
 public class Runtime extends Application
@@ -32,7 +33,7 @@ public class Runtime extends Application
 	final static String v = "Alpha 10.7";
 	VBox head;
 	ScreenControllerFX SCFX;
-	EventNodeManager<Button> ebm;
+	EventNodeManager<Button, ActionEvent, ButtonLinker> ebm;
 	Map map;
 	LinkedList<Text> maptextarray;
 	BorderPane HUD;
@@ -72,8 +73,8 @@ public class Runtime extends Application
 		inv = new VBox();
 		map = new Map('#', '=', 'O', '8', '*', 70, 20);
 		SCFX = new ScreenControllerFX(1000, 600);
-		ebm = new EventNodeManager<Button>("setOnAction");
-		ebm.makeButton("mUP", new Button("Up"), new EventHandler<ActionEvent>()
+		ebm = new EventNodeManager<>(new ButtonLinker());
+		ebm.makeNode("mUP", new Button("Up"), new EventHandler<ActionEvent>()
 		{
 			@Override
 			public void handle(ActionEvent e)
@@ -92,7 +93,7 @@ public class Runtime extends Application
 			}
 		});
 
-		ebm.makeButton("mDown", new Button("Down"), new EventHandler<ActionEvent>()
+		ebm.makeNode("mDown", new Button("Down"), new EventHandler<ActionEvent>()
 		{
 			@Override
 			public void handle(ActionEvent e)
@@ -111,7 +112,7 @@ public class Runtime extends Application
 			}
 		});
 
-		ebm.makeButton("mLeft", new Button("Left"), new EventHandler<ActionEvent>()
+		ebm.makeNode("mLeft", new Button("Left"), new EventHandler<ActionEvent>()
 		{
 			@Override
 			public void handle(ActionEvent e)
@@ -130,7 +131,7 @@ public class Runtime extends Application
 			}
 		});
 
-		ebm.makeButton("mRight", new Button("Right"), new EventHandler<ActionEvent>()
+		ebm.makeNode("mRight", new Button("Right"), new EventHandler<ActionEvent>()
 		{
 			@Override
 			public void handle(ActionEvent e)
@@ -149,7 +150,7 @@ public class Runtime extends Application
 			}
 		});
 
-		ebm.makeButton("iLand", new Button("Land"), new EventHandler<ActionEvent>()
+		ebm.makeNode("iLand", new Button("Land"), new EventHandler<ActionEvent>()
 		{
 			@Override
 			public void handle(ActionEvent e)
@@ -172,7 +173,7 @@ public class Runtime extends Application
 			}
 		});
 
-		ebm.makeButton("iLaunch", new Button("Launch"), new EventHandler<ActionEvent>()
+		ebm.makeNode("iLaunch", new Button("Launch"), new EventHandler<ActionEvent>()
 		{
 
 			@Override
@@ -250,8 +251,8 @@ public class Runtime extends Application
 		map.generate();
 		mBG.setSpacing(20);
 		mBG.setPadding(new Insets(15, 15, 15, 15));
-		mBG.getChildren().addAll(ebm.getButton("mUP"), ebm.getButton("mDown"), ebm.getButton("mLeft"),
-				ebm.getButton("mRight"));
+		mBG.getChildren().addAll(ebm.getNode("mUP"), ebm.getNode("mDown"), ebm.getNode("mLeft"),
+				ebm.getNode("mRight"));
 		mBG.setAlignment(Pos.CENTER);
 		lG.setAlignment(Pos.TOP_LEFT);
 		HUD.setBottom(mBG);
@@ -346,51 +347,51 @@ public class Runtime extends Application
 		switch (map.getStatus())
 		{
 		case "Planet":
-			if (!mBG.getChildren().contains(ebm.getButton("iLand")))
+			if (!mBG.getChildren().contains(ebm.getNode("iLand")))
 			{
-				mBG.getChildren().add(ebm.getButton("iLand"));
+				mBG.getChildren().add(ebm.getNode("iLand"));
 			}
 			break;
 
 		case "Landed":
 
-			if (mBG.getChildren().contains(ebm.getButton("iLand")))
+			if (mBG.getChildren().contains(ebm.getNode("iLand")))
 			{
-				mBG.getChildren().remove(ebm.getButton("iLand"));
+				mBG.getChildren().remove(ebm.getNode("iLand"));
 			}
-			if (!mBG.getChildren().contains(ebm.getButton("iLaunch")))
+			if (!mBG.getChildren().contains(ebm.getNode("iLaunch")))
 			{
-				mBG.getChildren().add(ebm.getButton("iLaunch"));
+				mBG.getChildren().add(ebm.getNode("iLaunch"));
 			}
 
-			if (mBG.getChildren().contains(ebm.getButton("mUP")) && mBG.getChildren().contains(ebm.getButton("mRight"))
-					&& mBG.getChildren().contains(ebm.getButton("mLeft"))
-					&& mBG.getChildren().contains(ebm.getButton("mDown")))
+			if (mBG.getChildren().contains(ebm.getNode("mUP")) && mBG.getChildren().contains(ebm.getNode("mRight"))
+					&& mBG.getChildren().contains(ebm.getNode("mLeft"))
+					&& mBG.getChildren().contains(ebm.getNode("mDown")))
 			{
-				mBG.getChildren().removeAll(ebm.getButton("mUP"), ebm.getButton("mRight"), ebm.getButton("mLeft"),
-						ebm.getButton("mDown"));
+				mBG.getChildren().removeAll(ebm.getNode("mUP"), ebm.getNode("mRight"), ebm.getNode("mLeft"),
+						ebm.getNode("mDown"));
 			}
 
 			break;
 
 		default:
-			if (mBG.getChildren().contains(ebm.getButton("iLand")))
+			if (mBG.getChildren().contains(ebm.getNode("iLand")))
 			{
-				mBG.getChildren().remove(ebm.getButton("iLand"));
+				mBG.getChildren().remove(ebm.getNode("iLand"));
 			}
 
-			if (mBG.getChildren().contains(ebm.getButton("iLaunch")))
+			if (mBG.getChildren().contains(ebm.getNode("iLaunch")))
 			{
-				mBG.getChildren().remove(ebm.getButton("iLaunch"));
+				mBG.getChildren().remove(ebm.getNode("iLaunch"));
 			}
 
-			if (!mBG.getChildren().contains(ebm.getButton("mUP"))
-					&& !mBG.getChildren().contains(ebm.getButton("mRight"))
-					&& !mBG.getChildren().contains(ebm.getButton("mLeft"))
-					&& !mBG.getChildren().contains(ebm.getButton("mDown")))
+			if (!mBG.getChildren().contains(ebm.getNode("mUP"))
+					&& !mBG.getChildren().contains(ebm.getNode("mRight"))
+					&& !mBG.getChildren().contains(ebm.getNode("mLeft"))
+					&& !mBG.getChildren().contains(ebm.getNode("mDown")))
 			{
-				mBG.getChildren().addAll(ebm.getButton("mUP"), ebm.getButton("mDown"), ebm.getButton("mLeft"),
-						ebm.getButton("mRight"));
+				mBG.getChildren().addAll(ebm.getNode("mUP"), ebm.getNode("mDown"), ebm.getNode("mLeft"),
+						ebm.getNode("mRight"));
 			}
 
 			break;
