@@ -112,8 +112,6 @@ public class Market extends BWindow
 							SCFX.getText(nameuh).setText("Hold : " + p.getInv().get(sellables.get(y).getName()) + gv());
 						} catch (NonExistantDataException e)
 						{
-							System.out.println(p.getInv() + " Does not contain " + sellables.get(y)
-									+ " setting (0 + gv()) : " + (0 + gv()));
 							SCFX.getText(nameuh).setText("Hold : " + (0 + gv()));
 						}
 
@@ -153,7 +151,6 @@ public class Market extends BWindow
 				SCFX.getText(nameuh).setText("Hold : " + p.getInv().get(sellables.get(x).getName()));
 			} catch (NonExistantDataException e)
 			{
-				System.out.println(p.getInv() + " Does not contain " + sellables.get(x) + " setting 0");
 				SCFX.getText(nameuh).setText("Hold : " + 0);
 			}
 			SCFX.makeText(namec, new Text("Credits : "), "Normal");
