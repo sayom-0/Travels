@@ -3,10 +3,11 @@ package hart.Valkyrie.traveling.runtime;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
-import hart.Valkyrie.SCFX.ScreenControllerFX;
+
 import hart.Valkyrie.exceptions.DuplicateNameException;
 import hart.Valkyrie.exceptions.IllegalDimensionsException;
 import hart.Valkyrie.exceptions.NonExistantDataException;
+import hart.Valkyrie.objects.ScreenControllerFX;
 import hart.Valkyrie.objects.eventbuttonmanager.EventNodeManager;
 import hart.Valkyrie.traveling.exceptions.InvalidMetaLinkException;
 import hart.Valkyrie.util.Utils;
@@ -30,7 +31,7 @@ import hart.Valkyrie.traveling.resources.planet.Planet;
 
 public class Runtime extends Application
 {
-	final static String v = "Alpha 10.7";
+	final static String v = "Alpha 10.9";
 	VBox head;
 	ScreenControllerFX SCFX;
 	EventNodeManager<Button, ActionEvent, ButtonLinker> ebm;

@@ -19,4 +19,10 @@ public class ButtonLinker extends MethodParser<Button, ActionEvent>
 		return n;
 	}
 
+	@Override
+	public void deConstruct()
+	{
+		
+	}
+
 }

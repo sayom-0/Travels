@@ -20,4 +20,10 @@ public class ScrollBarLinker extends MethodParser<ScrollBar, MouseEvent>
 		return n;
 	}
 
+	@Override
+	public void deConstruct()
+	{
+		
+	}
+
 }

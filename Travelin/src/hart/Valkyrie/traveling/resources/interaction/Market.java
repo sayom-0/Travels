@@ -2,10 +2,11 @@ package hart.Valkyrie.traveling.resources.interaction;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import hart.Valkyrie.SCFX.ScreenControllerFX;
+
 import hart.Valkyrie.exceptions.DuplicateNameException;
 import hart.Valkyrie.exceptions.IllegalDimensionsException;
 import hart.Valkyrie.exceptions.NonExistantDataException;
+import hart.Valkyrie.objects.ScreenControllerFX;
 import hart.Valkyrie.objects.eventbuttonmanager.EventNodeManager;
 import hart.Valkyrie.traveling.resources.ButtonLinker;
 import hart.Valkyrie.traveling.resources.Player;
