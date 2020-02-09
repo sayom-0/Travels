@@ -45,10 +45,10 @@ public class Market extends BWindow
 		switch (v)
 		{
 		case "Full":
-			sellables.add(new Sellable("Water", 5, 1));
-			sellables.add(new Sellable("Food", 5, 1));
-			sellables.add(new Sellable("Ammo", 5, 1));
-			sellables.add(new Sellable("Fuel", 5, 1));
+			sellables.add(new Sellable("Water", 5, 3));
+			sellables.add(new Sellable("Food", 5, 4));
+			sellables.add(new Sellable("Ammo", 5, 8));
+			sellables.add(new Sellable("Fuel", 5, 2));
 			break;
 
 		case "War":
@@ -105,18 +105,26 @@ public class Market extends BWindow
 					{
 						String s = namesh.substring(3, 4);
 						int y = Integer.parseInt(s);
-						SCFX.getText(namesc).setText("Buying : " + gv());
+						if (0 > gv())
+						{
+							SCFX.getText(namesc).setText("Selling : " + (-1 * gv()));
+						} else
+						{
+							SCFX.getText(namesc).setText("Buying : " + gv());
+						}
 						SCFX.getText(namesh).setText("Shop : " + (sellables.get(y).getQty() - gv()));
 
 						try
 						{
-							SCFX.getText(nameuh).setText("Hold : " + p.getInv().get(sellables.get(y).getName()) + gv());
+							SCFX.getText(nameuh)
+									.setText("Hold : " + (p.getInv().get(sellables.get(y).getName()).getQty() + gv()));
 						} catch (NonExistantDataException e)
 						{
 							SCFX.getText(nameuh).setText("Hold : " + (0 + gv()));
 						}
 
-						SCFX.getText(namec).setText("Credits : ");
+						SCFX.getText(namec).setText("Credits : "
+								+ (p.getInv().get("Credits").getQty() - (sellables.get(y).getCost() * gv())));
 					} catch (NonExistantDataException e)
 					{
 						e.printStackTrace();
@@ -128,7 +136,7 @@ public class Market extends BWindow
 					return (int) esm.getNode(namesb).getValue();
 				}
 
-			}).setMin(0);
+			}).setMin(-1 * p.getInv().get(sellables.get(x).getName()).getQty());
 			esm.getNode(namesb).setMax(sellables.get(x).getQty());
 
 			try
@@ -149,17 +157,17 @@ public class Market extends BWindow
 			SCFX.makeText(nameuh, new Text(), "Normal");
 			try
 			{
-				SCFX.getText(nameuh).setText("Hold : " + p.getInv().get(sellables.get(x).getName()));
+				SCFX.getText(nameuh).setText("Hold : " + p.getInv().get(sellables.get(x).getName()).getQty());
 			} catch (NonExistantDataException e)
 			{
 				SCFX.getText(nameuh).setText("Hold : " + 0);
 			}
-			SCFX.makeText(namec, new Text("Credits : "), "Normal");
+			SCFX.makeText(namec, new Text("Credits : " + p.getInv().get("Credits").getQty()), "Normal");
 
 			ebm.makeNode(nameb, new Button("Buy"));
 
-			cAddRow(SCFX.getText(name), ebm.getNode(nameb), esm.getNode(namesb), SCFX.getText(nameuh), SCFX.getText(namesh),
-					SCFX.getText(namec), SCFX.getText(namesc));
+			cAddRow(SCFX.getText(name), ebm.getNode(nameb), esm.getNode(namesb), SCFX.getText(nameuh),
+					SCFX.getText(namesh), SCFX.getText(namec), SCFX.getText(namesc));
 		}
 
 		scene = new Scene(pHUD, SCFX.getRes("width"), SCFX.getRes("height"));

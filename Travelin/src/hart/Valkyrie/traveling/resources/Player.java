@@ -29,20 +29,12 @@ public class Player
 		x_old = x;
 		y_old = y;
 		inv.add("Credits", new Sellable("Credits", 50, Sellable.coincost));
-		ship = new Ship(name, new Armor(15, 20, 30), new Engine(15, 20, 30), new Shields(15, 20, 30), new WeaponSet(15, 20, 30), new Tank(15, 20, 30, 0));
-	}
-
-	public Player(char playerChar, int x, int y, String name, NamedArrayList<Sellable> inv)
-	{
-		super();
-		this.playerChar = playerChar;
-		this.x = x;
-		this.y = y;
-		this.inv = inv;
-		inv = new NamedArrayList<>();
-		x_old = x;
-		y_old = y;
-		ship = new Ship(name, new Armor(15, 20, 30), new Engine(15, 20, 30), new Shields(15, 20, 30), new WeaponSet(15, 20, 30), new Tank(15, 20, 30, 0));
+		inv.add("Water", new Sellable("Water", 5, 3));
+		inv.add("Ammo", new Sellable("Ammo", 5, 8));
+		inv.add("Food", new Sellable("Food", 5, 4));
+		inv.add("Fuel", new Sellable("Fuel", 5, 2));
+		ship = new Ship(name, new Armor(15, 20, 30), new Engine(15, 20, 30), new Shields(15, 20, 30),
+				new WeaponSet(15, 20, 30), new Tank(15, 20, 30, 0));
 	}
 
 	public void revertCords()

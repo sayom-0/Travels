@@ -136,7 +136,6 @@ public class Map
 			status = "Landed";
 		}
 		ply.ship.getTank().setFuel(ply.ship.getTank().getFuel() - 1);
-		System.out.println("STATUS : " + status);
 	}
 
 	public void newSector() throws DuplicateNameException, IllegalDimensionsException, NonExistantDataException, IOException

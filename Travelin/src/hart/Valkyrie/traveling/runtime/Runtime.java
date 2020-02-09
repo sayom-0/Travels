@@ -3,7 +3,6 @@ package hart.Valkyrie.traveling.runtime;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
-
 import hart.Valkyrie.exceptions.DuplicateNameException;
 import hart.Valkyrie.exceptions.IllegalDimensionsException;
 import hart.Valkyrie.exceptions.NonExistantDataException;
