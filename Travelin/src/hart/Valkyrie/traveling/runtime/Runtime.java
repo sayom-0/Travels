@@ -7,7 +7,7 @@ import hart.Valkyrie.exceptions.DuplicateNameException;
 import hart.Valkyrie.exceptions.IllegalDimensionsException;
 import hart.Valkyrie.exceptions.NonExistantDataException;
 import hart.Valkyrie.objects.ScreenControllerFX;
-import hart.Valkyrie.objects.eventbuttonmanager.EventNodeManager;
+import hart.Valkyrie.objects.eventNodeManager.EventNodeManager;
 import hart.Valkyrie.traveling.exceptions.InvalidMetaLinkException;
 import hart.Valkyrie.util.Utils;
 import javafx.application.Application;

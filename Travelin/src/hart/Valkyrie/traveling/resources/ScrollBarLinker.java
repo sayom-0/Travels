@@ -1,6 +1,6 @@
 package hart.Valkyrie.traveling.resources;
 
-import hart.Valkyrie.objects.eventbuttonmanager.MethodParser;
+import hart.Valkyrie.objects.eventNodeManager.MethodParser;
 import javafx.event.EventHandler;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.input.MouseEvent;
