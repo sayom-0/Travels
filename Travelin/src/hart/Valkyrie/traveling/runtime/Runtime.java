@@ -123,7 +123,7 @@ public class Runtime extends Application
 		});
 		SCFX.makeFont("Title", Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
 		SCFX.makeFont("SubTitle", Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 15));
-		SCFX.makeFont("Map Text", Font.font("verdana", FontWeight.THIN, FontPosture.REGULAR, 25));
+		SCFX.makeFont("Map Text", Font.font("verdana", FontWeight.THIN, FontPosture.REGULAR, 10));
 
 		subHead.setLeft(subHeadLeft);
 		subHead.setRight(subHeadRight);
