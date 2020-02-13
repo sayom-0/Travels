@@ -138,21 +138,13 @@ public class Market extends BWindow
 
 			}).setMin(-1 * p.getInv().get(sellables.get(x).getName()).getQty());
 			esm.getNode(namesb).setMax(sellables.get(x).getQty());
-
-			try
-			{
-				esm.getNode(namesb).setValue(p.getInv().get(sellables.get(x).getName()).getQty());
-			} catch (NonExistantDataException e1)
-			{
-				System.out.println(p.getInv() + " Does not contain " + sellables.get(x) + " setting 0");
-				esm.getNode(namesb).setValue(0);
-			}
+			esm.getNode(namesb).setValue(0);
 			esm.getNode(namesb).setOrientation(Orientation.HORIZONTAL);
 			esm.getNode(namesb).setUnitIncrement(1);
 			esm.getNode(namesb).setBlockIncrement(1);
 
 			SCFX.makeText(name, new Text(sellables.get(x).getName()), "Normal");
-			SCFX.makeText(namesc, new Text("Buying : " + esm.getNode(namesb).getValue()), "Normal");
+			SCFX.makeText(namesc, new Text("Buying : " + (int) esm.getNode(namesb).getValue()), "Normal");
 			SCFX.makeText(namesh, new Text("Shop : " + sellables.get(x).getQty()), "Normal");
 			SCFX.makeText(nameuh, new Text(), "Normal");
 			try

@@ -30,7 +30,7 @@ import hart.Valkyrie.traveling.resources.planet.Planet;
 
 public class Runtime extends Application
 {
-	final static String v = "Alpha 10.10";
+	final static String v = "Alpha 10.11";
 	VBox head;
 	ScreenControllerFX SCFX;
 	EventNodeManager<Button, ActionEvent, ButtonLinker> ebm;
@@ -85,13 +85,13 @@ public class Runtime extends Application
 				{
 					Planet x = (Planet) map.handleLink(map.metaMap[map.getC_x()][map.getC_y()]);
 					addLog(new Text("Landed on : " + x.getName()));
-					pStat(x);
 					local_Planet = true;
 					map.setStatus("Landed");
 					lcx = map.getC_x();
 					lcy = map.getC_y();
 					x.window();
 					reDraw();
+					pStat(x);
 				} catch (Exception e1)
 				{
 					e1.printStackTrace();
@@ -109,10 +109,10 @@ public class Runtime extends Application
 				{
 					Planet x = (Planet) map.handleLink(map.metaMap[lcx][lcy]);
 					addLog(new Text("Launched from : " + x.getName()));
-					pStat();
 					local_Planet = false;
 					map.setStatus("");
 					reDraw();
+					pStat();
 				} catch (NonExistantDataException | InvalidMetaLinkException | DuplicateNameException
 						| IllegalDimensionsException | IOException e)
 				{
@@ -174,8 +174,8 @@ public class Runtime extends Application
 				map.ply.setX(map.ply.getX());
 				try
 				{
-					pStat();
 					reDraw();
+					pStat();
 				} catch (NonExistantDataException | DuplicateNameException | IllegalDimensionsException
 						| InvalidMetaLinkException | IOException e1)
 				{
@@ -191,8 +191,8 @@ public class Runtime extends Application
 				map.ply.setX(map.ply.getX());
 				try
 				{
-					pStat();
 					reDraw();
+					pStat();
 				} catch (NonExistantDataException | DuplicateNameException | IllegalDimensionsException
 						| InvalidMetaLinkException | IOException e1)
 				{
@@ -208,8 +208,8 @@ public class Runtime extends Application
 				map.ply.setY(map.ply.getY());
 				try
 				{
-					pStat();
 					reDraw();
+					pStat();
 				} catch (NonExistantDataException | DuplicateNameException | IllegalDimensionsException
 						| InvalidMetaLinkException | IOException e1)
 				{
@@ -225,8 +225,8 @@ public class Runtime extends Application
 				map.ply.setY(map.ply.getY());
 				try
 				{
-					pStat();
 					reDraw();
+					pStat();
 				} catch (NonExistantDataException | DuplicateNameException | IllegalDimensionsException
 						| InvalidMetaLinkException | IOException e1)
 				{
@@ -378,7 +378,7 @@ public class Runtime extends Application
 		}
 	}
 
-	public void addLog(Text e)
+	public void addLog(Text e) //Want to know how to reverse the nodes of a parent? Right here.
 	{
 		int x = alog.size() - 1;
 		lG.getChildren().clear();

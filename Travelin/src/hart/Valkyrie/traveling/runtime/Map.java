@@ -138,19 +138,22 @@ public class Map
 		ply.ship.getTank().setFuel(ply.ship.getTank().getFuel() - 1);
 	}
 
-	public void newSector() throws DuplicateNameException, IllegalDimensionsException, NonExistantDataException, IOException
+	public void newSector()
+			throws DuplicateNameException, IllegalDimensionsException, NonExistantDataException, IOException
 	{
 		sectorRisk = r.nextInt(10);
 		int x = r.nextInt(5) + 1;
 
 		for (int pm = 0; pm != x; pm++)
-			makePlanet(names.name(3), '@', randomX(), randomY(), true, true, sectorRisk, 'M', "Full");
+			makePlanet(names.name(3), '@', randomX(), randomY(), true, true, (sectorRisk - 3) + r.nextInt(sectorRisk),
+					'M', "Full");
 		kp.setValue((x - 1) + kp.getValue());
 		this.generate();
 	}
 
 	public void makePlanet(String name, char planetChar, int x, int y, boolean explore, boolean market, int risk,
-			char pClass, String mt) throws DuplicateNameException, IllegalDimensionsException, NonExistantDataException, IOException
+			char pClass, String mt)
+			throws DuplicateNameException, IllegalDimensionsException, NonExistantDataException, IOException
 	{
 		metaMap[x][y] = new MetaLink("Planet", planetArray.size());
 		planetArray.add(new Planet(name, planetChar, x, y, explore, market, risk, pClass, mt, ply));
