@@ -10,22 +10,18 @@ public class Ship
 	private WeaponSet weaponset;
 	private Tank tank;
 	private String title;
-	private int range;
 	private int health;
+	private int fe;
+	private Integer sr;
 
 	private void init()
 	{
 		health = armor.getEft() + shields.getEft();
+		fe();
+		System.out.println("Per Tile : " + fe);
 	}
 
-	public Ship(String title)
-	{
-		super();
-		this.title = title;
-		init();
-	}
-
-	public Ship(String title, Armor armor, Engine engine, Shields shields, WeaponSet weaponset, Tank tank)
+	public Ship(String title, Armor armor, Engine engine, Shields shields, WeaponSet weaponset, Tank tank, Integer sr)
 	{
 		super();
 		this.title = title;
@@ -34,6 +30,7 @@ public class Ship
 		this.shields = shields;
 		this.weaponset = weaponset;
 		this.tank = tank;
+		this.sr = sr;
 		init();
 	}
 
@@ -79,7 +76,8 @@ public class Ship
 
 	public int getRange()
 	{
-		return range;
+		fe();
+		return (tank.getFuel() / fe);
 	}
 
 	public String getTitle()
@@ -115,6 +113,19 @@ public class Ship
 	public boolean canFly()
 	{
 		return tank.getFuel() > 0 && engine.getHealth() > 0 ? true : false;
+	}
+
+	public void moved()
+	{
+
+		tank.setFuel(tank.getFuel() - fe);
+	}
+
+	public void fe()
+	{
+		fe = (int) (2 - (engine.getEft() * .1));
+		if (0 >= fe)
+			fe = 1;
 	}
 
 }

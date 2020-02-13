@@ -19,7 +19,7 @@ public class Player
 	private int y_old;
 	public Ship ship;
 
-	public Player(char playerChar, int x, int y, String name) throws DuplicateNameException
+	public Player(char playerChar, int x, int y, String name, Integer sr) throws DuplicateNameException
 	{
 		super();
 		this.playerChar = playerChar;
@@ -34,7 +34,7 @@ public class Player
 		inv.add("Food", new Sellable("Food", 5, 4));
 		inv.add("Fuel", new Sellable("Fuel", 5, 2));
 		ship = new Ship(name, new Armor(15, 20, 30), new Engine(15, 20, 30), new Shields(15, 20, 30),
-				new WeaponSet(15, 20, 30), new Tank(15, 20, 30, 0));
+				new WeaponSet(15, 20, 30), new Tank(15, 20, 30, 0), sr);
 	}
 
 	public void revertCords()

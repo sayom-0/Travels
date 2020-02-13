@@ -57,7 +57,8 @@ public class Map
 		{ "Great", "The", "Blue", "Expansive", "Voyage", "Space", "Outpost", "Green" });
 		status = "";
 		ply = new Player(getPlayerChar(), (int) (rawmap.length * 0.5) + 1, (int) (rawmap[0].length * 0.5) + 1,
-				"Valkyrie");
+				"Valkyrie", sectorRisk);
+		ply.ship.getTank().setFuel(1000);
 	}
 
 	public NamedArrayList<Sellable> getPlayerInv()
@@ -104,38 +105,42 @@ public class Map
 	public void updPlyCords(Boolean lp) throws NonExistantDataException, DuplicateNameException,
 			IllegalDimensionsException, InvalidMetaLinkException, IOException
 	{
-		try
+		if (ply.ship.canFly())
 		{
-			lastChar = (rawmap[ply.getX()][ply.getY()]).charAt(0);
-		} catch (ArrayIndexOutOfBoundsException ex)
-		{
-			newSector();
-		}
-		rawmap[ply.getX_old()][ply.getY_old()] = String.valueOf(lastChar);
-		if (!rawmap[ply.getX()][ply.getY()].equals(String.valueOf(getDefaultChar())))
-		{
-			c_x = ply.getX();
-			c_y = ply.getY();
-			ply.revertCords();
-
-			if (rawmap[c_x][c_y].equals(String.valueOf(getPL(0).getPlanetChar())))
+			ply.ship.moved();
+			try
 			{
-				status = "Planet";
-				targetedPlanet = (Planet) handleLink(metaMap[c_x][c_y]);
+				lastChar = (rawmap[ply.getX()][ply.getY()]).charAt(0);
+			} catch (ArrayIndexOutOfBoundsException ex)
+			{
+				newSector();
 			}
+			rawmap[ply.getX_old()][ply.getY_old()] = String.valueOf(lastChar);
+			if (!rawmap[ply.getX()][ply.getY()].equals(String.valueOf(getDefaultChar())))
+			{
+				c_x = ply.getX();
+				c_y = ply.getY();
+				ply.revertCords();
 
-			rawmap[ply.getX()][ply.getY()] = String.valueOf(ply.getPlayerChar());
+				if (rawmap[c_x][c_y].equals(String.valueOf(getPL(0).getPlanetChar())))
+				{
+					status = "Planet";
+					targetedPlanet = (Planet) handleLink(metaMap[c_x][c_y]);
+				}
 
-		} else
-		{
-			status = "";
-			rawmap[ply.getX()][ply.getY()] = String.valueOf(ply.getPlayerChar());
+				rawmap[ply.getX()][ply.getY()] = String.valueOf(ply.getPlayerChar());
+
+			} else
+			{
+				status = "";
+				rawmap[ply.getX()][ply.getY()] = String.valueOf(ply.getPlayerChar());
+			}
+			if (lp == true)
+			{
+				status = "Landed";
+			}
+			ply.ship.getTank().setFuel(ply.ship.getTank().getFuel() - 1);
 		}
-		if (lp == true)
-		{
-			status = "Landed";
-		}
-		ply.ship.getTank().setFuel(ply.ship.getTank().getFuel() - 1);
 	}
 
 	public void newSector()
