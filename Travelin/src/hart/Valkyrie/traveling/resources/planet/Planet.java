@@ -50,6 +50,7 @@ public class Planet extends BWindow
 			throws IllegalDimensionsException, DuplicateNameException, NonExistantDataException, IOException
 	{
 		super();
+		initd();
 		this.name = name;
 		this.planetChar = planetChar;
 		this.x = x;
@@ -99,6 +100,7 @@ public class Planet extends BWindow
 				}
 
 			}));
+			indexSubBW(mk);
 		}
 
 		if (explore)
@@ -122,6 +124,7 @@ public class Planet extends BWindow
 						}
 
 					}));
+			indexSubBW(ex);
 		}
 
 	}

@@ -113,6 +113,7 @@ public class Runtime extends Application
 					map.setStatus("");
 					reDraw();
 					pStat();
+					x.closeAll();
 				} catch (NonExistantDataException | InvalidMetaLinkException | DuplicateNameException
 						| IllegalDimensionsException | IOException e)
 				{

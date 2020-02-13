@@ -9,6 +9,7 @@ public class Explore extends BWindow
 	
 	public Explore(char pClass)
 	{
+		initd();
 		this.pClass = pClass;
 	}
 	

@@ -42,6 +42,7 @@ public class Market extends BWindow
 	public Market(String v, Player p)
 			throws IllegalDimensionsException, DuplicateNameException, NonExistantDataException, IOException
 	{
+		initd();
 		switch (v)
 		{
 		case "Full":
