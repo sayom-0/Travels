@@ -18,7 +18,6 @@ public class Ship
 	{
 		health = armor.getEft() + shields.getEft();
 		fe();
-		System.out.println("Per Tile : " + fe);
 	}
 
 	public Ship(String title, Armor armor, Engine engine, Shields shields, WeaponSet weaponset, Tank tank, Integer sr)
