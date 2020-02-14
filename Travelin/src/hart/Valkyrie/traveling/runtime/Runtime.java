@@ -76,7 +76,7 @@ public class Runtime extends Application
 		SCFX = new ScreenControllerFX(1000, 600);
 		ebm = new EventNodeManager<>(new ButtonLinker());
 
-		ebm.makeNode("iLand", new Button("Land"), new EventHandler<ActionEvent>()
+		ebm.setNode("iLand", new Button("Land"), new EventHandler<ActionEvent>()
 		{
 			@Override
 			public void handle(ActionEvent e)
@@ -99,7 +99,7 @@ public class Runtime extends Application
 			}
 		});
 
-		ebm.makeNode("iLaunch", new Button("Launch"), new EventHandler<ActionEvent>()
+		ebm.setNode("iLaunch", new Button("Launch"), new EventHandler<ActionEvent>()
 		{
 
 			@Override
@@ -122,9 +122,9 @@ public class Runtime extends Application
 			}
 
 		});
-		SCFX.makeFont("Title", Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
-		SCFX.makeFont("SubTitle", Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 15));
-		SCFX.makeFont("Map Text", Font.font("verdana", FontWeight.THIN, FontPosture.REGULAR, 10));
+		SCFX.setFont("Title", Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
+		SCFX.setFont("SubTitle", Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 15));
+		SCFX.setFont("Map Text", Font.font("verdana", FontWeight.THIN, FontPosture.REGULAR, 10));
 
 		subHead.setLeft(subHeadLeft);
 		subHead.setRight(subHeadRight);
@@ -135,29 +135,29 @@ public class Runtime extends Application
 		subHeadRight.setAlignment(Pos.CENTER_RIGHT);
 		subHeadRight.setSpacing(5);
 
-		subHeadLeft.getChildren().add(SCFX.makeText("Ship", new Text("Ship"), "Title"));
+		subHeadLeft.getChildren().add(SCFX.setText("Ship", new Text("Ship"), "Title"));
 		subHeadLeft.getChildren()
-				.add(SCFX.makeText("sName", new Text("Ship Name : " + map.ply.ship.getTitle()), "SubTitle"));
+				.add(SCFX.setText("sName", new Text("Ship Name : " + map.ply.ship.getTitle()), "SubTitle"));
 		subHeadLeft.getChildren()
-				.add(SCFX.makeText("sDang", new Text("Dangometer : " + map.getSectorRisk()), "SubTitle"));
+				.add(SCFX.setText("sDang", new Text("Dangometer : " + map.getSectorRisk()), "SubTitle"));
 		subHeadLeft.getChildren()
-				.add(SCFX.makeText("sHealth", new Text("Health : " + map.ply.ship.getHealth()), "SubTitle"));
+				.add(SCFX.setText("sHealth", new Text("Health : " + map.ply.ship.getHealth()), "SubTitle"));
 		subHeadLeft.getChildren()
-				.add(SCFX.makeText("sRange", new Text("Range : " + map.ply.ship.getRange()), "SubTitle"));
+				.add(SCFX.setText("sRange", new Text("Range : " + map.ply.ship.getRange()), "SubTitle"));
 
-		subHeadRight.getChildren().add(SCFX.makeText("Planet", new Text("Planet"), "Title"));
-		subHeadRight.getChildren().add(SCFX.makeText("pName", new Text("Planet Name : N/A"), "SubTitle"));
-		subHeadRight.getChildren().add(SCFX.makeText("pClass", new Text("Planet Class : N/A"), "SubTitle"));
-		subHeadRight.getChildren().add(SCFX.makeText("pRisk", new Text("Risk : N/A"), "SubTitle"));
-		subHeadRight.getChildren().add(SCFX.makeText("pMarket", new Text("Market : N/A"), "SubTitle"));
-		subHeadRight.getChildren().add(SCFX.makeText("pExplore", new Text("Explorable : N/A"), "SubTitle"));
+		subHeadRight.getChildren().add(SCFX.setText("Planet", new Text("Planet"), "Title"));
+		subHeadRight.getChildren().add(SCFX.setText("pName", new Text("Planet Name : N/A"), "SubTitle"));
+		subHeadRight.getChildren().add(SCFX.setText("pClass", new Text("Planet Class : N/A"), "SubTitle"));
+		subHeadRight.getChildren().add(SCFX.setText("pRisk", new Text("Risk : N/A"), "SubTitle"));
+		subHeadRight.getChildren().add(SCFX.setText("pMarket", new Text("Market : N/A"), "SubTitle"));
+		subHeadRight.getChildren().add(SCFX.setText("pExplore", new Text("Explorable : N/A"), "SubTitle"));
 
-		head.getChildren().add(SCFX.makeText("GTitle", new Text("Traveling Version " + v), "Title"));
+		head.getChildren().add(SCFX.setText("GTitle", new Text("Traveling Version " + v), "Title"));
 		head.getChildren().add(subHead);
 		head.setAlignment(Pos.CENTER);
 		head.setSpacing(30);
 		HUD.setTop(head);
-		inv.getChildren().add(SCFX.makeText("InvTitle", new Text("Inventory"), "Title"));
+		inv.getChildren().add(SCFX.setText("InvTitle", new Text("Inventory"), "Title"));
 		inv.getChildren().add(new Text(map.getPlayerInv().toString()));
 		HUD.setCenter(maptext);
 		maptext.setAlignment(Pos.CENTER);
@@ -166,7 +166,7 @@ public class Runtime extends Application
 		map.generate();
 		mBG.setSpacing(20);
 		mBG.setPadding(new Insets(15, 15, 15, 15));
-		mBG.getChildren().addAll(ebm.makeNode("mUP", new Button("Up"), new EventHandler<ActionEvent>()
+		mBG.getChildren().addAll(ebm.setNode("mUP", new Button("Up"), new EventHandler<ActionEvent>()
 		{
 			@Override
 			public void handle(ActionEvent e)
@@ -183,7 +183,7 @@ public class Runtime extends Application
 					e1.printStackTrace();
 				}
 			}
-		}), ebm.makeNode("mDown", new Button("Down"), new EventHandler<ActionEvent>()
+		}), ebm.setNode("mDown", new Button("Down"), new EventHandler<ActionEvent>()
 		{
 			@Override
 			public void handle(ActionEvent e)
@@ -200,7 +200,7 @@ public class Runtime extends Application
 					e1.printStackTrace();
 				}
 			}
-		}), ebm.makeNode("mLeft", new Button("Left"), new EventHandler<ActionEvent>()
+		}), ebm.setNode("mLeft", new Button("Left"), new EventHandler<ActionEvent>()
 		{
 			@Override
 			public void handle(ActionEvent e)
@@ -217,7 +217,7 @@ public class Runtime extends Application
 					e1.printStackTrace();
 				}
 			}
-		}), ebm.makeNode("mRight", new Button("Right"), new EventHandler<ActionEvent>()
+		}), ebm.setNode("mRight", new Button("Right"), new EventHandler<ActionEvent>()
 		{
 			@Override
 			public void handle(ActionEvent e)
@@ -238,7 +238,7 @@ public class Runtime extends Application
 		mBG.setAlignment(Pos.CENTER);
 		lG.setAlignment(Pos.TOP_LEFT);
 		HUD.setBottom(mBG);
-		lGt.getChildren().add(SCFX.makeText("LogTitle", new Text("Events"), "Title"));
+		lGt.getChildren().add(SCFX.setText("LogTitle", new Text("Events"), "Title"));
 		lGt.getChildren().add(lG);
 		HUD.setRight(lGt);
 		lG.getChildren().add(new Text("gamestart"));

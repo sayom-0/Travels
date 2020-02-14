@@ -62,10 +62,10 @@ public class Planet extends BWindow
 		this.marketType = marketType;
 		SCFX = new ScreenControllerFX(400, 600);
 		ebm = new EventNodeManager<>(new ButtonLinker());
-		SCFX.makeFont("Title", Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
-		SCFX.makeFont("SubTitle", Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 15));
-		SCFX.makeText("Title", new Text(name), "Title");
-		SCFX.makeText("mType", new Text("Market Type : " + marketType), "SubTitle");
+		SCFX.setFont("Title", Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
+		SCFX.setFont("SubTitle", Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 15));
+		SCFX.setText("Title", new Text(name), "Title");
+		SCFX.setText("mType", new Text("Market Type : " + marketType), "SubTitle");
 
 		center = new VBox();
 		center.setSpacing(10);
@@ -83,7 +83,7 @@ public class Planet extends BWindow
 		if (market)
 		{
 			mk = new Market(marketType, ply);
-			bt.getChildren().add(ebm.makeNode("oMarket", new Button("Enter the Market"), new EventHandler<ActionEvent>()
+			bt.getChildren().add(ebm.setNode("oMarket", new Button("Enter the Market"), new EventHandler<ActionEvent>()
 			{
 
 				@Override
@@ -107,7 +107,7 @@ public class Planet extends BWindow
 		{
 			ex = new Explore(pClass);
 			bt.getChildren()
-					.add(ebm.makeNode("oExplore", new Button("Explore the Planet"), new EventHandler<ActionEvent>()
+					.add(ebm.setNode("oExplore", new Button("Explore the Planet"), new EventHandler<ActionEvent>()
 					{
 
 						@Override

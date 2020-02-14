@@ -66,11 +66,11 @@ public class Market extends BWindow
 		SCFX = new ScreenControllerFX(500, 500);
 		ebm = new EventNodeManager<>(new ButtonLinker());
 		esm = new EventNodeManager<>(new ScrollBarLinker());
-		SCFX.makeFont("Title", Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
-		SCFX.makeFont("SubTitle", Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 15));
-		SCFX.makeFont("Normal", Font.font("verdana", FontWeight.NORMAL, FontPosture.REGULAR, 12));
-		SCFX.makeText("Title", new Text("Market"), "Title");
-		SCFX.makeText("mType", new Text("Market Type : " + v), "SubTitle");
+		SCFX.setFont("Title", Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
+		SCFX.setFont("SubTitle", Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 15));
+		SCFX.setFont("Normal", Font.font("verdana", FontWeight.NORMAL, FontPosture.REGULAR, 12));
+		SCFX.setText("Title", new Text("Market"), "Title");
+		SCFX.setText("mType", new Text("Market Type : " + v), "SubTitle");
 
 		header = new VBox();
 		header.setSpacing(10);
@@ -96,7 +96,7 @@ public class Market extends BWindow
 			String namec = "GC" + x;
 			String namesb = "GSB" + x;
 
-			esm.makeNode(namesb, new ScrollBar(), new EventHandler<MouseEvent>()
+			esm.setNode(namesb, new ScrollBar(), new EventHandler<MouseEvent>()
 			{
 
 				@Override
@@ -144,10 +144,10 @@ public class Market extends BWindow
 			esm.getNode(namesb).setUnitIncrement(1);
 			esm.getNode(namesb).setBlockIncrement(1);
 
-			SCFX.makeText(name, new Text(sellables.get(x).getName()), "Normal");
-			SCFX.makeText(namesc, new Text("Buying : " + (int) esm.getNode(namesb).getValue()), "Normal");
-			SCFX.makeText(namesh, new Text("Shop : " + sellables.get(x).getQty()), "Normal");
-			SCFX.makeText(nameuh, new Text(), "Normal");
+			SCFX.setText(name, new Text(sellables.get(x).getName()), "Normal");
+			SCFX.setText(namesc, new Text("Buying : " + (int) esm.getNode(namesb).getValue()), "Normal");
+			SCFX.setText(namesh, new Text("Shop : " + sellables.get(x).getQty()), "Normal");
+			SCFX.setText(nameuh, new Text(), "Normal");
 			try
 			{
 				SCFX.getText(nameuh).setText("Hold : " + p.getInv().get(sellables.get(x).getName()).getQty());
@@ -155,9 +155,9 @@ public class Market extends BWindow
 			{
 				SCFX.getText(nameuh).setText("Hold : " + 0);
 			}
-			SCFX.makeText(namec, new Text("Credits : " + p.getInv().get("Credits").getQty()), "Normal");
+			SCFX.setText(namec, new Text("Credits : " + p.getInv().get("Credits").getQty()), "Normal");
 
-			ebm.makeNode(nameb, new Button("Buy"));
+			ebm.setNode(nameb, new Button("Buy"));
 
 			cAddRow(SCFX.getText(name), ebm.getNode(nameb), esm.getNode(namesb), SCFX.getText(nameuh),
 					SCFX.getText(namesh), SCFX.getText(namec), SCFX.getText(namesc));
