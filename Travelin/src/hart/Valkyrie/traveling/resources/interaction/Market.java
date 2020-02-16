@@ -165,23 +165,34 @@ public class Market extends BWindow
 				{
 					String s = namesh.substring(3, 4);
 					int y = Integer.parseInt(s);
-
 					try
-					{// if it exists add it to the existing stack
-						p.getInv().get(sellables.get(y).getName()).mQty((int) esm.getNode(namesb).getValue());
-						p.getInv().get("Credits")
-								.mQty(sellables.get(y).getCost() * (-1 * ((int) esm.getNode(namesb).getValue())));
+					{
+						if ((p.getInv().get("Credits").getQty()
+								+ sellables.get(y).getCost() * (-1 * ((int) esm.getNode(namesb).getValue()))) > 0)
+						{
+							try
+							{// if it exists add it to the existing stack
+								p.getInv().get(sellables.get(y).getName()).mQty((int) esm.getNode(namesb).getValue());
+								p.getInv().get("Credits").mQty(
+										sellables.get(y).getCost() * (-1 * ((int) esm.getNode(namesb).getValue())));
 
-					} catch (NonExistantDataException e)
-					{// else create it
-						try
-						{
-							p.getInv().add(sellables.get(y).getName(),
-									new Sellable(sellables.get(y).getName(), 0, sellables.get(y).getCost()));
-						} catch (DuplicateNameException e1)
-						{
-							System.out.println("Ok, this is impossible. Somebody call Ben because I did a big fuck");
+							} catch (NonExistantDataException e)
+							{// else create it
+								try
+								{
+									p.getInv().add(sellables.get(y).getName(),
+											new Sellable(sellables.get(y).getName(), 0, sellables.get(y).getCost()));
+								} catch (DuplicateNameException e1)
+								{
+									System.out.println(
+											"Ok, this is impossible. Somebody call Ben because I did a big libtardey");
+								}
+							}
 						}
+					} catch (NonExistantDataException e)
+					{
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
 
 				}
