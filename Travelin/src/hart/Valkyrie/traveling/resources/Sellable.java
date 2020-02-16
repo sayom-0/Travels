@@ -20,6 +20,11 @@ public class Sellable
 		return name;
 	}
 
+	public void mQty(int i)
+	{
+		qty += i;
+	}
+
 	public int getQty()
 	{
 		return qty;

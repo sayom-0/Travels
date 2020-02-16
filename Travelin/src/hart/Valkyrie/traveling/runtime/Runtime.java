@@ -30,7 +30,7 @@ import hart.Valkyrie.traveling.resources.planet.Planet;
 
 public class Runtime extends Application
 {
-	final static String v = "Alpha 10.12";
+	final static String v = "Alpha 10.13";
 	VBox head;
 	ScreenControllerFX SCFX;
 	EventNodeManager<Button, ActionEvent, ButtonLinker> ebm;
@@ -124,7 +124,7 @@ public class Runtime extends Application
 		});
 		SCFX.setFont("Title", Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
 		SCFX.setFont("SubTitle", Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 15));
-		SCFX.setFont("Map Text", Font.font("verdana", FontWeight.THIN, FontPosture.REGULAR, 10));
+		SCFX.setFont("Map Text", Font.font("Roboto", FontWeight.NORMAL, FontPosture.REGULAR, 15));
 
 		subHead.setLeft(subHeadLeft);
 		subHead.setRight(subHeadRight);

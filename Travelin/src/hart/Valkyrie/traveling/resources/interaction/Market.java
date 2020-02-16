@@ -157,7 +157,36 @@ public class Market extends BWindow
 			}
 			SCFX.setText(namec, new Text("Credits : " + p.getInv().get("Credits").getQty()), "Normal");
 
-			ebm.setNode(nameb, new Button("Buy"));
+			ebm.setNode(nameb, new Button("Buy"), new EventHandler<ActionEvent>()
+			{
+
+				@Override
+				public void handle(ActionEvent event)
+				{
+					String s = namesh.substring(3, 4);
+					int y = Integer.parseInt(s);
+
+					try
+					{// if it exists add it to the existing stack
+						p.getInv().get(sellables.get(y).getName()).mQty((int) esm.getNode(namesb).getValue());
+						p.getInv().get("Credits")
+								.mQty(sellables.get(y).getCost() * (-1 * ((int) esm.getNode(namesb).getValue())));
+
+					} catch (NonExistantDataException e)
+					{// else create it
+						try
+						{
+							p.getInv().add(sellables.get(y).getName(),
+									new Sellable(sellables.get(y).getName(), 0, sellables.get(y).getCost()));
+						} catch (DuplicateNameException e1)
+						{
+							System.out.println("Ok, this is impossible. Somebody call Ben because I did a big fuck");
+						}
+					}
+
+				}
+
+			});
 
 			cAddRow(SCFX.getText(name), ebm.getNode(nameb), esm.getNode(namesb), SCFX.getText(nameuh),
 					SCFX.getText(namesh), SCFX.getText(namec), SCFX.getText(namesc));
