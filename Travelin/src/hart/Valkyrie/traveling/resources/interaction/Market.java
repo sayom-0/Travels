@@ -104,7 +104,7 @@ public class Market extends BWindow
 				{
 					try
 					{
-						String s = namesh.substring(3, 4);
+						String s = namesh.substring(3, 4); // convert string to useable int
 						int y = Integer.parseInt(s);
 						if (0 > gv())
 						{
@@ -163,7 +163,7 @@ public class Market extends BWindow
 				@Override
 				public void handle(ActionEvent event)
 				{
-					String s = namesh.substring(3, 4);
+					String s = namesh.substring(3, 4); // convert string to useable int
 					int y = Integer.parseInt(s);
 					try
 					{
@@ -191,7 +191,6 @@ public class Market extends BWindow
 						}
 					} catch (NonExistantDataException e)
 					{
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 
@@ -214,7 +213,7 @@ public class Market extends BWindow
 		stage.show();
 	}
 
-	public void cAddRow(Text name, Button b, ScrollBar sb, Text hold, Text shop, Text cred, Text buying)
+	public void cAddRow(Text name, Button b, ScrollBar sb, Text hold, Text shop, Text cred, Text buying) // Generic way of making market rows
 	{
 		BorderPane row = new BorderPane();
 		VBox left = new VBox();
