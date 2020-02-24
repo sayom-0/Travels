@@ -288,14 +288,14 @@ public class Runtime extends Application
 
 	public void draw() throws NonExistantDataException
 	{
-		while (counter != map.rawmap[counter].length)
+		while (counter != map.rawmap[counter].length) // FFS FOR
 		{
 			maptextarray.add(SCFX.buildText(new Text((String) Utils.getArrayRow(counter, map.rawmap)), "Map Text"));
 			counter++;
 		}
 		counter = 0;
 
-		while (counter != map.rawmap[counter].length)
+		while (counter != map.rawmap[counter].length) // FOR!!!!
 		{
 			maptext.getChildren().add(maptextarray.get(counter));
 			counter++;
@@ -308,14 +308,14 @@ public class Runtime extends Application
 	{
 		map.updPlyCords(local_Planet);
 		HUDCTL();
-		while (counter != map.rawmap[counter].length)
+		while (counter != map.rawmap[counter].length) // change to for
 		{
 			maptextarray.remove(0);
 			counter++;
 		}
 		counter = 0;
 
-		while (counter != map.rawmap[counter].length)
+		while (counter != map.rawmap[counter].length) // for
 		{
 			maptext.getChildren().remove(0);
 			counter++;
@@ -330,56 +330,42 @@ public class Runtime extends Application
 		{
 		case "Planet":
 			if (!mBG.getChildren().contains(ebm.getNode("iLand")))
-			{
 				mBG.getChildren().add(ebm.getNode("iLand"));
-			}
 			break;
 
 		case "Landed":
 
 			if (mBG.getChildren().contains(ebm.getNode("iLand")))
-			{
 				mBG.getChildren().remove(ebm.getNode("iLand"));
-			}
 			if (!mBG.getChildren().contains(ebm.getNode("iLaunch")))
-			{
 				mBG.getChildren().add(ebm.getNode("iLaunch"));
-			}
 
 			if (mBG.getChildren().contains(ebm.getNode("mUP")) && mBG.getChildren().contains(ebm.getNode("mRight"))
 					&& mBG.getChildren().contains(ebm.getNode("mLeft"))
 					&& mBG.getChildren().contains(ebm.getNode("mDown")))
-			{
 				mBG.getChildren().removeAll(ebm.getNode("mUP"), ebm.getNode("mRight"), ebm.getNode("mLeft"),
 						ebm.getNode("mDown"));
-			}
 
 			break;
 
 		default:
 			if (mBG.getChildren().contains(ebm.getNode("iLand")))
-			{
 				mBG.getChildren().remove(ebm.getNode("iLand"));
-			}
 
 			if (mBG.getChildren().contains(ebm.getNode("iLaunch")))
-			{
 				mBG.getChildren().remove(ebm.getNode("iLaunch"));
-			}
 
 			if (!mBG.getChildren().contains(ebm.getNode("mUP")) && !mBG.getChildren().contains(ebm.getNode("mRight"))
 					&& !mBG.getChildren().contains(ebm.getNode("mLeft"))
 					&& !mBG.getChildren().contains(ebm.getNode("mDown")))
-			{
 				mBG.getChildren().addAll(ebm.getNode("mUP"), ebm.getNode("mDown"), ebm.getNode("mLeft"),
 						ebm.getNode("mRight"));
-			}
 
 			break;
 		}
 	}
 
-	public void addLog(Text e) //Want to know how to reverse the nodes of a parent? Right here.
+	public void addLog(Text e) // Want to know how to reverse the nodes of a parent? Right here.
 	{
 		int x = alog.size() - 1;
 		lG.getChildren().clear();
@@ -387,10 +373,9 @@ public class Runtime extends Application
 
 		while (alog.size() != x)
 		{
-			if (0 > x)
-			{
+			if (0 > x) // Dear Satan why did i use a while loop
 				break;
-			}
+
 			lG.getChildren().add(alog.get(x));
 			x--;
 		}

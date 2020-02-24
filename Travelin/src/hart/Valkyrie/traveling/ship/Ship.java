@@ -12,7 +12,9 @@ public class Ship
 	private String title;
 	private int health;
 	private int fe;
-	private Integer sr;
+	private int sr;
+	private boolean npc;
+	private boolean hostile;
 
 	private void init()
 	{
@@ -20,15 +22,23 @@ public class Ship
 		fe();
 	}
 
-	public Ship(String title, Armor armor, Engine engine, Shields shields, WeaponSet weaponset, Tank tank, Integer sr)
+	public Ship(String title, Armor armor, Engine engine, Shields shields, WeaponSet weaponset, Tank tank)
 	{
 		super();
+		this.npc = false;
 		this.title = title;
 		this.armor = armor;
 		this.engine = engine;
 		this.shields = shields;
 		this.weaponset = weaponset;
 		this.tank = tank;
+		init();
+	}
+	
+	public Ship(boolean hostile, int sr)
+	{
+		this.npc = true;
+		this.hostile = hostile;
 		this.sr = sr;
 		init();
 	}

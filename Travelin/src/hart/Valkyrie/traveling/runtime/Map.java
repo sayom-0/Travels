@@ -57,7 +57,7 @@ public class Map
 		{ "Great", "The", "Blue", "Expansive", "Voyage", "Space", "Outpost", "Green" });
 		status = "";
 		ply = new Player(getPlayerChar(), (int) (rawmap.length * 0.5) + 1, (int) (rawmap[0].length * 0.5) + 1,
-				"Valkyrie", sectorRisk);
+				"Valkyrie");
 		ply.ship.getTank().setFuel(1000);
 	}
 
