@@ -13,6 +13,8 @@ public class Ship
 	private int health;
 	private int fe;
 	private int sr;
+	private int ShieldHealth;
+	private int ArmorHealth;
 	private boolean npc;
 	private boolean hostile;
 
@@ -136,5 +138,67 @@ public class Ship
 		if (0 >= fe)
 			fe = 1;
 	}
+	
+	public boolean isDestroyed()
+	{
+		return ArmorHealth > 0 ? true : false;
+	}
+	
+	public int dealDmg()
+	{
+		return 0;
+	}
+	
+	public void reciveDmg(int dmg)
+	{
+		if(isShielded())
+			ShieldHealth -= dmg;
+		else
+			ArmorHealth -= dmg;
+	}
+	
+	public boolean isShielded()
+	{
+		return ShieldHealth > 0 ? true : false;
+	}
 
+	public int getShieldHealth()
+	{
+		return ShieldHealth;
+	}
+
+	public void setShieldHealth(int shieldHealth)
+	{
+		ShieldHealth = shieldHealth;
+	}
+
+	public int getArmorHealth()
+	{
+		return ArmorHealth;
+	}
+
+	public void setArmorHealth(int armorHealth)
+	{
+		ArmorHealth = armorHealth;
+	}
+
+	public boolean isNpc()
+	{
+		return npc;
+	}
+
+	public void setNpc(boolean npc)
+	{
+		this.npc = npc;
+	}
+
+	public boolean isHostile()
+	{
+		return hostile;
+	}
+
+	public void setHostile(boolean hostile)
+	{
+		this.hostile = hostile;
+	}
 }
